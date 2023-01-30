@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- <h:form  id="frmMenuBack" rendered="#{authenticatorBean.rolAdministrador}"> -->
+	<h:form id="frmMenuBack" rendered="true">
+		<p:megaMenu rendered="#{authenticatorBean.rolAdministrador}"
+			styleClass="p21-mega-menu" autoDisplay="false">
+			<p:submenu label="Configuración" icon="ui-icon-wrench" styleClass="p21-mega-menu">
+				<p:column>
+					<p:submenu>
+						<p:menuitem value="Encabezado"
+							outcome="/protected/administrarEncabezado.xhtml" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+
+			<p:submenu label="Páginas" icon="ui-icon-link">
+				<p:column>
+					<p:submenu>
+						<p:menuitem value="Enlaces"
+							outcome="/protected/administrarEnlaces.xhtml" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+
+			<p:submenu label="Home" icon="ui-icon-image">
+				<p:column>
+					<p:submenu>
+						<p:menuitem value="Imagen fondo"
+							outcome="/protected/administrarImagenFondo.xhtml" />
+						<p:menuitem value="Semáforo Epidemiológico"
+							outcome="/protected/administrarSemaforo.xhtml" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+		</p:megaMenu>
+
+
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+			styleClass="ui-panelgrid-blank ui-fluid" rendered="#{!authenticatorBean.rolAdministrador}">
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-12"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel styleClass="txt-header" value="El usuario ingresado no cuenta con permisos para ingresar al sistema, contacte al administrador." />
+			</p:panelGrid>
+		</p:panelGrid>
+		
+	</h:form>
+	
+	
+	
+
+</ui:composition>

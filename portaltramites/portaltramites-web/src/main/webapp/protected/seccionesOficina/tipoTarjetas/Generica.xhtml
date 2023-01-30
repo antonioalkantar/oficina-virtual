@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pb-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading adip-o-bg-white mt-6">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:graphicImage alt="" cache="false"
+				rendered="#{tramitesOficinaBean.registroSelected.catTipoFuncionalidadDTO.idTipoFuncionalidad eq tramitesOficinaBean.ID_TIPO_TRAMITE}"
+				value="/resources/img/ic_acta.svg" styleClass="adip-o-gi-size" />
+			<p:graphicImage rendered="#{tramitesOficinaBean.registroSelected.catTipoFuncionalidadDTO.idTipoFuncionalidad eq tramitesOficinaBean.ID_TIPO_SERVICIO}"
+				value="/resources/img/ic_servicio.svg" styleClass="adip-o-gi-size" />
+			<p:graphicImage rendered="#{tramitesOficinaBean.registroSelected.catTipoFuncionalidadDTO.idTipoFuncionalidad eq tramitesOficinaBean.ID_TIPO_REPORTE}"
+				value="/resources/img/ic_locatel.svg" styleClass="adip-o-gi-size" />
+			<p:graphicImage rendered="#{tramitesOficinaBean.registroSelected.catTipoFuncionalidadDTO.idTipoFuncionalidad eq tramitesOficinaBean.ID_TIPO_PROGRAMA}"
+				value="/resources/img/ic_programa.svg" styleClass="adip-o-gi-size" />
+		</p:panelGrid>
+		<p:outputLabel value="#{tramitesOficinaBean.registroSelected.catFuncionalidadDTO.nombre}" styleClass="adip-o-output-grey" />
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-1 pb-1" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-11 m-auto mb-4">
+			<p:outputLabel value="#{msg.lbl_estatus_tramite.concat(':')}" styleClass="adip-o-output-tarjeta-black" />
+			<p:outputLabel value="#{tramitesOficinaBean.registroSelected.catEstatusDTO.descripcion}"
+				styleClass="adip-o-output-tarjeta-estatus #{tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 5 or 
+				tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 7 or 
+				tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 8 
+				? 'adip-o-color-green' 
+				: tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 1 or 
+					tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 2 or 
+					tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 3 or 
+					tramitesOficinaBean.registroSelected.catEstatusDTO.idEstatus eq 4 
+				? 'adip-o-color-yellow' 
+				:'adip-o-color-red'}" />
+
+			<p:link rendered="#{tramitesOficinaBean.registroSelected.catFuncionalidadDTO.urlEspecifica ne null}" styleClass="adip-o-btn-guinda" value="#{msg.lbl_consultar}"
+				href="#{tramitesOficinaBean.registroSelected.catFuncionalidadDTO.urlEspecifica}" target="_blank" />
+		</p:panelGrid>
+	</p:panelGrid>
+</ui:composition>

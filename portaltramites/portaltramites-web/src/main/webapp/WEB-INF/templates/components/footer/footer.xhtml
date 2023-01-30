@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+>
+    <div id="footer">
+		<div class="colorgreen"> 
+        <div class="grid grid-nogutter colorgreen adjustbusqueda">
+            <div class="col-1">&nbsp;</div>
+            <div class="col-10">
+                <div class="grid pt-5">
+                    <div class="lg:col-3 md:col-6">
+                        <h:graphicImage value="/resources/img/logo_footer.svg" style="max-width: 100%; width: 219.5px; height: 55px; padding-left: 2%; vertical-align: middle;" />
+                    </div>
+                    <div class="lg:col-2 md:col-3 sm:col-12 xs:col-12">
+                        <div class="grid p-0">
+                            <div class="col-12">
+                                <h:outputLabel
+                                    class="inter-regular"
+                                    style="padding-bottom: 2%; font-family: Inter; font-size: 13.1px; font-weight: bold; font-stretch: normal; font-style: normal; line-height: 1.18; letter-spacing: -0.39px; text-align: left; color: #fff;"
+                                    value="Redes de la ciudad"
+                                    styleClass="titulosRobo redesleft"
+                                />
+                            </div>
+                            <div class="col-12">
+                                <div class="grid p-0">
+                                    <div class="col-3">
+                                        <p:link href="https://es-la.facebook.com/GobiernoCDMX/" immediate="true" target="_blank">
+                                            <p:graphicImage value="/resources/img/facebook.svg" style="width: 27.7px; height: 27.7px;" />
+                                        </p:link>
+                                    </div>
+                                    <div class="col-3">
+                                        <p:link href="https://twitter.com/GobCDMX" immediate="true" target="_blank">
+                                            <p:graphicImage value="/resources/img/twitter.svg" style="width: 30.8px; height: 24.6px;" />
+                                        </p:link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-3 md:col-6 sm:col-12 xs:col-12">
+                       	<div class="grid p-0">
+                            <div class="col-12">
+                                 <p:link
+	                                value="911"
+	                                href="tel:911"
+	                                target="_blank"                                
+	                               	styleClass="titulo-footer"
+		                            >
+		                            </p:link>
+                            </div>
+                            <div class="col-12">
+                                 	 <h:outputLabel class="inter-regular" value="Emergencias" styleClass="footerAlingleft" />
+                            </div>
+                             
+                             <div class="col-12">
+                                 <h:outputLabel class="inter-regular" value="Transparencia" styleClass="titulo-footer" style="padding-bottom: 2%;" />
+                            </div>
+                            
+                            <div class="col-12">
+                            <div class="grid p-0" style="max-width: 231px;">
+	                            	<div class=" col-10">
+	                                 	  <p:link
+			                                    id="idPortalUlrtrans"
+			                                    value="Ir al portal de transparencia"
+			                                    href="https://www.transparencia.cdmx.gob.mx/"
+			                                    target="_blank"
+			                                    style="color: white; padding-bottom: 2%; white-space: nowrap; vertical-align: sub;  text-decoration: underline !important; font-weight: 300 !important;"
+			                                    styleClass="footerAlingleft ZeroPadding-Bottom"  ></p:link>
+			                         </div>       
+			                          <div class="col-2" style="padding-bottom: 0px;    padding-top: 12px;    padding-left: 0px;">     
+			                          <p:link
+			                                   
+			                                    href="https://www.transparencia.cdmx.gob.mx/"
+			                                    target="_blank"
+			                                    style="  text-decoration: underline !important;"
+			                                    styleClass="footerAlingleft ZeroPadding-Bottom"  > 		                                
+			                                <h:graphicImage url="/resources/img/arrow.png" style="width: 11.5px;" styleClass=""/>
+			                                </p:link>
+			                          </div> 
+			                     </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-2 md:col-6 sm:col-12 xs:col-12">
+                       	<div class="grid p-0">
+                            <div class="col-12">
+                                   <p:link value="55 5533 5533" href="tel:5555335533" target="_blank" style="padding-bottom: 2% !important;" styleClass="titulo-footer"> </p:link>
+                            </div>
+                            <div class="col-12">
+                                 	 <h:outputLabel class="inter-regular" style="padding-bottom: 5%;" value="Consejo Ciudadano" styleClass="footerAlingleft" />
+                            </div>
+                            
+                            <div class="col-12">
+                                 <p:link value="55 5658 1111" href="tel:5556581111" target="_blank" style="color: white; padding-bottom: 2%;" styleClass="titulo-footer"> </p:link>
+                            </div>
+                            <div class="col-12">
+                                 	 <h:outputLabel class="inter-regular" style="color: white; padding-bottom: 5%;" value="LOCATEL" styleClass="footerAlingleft" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-2 md:col-6 sm:col-12 xs:col-12">
+                       	<div class="grid p-0 grecaFooter-Datos-Abiertos">
+                            <div class="col-12" style="padding-bottom: 0!important;">
+                            		<p:link href="http://datos.cdmx.gob.mx/" target="_blank" immediate="true">
+                                    	<p:graphicImage value="/resources/img/datos.png" style="width: 131px; height: 81px;" />
+                                    </p:link>
+                            </div>
+                            <div class="col-12" style="padding-top: 0!important;">
+                                 	 <h:outputLabel class="inter-regular" style="padding-bottom: 5%;" value="Portal de datos abiertos" styleClass="footerAlingleft" />
+                                 	 <br/>
+                                 	 <h:outputLabel class="inter-regular" style="padding-bottom: 5%;" value="Explora, analiza, visualiza y descarga bases de datos de la CDMX" styleClass="footerH6Alingleft" />
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col-1">&nbsp;</div>
+        </div>
+		 </div>
+ 		 <div class="grid grid-nogutter colorgreen ">
+           
+            <div class="col-12 colorgreen">
+				 <div class="grid grid-nogutter colorgreen adjustbusqueda">
+						 <div class="col-12">
+								<div class="espacio-cintillo"/>
+		  						<div class="cintilloFooter colorgreen"></div>
+						 </div>
+				 </div>
+				
+  			</div>
+	     </div>
+		
+    </div>
+    
+    <style>
+    	.grid-nogutter {
+		    margin-right: 0;
+		    margin-left: 0;
+		    margin-top: -1px !important;
+		    margin-bottom: 1px !important;}
+    </style>
+    
+</ui:composition>

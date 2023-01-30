@@ -1,0 +1,40 @@
+.ui-accordion .ui-icon.ui-icon-triangle-1-e {
+	background-image: url("#{resource['img/flecha-expandir.png']}")
+		!important;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.ui-accordion .ui-icon.ui-icon-triangle-1-s {
+	background-image: url("#{resource['img/flecha-contraer.png']}")
+		!important;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.ui-accordion .ui-accordion-header .ui-icon {
+	margin-top: 0px !important;
+	position: absolute !important;
+	right: -0.5em !important;
+	left: auto !important;
+	top: 0% !important;
+}
+
+.ui-accordion .ui-accordion-header {
+	padding: 0px !important;
+}
+
+.ui-accordion-header.ui-state-active {
+	background-color: transparent !important;
+}
+
+.titulo-fundamento {
+	font-family: Inter !important;
+	font-size: 34px !important;
+	font-style: normal !important;
+	font-weight: 700 !important;
+	line-height: 40px !important;
+	letter-spacing: -0.5px !important;
+	text-align: left !important;
+	padding: 0 !important;
+}

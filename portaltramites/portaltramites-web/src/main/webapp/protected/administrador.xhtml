@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui">
+	
+	<!-- Se cambia el titulo de la página HTML dinámicamente para que no tome la del template -->
+	<o:onloadScript>document.title='#{msg.lbl_title_Admin}'</o:onloadScript>
+	
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+		styleClass="ui-panelgrid-blank ui-fluid" rendered="#{!authenticatorBean.rolAdministrador}">
+		<p:panelGrid columns="3"
+			columnClasses="ui-grid-col-12"
+			layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+			<p:outputLabel styleClass="txt-header" value="El usuario ingresado no cuenta con permisos para ingresar al sistema, contacte al administrador." />
+		</p:panelGrid>
+	</p:panelGrid>
+	
+	<h:form id="form" rendered="#{authenticatorBean.rolAdministrador}">
+		<p:defaultCommand target="dummy"/>
+		<p:commandButton id="dummy" process="@none" global="false" style="display:none;" />		
+		<p:panelGrid columns="2"
+			columnClasses="ui-g-12 ui-md-4 ui-lg-3 fondo-gris, ui-g-12 ui-md-8 ui-lg-9 fondo-gris" layout="grid" style="max-width: 1280px; margin: auto;"
+			styleClass="ui-panelgrid-blank ui-fluid" rendered="true">
+			<p:outputPanel style="padding: 2% 2%; background: #FFF; border-radius: 10px;">
+				<p:outputPanel>
+					<div class="lg:col-12 sm:col-12 xs:col-12">
+						<!--Stepper HTML -->
+						<ul class="adip-stepProgress">
+							
+							<li id="infoEncabezado"
+								class="adip-stepProgress-item #{administradorBean.menuEncabezado ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_encabezado}"
+									actionListener="#{administradorBean.actualizaSeccion(1)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							<li id="infoEnlaces"
+								class="adip-stepProgress-item #{administradorBean.menuEnlaces ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_enlaces}"
+									actionListener="#{administradorBean.actualizaSeccion(2)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							<li id="infoSemaforo"
+								class="adip-stepProgress-item #{administradorBean.menuSemaforo ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_semaforo}"
+									actionListener="#{administradorBean.actualizaSeccion(3)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							<li id="infoTags"
+								class="adip-stepProgress-item #{administradorBean.menuTag ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_tags}"
+									actionListener="#{administradorBean.actualizaSeccion(4)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							<li id="infoAnuncios"
+								class="adip-stepProgress-item #{administradorBean.menuAnuncios ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_anuncios}"
+									actionListener="#{administradorBean.actualizaSeccion(5)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							
+							
+							<li id="infoImgFondo"
+								class="adip-stepProgress-item #{administradorBean.menuImagenFondo ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_img_fondo}"
+									actionListener="#{administradorBean.actualizaSeccion(7)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							
+							
+							<li id="infoManual"
+								class="adip-stepProgress-item #{administradorBean.menuContenidoManual ? 'is-active' : 'current'}">
+								<p:commandLink value="#{msg.titulo_menu_contenido_manual}"
+									actionListener="#{administradorBean.actualizaSeccion(6)}"
+									update="form" immediate="true" /> <br />
+							</li>
+							
+							
+							
+							
+						</ul>
+					</div>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:panelGrid columns="1" id="pnlContenido"
+				columnClasses="ui-g-12 ui-md-12 ui-lg-12 fondo-gris zeroPadding"
+				layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding"
+				rendered="true">
+				<!--INFORMACIÓN DEL ADMIN -->
+				<ui:include src="#{administradorBean.vista}" />
+			</p:panelGrid>
+		</p:panelGrid>				
+		
+	<p:remoteCommand name="rcActualizacionExitosaTag" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{tagBean.actualizacionExitosa()}" process="@this" partialSubmit="true" oncomplete="PF('dialogTag').hide()" immediate="true"/>
+	<p:remoteCommand name="rcGuardadoExitosoTag" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{tagBean.guardadoExitoso()}" process="@this" partialSubmit="true" oncomplete="PF('dialogTag').hide()" immediate="true"/>
+	
+	<p:remoteCommand name="rcActualizacionExitosaAnuncio" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{anuncioBean.actualizacionExitosa()}" process="@this" partialSubmit="true" oncomplete="PF('dialogAnuncios').hide()" immediate="true"/>
+	<p:remoteCommand name="rcGuardadoExitosoAnuncio" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{anuncioBean.guardadoExitoso()}" process="@this" partialSubmit="true" oncomplete="PF('dialogAnuncios').hide()" immediate="true"/>
+	
+	<p:remoteCommand name="rcActualizacionExitosaContenido" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{contenidoManualBean.actualizacionExitosa()}" process="@this" partialSubmit="true" oncomplete="PF('dialogContenido').hide()" immediate="true"/>
+	<p:remoteCommand name="rcGuardadoExitosoContenido" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{contenidoManualBean.guardadoExitoso()}" process="@this" partialSubmit="true" oncomplete="PF('dialogContenido').hide()" immediate="true"/>
+	
+	
+	<p:remoteCommand name="rcGuardadoExitosoImg" delay="000" update=":formDialog:grMessages :form:pnlContenido" actionListener="#{fondoBean.guardadoExitoso()}" process="@this" partialSubmit="true" immediate="true"/>
+	
+		
+	</h:form>
+	
+	<style>
+		.ui-inputtextarea.ui-state-error {
+			border: 1px solid #f03369 !important;
+		}
+		
+		.ui-inputtext.ui-state-error {
+			border: 1px solid #f03369 !important;
+		}
+		
+		.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error
+			{
+			border-width: inherit;
+		}
+		
+		.ui-selectonemenu.ui-state-error {
+			border: 1px solid #f03369 !important;
+		}		
+		
+		.p21-confirmDialog .ui-dialog-titlebar {
+		    height: 40px;
+		    box-sizing: border-box;
+		    font-size: 16px !important;
+		    background-color: #f6f6f6 !important;
+		    width: 100%;
+		    display: flex !important;
+		    align-items: center !important;
+		    padding: 0px 34px !important;
+		    border-bottom: solid 1px rgba(189, 189, 189, 0.5) !important;
+		    margin-bottom: 0px !important;
+		}
+		
+		.p21-confirmDialog .ui-dialog-titlebar-icon .ui-icon-closethick {
+		    background: none !important;
+		    background-image: none !important;
+		    background-position: 0px 0px !important;
+		}
+		
+		.p21-confirmDialog .ui-dialog-content {
+		    text-align: center !important;
+		    border: none !important !important;
+		    height: 100px !important;
+		    justify-content: center !important;
+		}	
+		
+	</style>	
+</ui:composition>

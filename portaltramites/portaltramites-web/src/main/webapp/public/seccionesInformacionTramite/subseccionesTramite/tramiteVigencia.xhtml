@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<!-- DOCUMENTO QUE SE OBTIENE -->
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid pt-2">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="#{msg.lbl_tramite_doc_obtiene}" styleClass="adip-requisitos-bold" />
+		</p:panelGrid>
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading"
+			rendered="#{not detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+			<p:outputLabel value="#{detalleTramiteBean.detalleTramiteServicioDTO.documentoBeneficio}" styleClass="adip-requisitos adip-icon-list" style="padding: 0px 0px 0px 20px;" />
+		</p:panelGrid>
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading" rendered="#{detalleTramiteBean.idModalidadSeleccionada ne null}">
+			<p:outputLabel value="#{detalleTramiteBean.modalidadesTramiteServicioDTO.doctoBeneficioModalidad}" styleClass="adip-requisitos adip-icon-list" style="padding: 0px 0px 0px 20px;"
+				rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades}" />
+		</p:panelGrid>
+
+		<!-- VIGENCIA -->
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+			<h:outputText value="Vigencia" class="greylink" styleClass="adip-requisitos-bold" />
+		</p:panelGrid>
+
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading"
+			rendered="#{not detalleTramiteBean.tramiteSeleccionado.tieneModalidades and detalleTramiteBean.detalleTramiteServicioDTO.vigencia ne null}">
+			<p:outputLabel styleClass="adip-requisitos adip-icon-list" style="padding: 0px 0px 0px 20px;" value="#{detalleTramiteBean.detalleTramiteServicioDTO.vigencia}" />
+		</p:panelGrid>
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading"
+			rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades and detalleTramiteBean.modalidadesTramiteServicioDTO.vigenciaModalidad ne null}">
+			<p:outputLabel value="#{detalleTramiteBean.modalidadesTramiteServicioDTO.vigenciaModalidad}" styleClass="adip-requisitos adip-icon-list" style="padding: 0px 0px 0px 20px;" />
+		</p:panelGrid>
+	</p:panelGrid>
+</ui:composition>

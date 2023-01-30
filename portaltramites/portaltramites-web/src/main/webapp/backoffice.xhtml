@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/plantillaBack.xhtml">
+	<ui:define name="content">
+		<f:metadata>
+			<f:event listener="#{authenticatorBean.revisaRespuestaLoginCdmx()}"
+				type="preRenderView" />
+		</f:metadata>
+		<div class="espacio" />
+		<div id="container" class="grid ">
+			<h:form id="formDialog">
+				<p:growl id="grMessages" showDetail="true" life="700" />
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					class="p21-confirmDialog">
+					<p:commandButton value="Cancelar" type="button"
+						styleClass="ui-confirmdialog-no p21-btn-cancel" />
+					<p:commandButton value="Eliminar" type="button"
+						styleClass="ui-confirmdialog-yes p21-btn-delete" />
+				</p:confirmDialog>
+			</h:form>
+			
+			<div class="col-12 ZeroPadding">
+				<div class="flex-row">
+					<div class="flex-12">
+						<ui:insert name="menu">
+<!-- 							<ui:include src="WEB-INF/templates/menuBack.xhtml"/> -->
+							<ui:include src="protected/administrador.xhtml"/>
+						</ui:insert>
+					</div>
+					<div class="espacio" />
+					<div class="flex-12">
+						<ui:insert name="contentHeader">
+						</ui:insert>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

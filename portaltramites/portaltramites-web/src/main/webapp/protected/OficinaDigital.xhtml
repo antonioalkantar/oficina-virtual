@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:pe="http://primefaces.org/ui/extensions" 
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	template="/WEB-INF/templates/default-oficina.xhtml">
+
+	<ui:define name="content">
+	
+		<ui:insert name="css_styles">
+			<!-- 					<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700&amp;display=swap" rel="stylesheet" /> -->
+			<h:outputStylesheet name="css/oficina.css" />
+		</ui:insert>
+
+		<!-- Se cambia el titulo de la página HTML dinámicamente para que no tome la del template -->
+		<o:onloadScript>document.title='#{msg.lbl_mi_oficina}'</o:onloadScript>
+
+
+		<h:form id="frmTramites" class="h-full">
+			<p:panelGrid id="pgEncabezado" columns="1" columnClasses="ui-g-12 ui-sm-11 m-auto p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid espacio-encabezado-mobile">
+
+				<p:panelGrid columns="2" columnClasses="ui-g-8 ui-md-3 ui-sm-9 p-0, ui-g-4 ui-md-9 ui-sm-3 p-0" layout="grid"	styleClass="adip-panel-sin-pading  adip-o-as-center">
+
+					<p:panelGrid columns="1" columnClasses="ui-g-8 pl-0" layout="grid" styleClass="adip-panel-sin-pading">
+						<p:commandButton action="#{homeBean.goBack()}" value="Regresar" icon="icon-arrow-white-red" styleClass="adip-btn-red"
+							style="text-align-last: center; margin-top: -0.5rem; width: 121px !important; height: 44px !important; font-size: 13px !important;" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="2" columnClasses="ui-lg-11 ui-g-9 ui-md-11 ui-sm-0 pr-0 derecha menu-user-height, ui-lg-1 ui-g-3 ui-md-1 ui-sm-12 p-0 menu-user-height"	layout="grid" styleClass="adip-panel-sin-pading " >
+						<p:panelGrid columns="1" columnClasses="ui-g-12 adip-o-as-center pt-2" layout="grid" styleClass="adip-panel-sin-pading" >
+							<!-- 								<p:outputLabel value="Mi cuenta LlaveCDMX" styleClass="adip-o-output-gold" /> -->
+							<p:outputLabel value="#{authenticatorBean.usuarioLogueado.nombre.concat(' ').concat(authenticatorBean.usuarioLogueado.primerApellido).concat(authenticatorBean.usuarioLogueado.segundoApellido eq null ? '' : ' '.concat(authenticatorBean.usuarioLogueado.segundoApellido)).toLowerCase()}"
+							styleClass="adip-o-output-titulo-white" style="font-size: 35px; line-height: 25px; text-transform: capitalize; position: relative; left: 15px !important;"/>
+						</p:panelGrid>
+						
+						<p:panelGrid columns="1" columnClasses="ui-g-12 pt-1" layout="grid" styleClass="adip-panel-sin-pading" style="font-size: 35px !important;">
+							<p:commandButton id="cb_person" styleClass="adip-o-btn-person" icon="adip-o-ic-person" value="" />
+							<p:menu overlay="true" trigger="cb_person" my="left top" at="right bottom" styleClass="adip-o-menu">
+<!-- 								<p:menuitem value="#{msg.lbl_seguimiento_tramites}" styleClass="adip-o-menu-item" outcome="/protected/OficinaDigital.xhtml" /> -->
+								<!-- 									<p:menuitem value="#{msg.lbl_mi_expediente}" styleClass="adip-o-menu-item" outcome="/protected/ExpedienteDigital.xhtml" /> -->
+								<p:menuitem value="#{msg.cerrar_session}" styleClass="adip-o-menu-item" action="#{authenticatorBean.cerrarSesionUsuario()}" />
+							</p:menu>
+						</p:panelGrid>
+						
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+<!-- 				<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading  mb-3"> -->
+<!-- 				<div class="col-12" style="padding-bottom: 16px;"> -->
+				
+<!-- 					<p:commandButton value="Seguimiento de trámite" styleClass="menu-activo" /> &nbsp; &nbsp;  -->
+					
+<!-- 					<p:link href="https://llave-dev.cdmx.gob.mx/" value="Mi cuenta Llave CDMX" immediate="true" target="_blank" -->
+<!-- 							style="padding: 16px !important; text-decoration: none; display: block;" styleClass="menu-inactivo" /> -->
+			
+<!-- 				</div> -->
+<!-- 				</p:panelGrid> -->
+
+				<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid"
+					style="display: flex; justify-content: flex-start; " styleClass="">
+<!-- 					<div style="padding-right: 10px;"> -->
+<!-- 						<p:commandButton value="Seguimiento de trámite" -->
+<!-- 							styleClass="menu-activo boton-size btn-seguimiento-tramite" style="   font-size: 13px !important;" /> -->
+<!-- 					</div> -->
+					<div style="padding-right: 10px;">
+						<p:link href="https://llave-dev.cdmx.gob.mx/"
+							value="Mi cuenta Llave CDMX" immediate="true" target="_blank"
+							style="font-size:13px !important;  text-decoration: none; display: block;"
+							styleClass="menu-inactivo boton-size btn-mi-cuenta-llave" />
+					</div>
+				</p:panelGrid>
+
+
+				<!-- 				<p:panelGrid columns="2" columnClasses="ui-g-8 pl-0, ui-g-4 adip-o-ta-end pr-1" layout="grid" styleClass="adip-panel-sin-pading"> -->
+				<!-- 					<p:outputLabel value="#{msg.lbl_mi_oficina}" styleClass="adip-o-titulo" /> -->
+				<!-- 					<p:column/>					 -->
+				<!-- 				</p:panelGrid> -->
+				</p:panelGrid>
+			<p:panelGrid  columns="1" columnClasses="ui-g-12 ui-sm-11 m-auto p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading  mb-8">
+				
+					<p:panelGrid columns="2" columnClasses="ui-xl-3 ui-lg-3 ui-g-3 ui-md-0 ui-sm-0 p-0 pr-4, 
+															ui-xl-9 ui-lg-9 ui-g-9 ui-md-11 ui-sm-12 p-0 m-auto"
+									layout="grid" styleClass="adip-panel-sin-pading">
+
+
+						<p:panelGrid id="pgFiltros" columns="1" columnClasses="ui-g-12  ui-xl-12  ui-lg-12 ui-md-12 ui-sm-0 pb-1" layout="grid"
+							styleClass="adip-panel-sin-pading fondo-filtros" style="height: 1030px;">
+							<ui:include src="/protected/seccionesOficina/Filtros.xhtml" />
+						</p:panelGrid>
+
+
+						<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading  mb-8">
+
+							<p:panelGrid columns="3"
+								columnClasses="ui-g-4 ui-xl-4 ui-lg-4 ui-md-9 ui-sm-9,
+											   ui-g-1 ui-xl-0 ui-lg-0 ui-md-3 ui-sm-3 adip-o-as-center adip-o-ta-end,
+										       ui-g-8 ui-xl-8 ui-lg-8 ui-md-12 ui-sm-12 adip-o-as-center msg-background"
+								layout="grid" styleClass="adip-panel-sin-pading adip-o-bg-white" 
+								style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2) !important;position: sticky;border-radius: 9.19px 9.19px 0 0 !important;">
+
+								<p:panelGrid columns="2" columnClasses="ui-xl-11 ui-lg-11 ui-g-11 ui-md-10 ui-sm-10 ZeroPadding, ui-xl-1 ui-lg-1 ui-g-1 ui-md-2 ui-sm-2 ZeroPadding" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid" style="padding-right: 15px;">
+									<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+										<p:inputText id="itxtBuscar" placeholder="Busca tu trámite, reporte o programa social" value="#{tramitesOficinaBean.palabraBuscada}" styleClass="adip-o-input-search" 
+										onkeydown="if (event.keyCode == 13) {document.getElementById('frmTramites:btnOSearch').click(); return false;}" style="padding: 4px;"/>
+									</p:panelGrid>
+									<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+										<p:commandButton id="btnOSearch" icon="adip-o-ic-lupa" value="" actionListener="#{tramitesOficinaBean.filtrarPorPalabra()}" styleClass="adip-o-btn-search"
+											process="@this itxtBuscar" update="frmTramites:pgTramitesDesktop frmTramites:pgTramitesMobile itxtBuscar frmTramites:pgTarjetas" />
+									</p:panelGrid>
+								</p:panelGrid>
+								
+								<p:commandButton value="" onclick="PF('sbFiltros').show()" styleClass="adip-o-btn-filtros" icon="adip-o-ic-filtros" />
+								
+								<p:outputLabel style="font-weight: bold !important; color: white !important; display: inline-flex; flex-direction: row-reverse;" styleClass="adip-o-output-header-grey"
+									value="Cada trámite, reporte o programa social realizado puede tardar de 12 a 24 horas en verse reflejado en este apartado.">
+									<h:graphicImage value="/resources/img/important.svg" style="padding-right: 9px;"/>
+								</p:outputLabel>
+									
+							</p:panelGrid>
+
+							<p:panelGrid id="pgTramites" columns="3"
+								columnClasses="ui-xl-9 ui-lg-9 ui-md-0 ui-sm-0 p-0, 
+												ui-xl-0 ui-lg-0 ui-md-12 ui-sm-12 p-0, 
+												ui-xl-3 ui-lg-3 ui-md-0 ui-sm-0 adip-o-bg-grey adip-o-br-br"
+								layout="grid" styleClass="adip-panel-sin-pading">
+
+								<p:panelGrid id="pgTramitesDesktop" columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading adip-o-bg-white"
+									style="border-radius: 0 0 0 9.19px !important;">
+									<ui:include src="/protected/seccionesOficina/Tramites.xhtml" />
+								</p:panelGrid>
+
+								<p:panelGrid id="pgTramitesMobile" columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading adip-o-bg-white"
+								style="border-radius: 0 0 9.19px 9.19px !important;">
+									<ui:include src="/protected/seccionesOficina/TramitesMovil.xhtml" />
+								</p:panelGrid>
+
+								<p:panelGrid id="pgTarjetas" columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading">
+									<ui:include src="/protected/seccionesOficina/Tarjetas.xhtml" />
+								</p:panelGrid>
+							</p:panelGrid>
+
+						</p:panelGrid>
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+			</p:panelGrid>
+
+				<p:dialog header="Conoce tu bandeja de trámites" widgetVar="dialogVideo"  showEffect="fade" hideEffect="fade" resizable="false" position="right" style="">
+				<iframe width="100%" height="100%" src="https://www.youtube.com/embed/xJMepZE5Vjc" title="Tutorial Mi Expediente Digital" frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+			</p:dialog>
+		</h:form>
+		<script type="text/javascript">
+			//Se utiliza JQuery para identificar cuando la pagina ya haya concluido su carga se invoque el dialog video
+			$( document ).ready(function() {
+// 				PF('dialogVideo').show();
+		    }); 			
+		</script>
+		<style>
+/*.ui-panelgrid .p-grid .ui-panelgrid-cell, .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell
+	{
+	border: solid 1px;
+}*/
+
+.menu-user-height {
+	font-size: 35px !important; 
+	line-height: 25px !important;
+}
+</style>
+	</ui:define>
+</ui:composition>

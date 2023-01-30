@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="dtTramitesMov" widgetVar="dtTramitesMov" value="#{tramitesOficinaBean.lstRegistroFiltered}" var="tramite" rowKey="#{tramite.idRegistro}" lazy="false"
+		selectionMode="single" selection="#{tramitesOficinaBean.registroSelected}" styleClass="adip-o-datatable adip-o-paginator" rows="5" paginator="true"
+		paginatorPosition="bottom" paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" rowIndexVar="selectedRowIndexMov">
+		<p:ajax event="rowSelect" update="frmTramites:pgTarjetasMov" process="@this"
+		oncomplete="PF('sbDetalle').show()" />
+		<p:column headerText="Trámite, reporte o programa social." width="45%" sortable="true" sortBy="#{tramite.catSistemaDTO.nombre}">
+			<div class="adip-center" onclick="PF('dtTramitesMov').selectRow(#{selectedRowIndexMov}, false);">
+<!-- 				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta m-auto mb-2" style="width: 45px !important;"> -->
+<!-- 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1 pl-0 pr-0" layout="grid" styleClass="ui-panel-sin-pading"> -->
+						<p:graphicImage value="#{tramite.catSistemaDTO.pathImagen}" styleClass="adip-o-gi-table" />
+<!-- 					</p:panelGrid> -->
+<!-- 				</p:panelGrid> -->
+				<h:outputText value="#{tramite.catFuncionalidadDTO.nombre}" styleClass="adip-o-output-dt-green" 
+				style="padding-left: 10px;display: grid; align-self: center; height: 100%; width: 100%;" />
+			</div>
+		</p:column>
+		<p:column headerText="#{msg.plh_estatus}" width="25%" sortable="true" sortBy="#{tramite.catEstatusDTO.descripcion}">
+<!-- 			<div> -->
+				<div onclick="PF('dtTramitesMov').selectRow(#{selectedRowIndexMov}, false);"
+					class="adip-o-circle #{tramite.catEstatusDTO.idEstatus eq 5 or tramite.catEstatusDTO.idEstatus eq 7 or tramite.catEstatusDTO.idEstatus eq 8 ? 'adip-o-bg-green' 
+				: tramite.catEstatusDTO.idEstatus eq 1 or tramite.catEstatusDTO.idEstatus eq 2 or tramite.catEstatusDTO.idEstatus eq 3 or tramite.catEstatusDTO.idEstatus eq 4 
+				? 'adip-o-bg-yellow' 
+				:'adip-o-bg-red'}" />
+				<h:outputText value="#{tramite.catEstatusDTO.descripcion}" styleClass="adip-o-output-dt-grey" />
+<!-- 			</div> -->
+		</p:column>
+		<p:column headerText="#{msg.lbl_fecha_realizacion}" width="30%" styleClass="adip-center" sortable="true" sortBy="#{tramite.fechaRegistro}">
+			<h:outputText value="#{tramite.fechaRegistro}" styleClass="adip-o-output-dt-green">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+	<p:sidebar widgetVar="sbDetalle" position="right" styleClass="adip-o-sidebar adip-o-bg-grey">
+		<p:panelGrid id="pgTarjetasMov" columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="adip-panel-sin-pading">
+			<ui:include src="/protected/seccionesOficina/Tarjetas.xhtml" />
+		</p:panelGrid>
+	</p:sidebar>
+	<p:sidebar widgetVar="sbFiltros" position="right" styleClass="adip-o-sidebar p-0 adip-o-bg-grey">
+		<p:panelGrid id="pgSbBFiltros" columns="1" columnClasses="ui-g-12 pb-0" layout="grid" styleClass="adip-panel-sin-pading">
+			<ui:include src="/protected/seccionesOficina/Filtros.xhtml" />
+		</p:panelGrid>
+	</p:sidebar>
+
+	<style>
+.adip-o-sidebar {
+	overflow-y: auto !important;
+}
+
+.adip-o-sidebar .ui-sidebar-close {
+	display: none;
+}
+</style>
+</ui:composition>

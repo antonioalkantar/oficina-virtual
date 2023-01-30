@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="description"
+		content="Portal de la Ciudad de México donde podrás consultar el listado de trámites, servicios y programas sociales disponibles" />
+	<meta name="keywords"
+		content="CDMX, Trámites, Servicios, Ciudad de México" />
+
+	<!-- La vista de compatibilidad le permite al usuario o al navegador establecer el modo de compatibilidad, por defecto  -->
+	<!-- IE=edge significa que IE debe usar la última versión (edge) de su motor de renderizado -->
+	<!-- chrome=1 significa que IE debe usar el motor de renderizado Chrome si está instalado -->
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+
+	<!-- Indica al servidor que el contenido de la pagina es codigo HTML y su codificacion de caracteres es UTF-8 -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!--  Con la siguiente línea se renderiza la pantalla de acuerdo al tamaño del dispositivo que la abra -->
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://www.cdmx.gob.mx" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="CDMX - Portal de Trámites y Servicios" />
+	<meta property="og:description" content="Portal de la Ciudad de México donde podrás consultar el listado de trámites, servicios y programas sociales disponibles" />
+	<meta property="og:image" content="https://cdmx.gob.mx/resources/img/img_redes.png" />
+	<meta property="og:image:height" content="734" />
+	<meta property="og:image:width" content="907" />
+	<meta property="og:image:type" content="image/png" />
+
+	<!-- Twitter Meta Tags -->
+	<meta property="twitter:url" content="https://www.cdmx.gob.mx" />
+	<meta name="twitter:title" content="CDMX - Portal de Trámites y Servicios" />
+	<meta name="twitter:description" content="Portal de la Ciudad de México donde podrás consultar el listado de trámites, servicios y programas sociales disponibles" />
+	<meta name="twitter:image" content="https://cdmx.gob.mx/resources/img/img_redes.png" />
+
+	<!-- Meta Tags par robots -->
+	<meta name="robots" content="#{configurationBean.parametroMetaRobots()}" />
+
+	<!-- Agrega el ícono con el cual se identifica el sistema en las pestañas de los navegadores web -->
+	<link rel="shortcut icon" type="image/svg" href="#{request.contextPath}/resources/img/logotipo.png" />
+
+	<!--  Se agrega fuente Inter -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+
+	<!-- El proyecto de grafica base requiere JQuery para cargar header y footer, pero dado que en este proyecto ocupamos 
+ 	primefaces debemos de reutilizar la que ya trae embebida (v.3.2.1) sino puede causar conflictos -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+	<!--  	No se puede agregar una versión especifica de JQuery porque primefaces ya incluye una y se tendrían problemas   -->
+	<!--    	<script src="https://code.jquery.com/jquery-3.3.1.js" -->
+	<!-- 			  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
+	<!-- 			  crossorigin="anonymous"> -->
+	<!-- 	</script> -->
+
+	<!-- Se agrega el javascript que carga las leyendas de Primefaces en el idioma español de México es_MX. Busca el archivo indicado dentro de resources la carpeta js. -->
+	<h:outputScript library="js" name="primefaces_locale.js" />
+
+	<!-- Se agrega el javascript que contiene las funciones para validar el tipo de caracteres de entrada-->
+	<h:outputScript library="js" name="validacion_caracteres.js" />
+
+	<!-- Javascript que bloquea al usuario el poder utilizar el botón atrás del navegador web -->
+	<!--         <h:outputScript library="js" name="noBack.js" target="head" /> -->
+
+	<!-- Javascript que hace que el header se mantenga visible cuando se hace un scroll hacia abajo. Depende del DIV con ID Header y de la hoja de estilos adip-header.css-->
+	<!-- 	<h:outputScript library="js" name="onScrollHeader.js" target="body" /> -->
+
+	<h:outputStylesheet name="css/adip-header.css" />
+	<h:outputStylesheet name="css/adip-footer.css" />
+	<h:outputStylesheet name="css/adip-componentes.css" />
+	<h:outputStylesheet name="css/primeflex.css" />
+	<h:outputStylesheet name="css/indicadores.css" />
+	<h:outputStylesheet name="css/backoffice.css" />
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async="true"
+		src="https://www.googletagmanager.com/gtag/js?id=G-7BLKQFST12"></script>
+	<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'G-7BLKQFST12');
+		</script>
+
+</h:head>
+<h:body>
+	<div id="page-container">
+		<div class="adjustContent">
+			<div class="grid grid-nogutter ZeroPadding-Right menu-normal" >
+				<div class="col-1 ZeroPadding-Bottom">&nbsp;</div>
+				<div class="col-10 ZeroPadding-Bottom ZeroPadding-Left">
+					<div class="flex-row">
+						<div class="ui-grid-col-4">
+							<p:link href="#{request.contextPath}/home.xhtml">
+								<h:graphicImage class="img-header pt-1"
+									value="/resources/img/adip-header2.svg" style="float: left;" />
+							</p:link>
+						</div>
+						<div class="ui-grid-col-6">
+							<div class="flex-wrap card-container yellow-container" style="display:inline-flex !important; margin-top: 5px;">
+								<div class="line"/>
+								<div class="flex align-items-center justify-content-center h-2rem font-bold border-round m-2">
+									<p:outputLabel styleClass="header-l-back" value="PORTAL-CDMX"/>
+								</div>
+								<div class="line"/>
+								<div class="align-items-center justify-content-center h-2rem font-bold border-round pt-1 pl-2">
+									<p:outputLabel value="Backoffice" styleClass="header-xs-back" />
+									<br/>
+									<p:outputLabel value="Administrador" styleClass="header-xs-back"/>
+								</div>
+							</div>
+						</div>
+						<div class="ui-grid-col-2">
+							<h:form id="frmMenuUsuario" rendered="#{authenticatorBean.usuarioLogueado ne null}" style="float: right !important;">
+								<p:graphicImage library="img" name="ic_person.svg" styleClass="icono-login"/>
+								<p:outputLabel id="lblLogueado"
+									value="#{authenticatorBean.usuarioLogueado.nombre} #{authenticatorBean.usuarioLogueado.primerApellido} #{authenticatorBean.usuarioLogueado.segundoApellido}"
+									styleClass="p21-label-usr" />
+									
+<!-- 									<p:commandButton value="" styleClass="p21-btn-logout-md" action="#{authenticatorBean.cerrarSesionUsuario()}" process="@this" title="Cerrar sesión" /> -->
+								<p:menuButton styleClass="p21-menu-button">
+									<p:menuitem id="cerrarSesion"
+										styleClass="p21-menu-item"
+										value="#{msg.cerrar_session}"
+										action="#{authenticatorBean.cerrarSesionUsuario()}"/>
+								</p:menuButton>
+							</h:form>
+						</div>
+					</div>
+				</div>
+				<div class="col-1 ZeroPadding-Bottom">&nbsp;</div>
+			</div>
+
+<!-- 			<div class="grid-nogutter ZeroPadding-Right p21-header-responsive"> -->
+<!-- 				<div class="flex-row"> -->
+<!-- 					<div class="ui-grid-col-5"> -->
+<!-- 						<p:link href="https://www.cdmx.gob.mx" target="_blank"> -->
+<!-- 							<h:graphicImage class="img-header pt-1" -->
+<!-- 								value="/resources/img/adip-header2.svg" style="float: left;" /> -->
+<!-- 						</p:link> -->
+<!-- 					</div> -->
+<!-- 					<div class="line ui-grid-col-1" /> -->
+<!-- 					<div class="align-items-center justify-content-center h-2rem font-bold border-round ui-grid-col-3 pt-1 pl-2"> -->
+<!-- 						<p:outputLabel value="Backoffice" styleClass="header-xs-back" /> -->
+<!-- 						<br /> -->
+<!-- 						<p:outputLabel value="Administrador" styleClass="header-xs-back" /> -->
+<!-- 					</div> -->
+					
+<!-- 					<div class="ui-grid-col-3" > -->
+<!-- 					<h:form id="frmMenuUsuarioResp" rendered="#{authenticatorBean.usuarioLogueado ne null}" style="float: right !important;"> -->
+<!-- 						<p:graphicImage library="img" name="ic_person.svg" -->
+<!-- 							styleClass="icono-login" /> -->
+
+<!-- 						<p:menuButton styleClass="p21-menu-button"> -->
+<!-- 							<p:menuitem id="cerrarSesion" styleClass="p21-menu-item" -->
+<!-- 								value="#{msg.cerrar_session}" -->
+<!-- 								action="#{authenticatorBean.cerrarSesionUsuario()}" /> -->
+<!-- 						</p:menuButton> -->
+<!-- 						</h:form> -->
+<!-- 					</div> -->
+					
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+
+
+
+
+		</div>
+		<div id="content-wrap" style="background: #EFF3F3;">
+			<!-- all other page content class="img-background" -->
+<!-- 			<div id="messages_div" style="text-align: left;"> -->
+<!-- 				<p:messages id="messages" showDetail="true" closable="true" -->
+<!-- 					globalOnly="false"> -->
+<!-- 					<p:autoUpdate /> -->
+<!-- 				</p:messages> -->
+<!-- 			</div>  -->
+			<div
+				style="margin-left: auto; max-width: 1440px; margin-right: auto;">
+				<ui:insert name="content">
+<!--                     [Template content will be inserted here here] -->
+                </ui:insert>
+			</div>
+		</div>
+		<ui:include src="/WEB-INF/templates/components/footer.xhtml" />
+	</div>
+<script>
+$( document ).ready(function() { 
+	// console.log( "ready!" ); //
+	$("#container").css({"width": "100%!important", "min-height" : "calc(100vh - 1px)"}); 
+	});
+</script>
+</h:body>
+</html>

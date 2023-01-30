@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+		rendered="#{tramitesOficinaBean.registroSelected.idRegistro eq null}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/SinInformacion.xhtml" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+		rendered="#{tramitesOficinaBean.registroSelected.idRegistro ne null and 
+		tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_SUAC
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_SACMEX
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_CITAS
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_REFRENDO_TARJETA_CIRCULACION
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_LICENCIA
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_NOANTECEDENTES
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_ACTA_DIGITAL
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_SISTEMA_ELECTRICO
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_MIBECA 
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_PROTESTA_CIUDADANA 
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_VENTANILLA_UNICA_CONSTRUCCION 
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_SEGURO_DESEMPLEO
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_PERMISO_RESIDENTES
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_JURIDICO_LABORAL
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_VENTANILLA_CONTROL_VEHICULAR
+		and tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema ne tramitesOficinaBean.ID_SISTEMA_CORTESIAS_URBANAS}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/Generica.xhtml" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_SUAC}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/ReporteSUAC.xhtml" />
+	</p:panelGrid>
+	
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_SACMEX}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaSACMEX.xhtml" />
+	</p:panelGrid>
+	
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac paading-general-form"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_CITAS}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaCitas.xhtml" />
+	</p:panelGrid>
+	
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_MIBECA}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaMiBeca.xhtml" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_REFRENDO_TARJETA_CIRCULACION}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaRefrendoTarjetaCirculacion.xhtml" />
+	</p:panelGrid>
+	
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_ACTA_DIGITAL}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaActaDigital.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_LICENCIA}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaLicencia.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_NOANTECEDENTES}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaNoAntecedentes.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_SEGURO_DESEMPLEO}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaSeguroDesempleo.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_SISTEMA_ELECTRICO}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaSistemaElectrico.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_PROTESTA_CIUDADANA}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaProtestaCiudadana.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_VENTANILLA_UNICA_CONSTRUCCION}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaVentanillaUnicaConstruccion.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_PERMISO_RESIDENTES}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaPermisoResidentes.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_JURIDICO_LABORAL}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaJuridicoLaboral.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_VENTANILLA_CONTROL_VEHICULAR}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaVentanillaControlVehicular.xhtml" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_CORTESIAS_URBANAS}">
+		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaCortesiasUrbanas.xhtml" />
+	</p:panelGrid>
+	<style>
+.adip-o-panel-suac{
+	background: #FFFFFF !important;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1) !important;
+	border-radius: 14px;
+}
+
+.adip-o-tooltip {
+	max-width: 15rem;
+    background: #E9ECEF;
+    border: 0.85206px solid #FFFFFF;
+    border-radius: 4.2603px;
+}
+
+.adip-o-tooltip.ui-tooltip-left .ui-tooltip-arrow {
+	display: none;
+}
+
+.adip-o-tooltip .ui-tooltip-text {
+	color: #000000 !important;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 14px;
+	letter-spacing: -0.5px;
+	background: transparent !important;
+}
+</style>
+</ui:composition>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:o="http://omnifaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" template="/WEB-INF/templates/default-BUENOfixed.xhtml">
+
+	<ui:define name="header-buscador">
+		<h:form id="formBuscador" style="margin-left:auto; max-width: 1440px; margin-right: auto;">			
+
+			
+			<p:panel id="panelBuscador" header="" toggleable="true"
+				toggleSpeed="500" closeSpeed="500" widgetVar="panelBuscador"
+				styleClass="adip-panel-collapsed" collapsed="true"
+				style="background: transparent;">
+				<p:panelGrid id="pgBuscador"
+					columns="1" columnClasses="ui-g-12 p-0" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="1"
+						columnClasses="ui-g-12 ui-lg-5 ui-md-5 ui-sm-12 m-auto adip-transparent pt-5"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+						<p:panelGrid columns="2" columnClasses="ui-xl-11 ui-lg-11 ui-g-11 ui-md-10 ui-sm-10 ZeroPadding, ui-xl-1 ui-lg-1 ui-g-1 ui-md-2 ui-sm-2 ZeroPadding" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid adip-autocompletado">
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+								<p:autoComplete id="acSimple" maxResults="5" minQueryLength="3" converter="entityConverter" value="#{homeBean.tramiteSeleccionado}"
+									emptyMessage="No existen resultados asociados a su búsqueda" completeMethod="#{homeBean.completeText}" var="tramite" itemValue="#{tramite}"
+									itemLabel="#{tramite.nombreOficial}" scrollHeight="250" styleClass="adip-autocomplete-buscador" effect="blind" itemStyleClass="acSimple-panel-ui-state-highlight"
+									autoHighlight="false" autoSelection="false" moreText="..." cache="false"
+									onkeydown="if (event.keyCode == 13) {document.getElementById('frmHome:frmBusqueda:btnSearch').click(); return false;}">
+									<p:ajax event="itemSelect" listener="#{homeBean.detalleTramite(homeBean.tramiteSeleccionado, true, 1)}" process="@this acSimple" 
+									onstart="document.getElementById('formBuscador:btnSearch').classList.add('ui-state-disabled')"/>
+									<p:ajax event="moreTextSelect" listener="#{homeBean.buscarPorPalabra()}" immediate="true" partialSubmit="true"
+									onstart="document.getElementById('formBuscador:btnSearch').classList.add('ui-state-disabled')"/>
+								</p:autoComplete>
+							</p:panelGrid>
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+								<p:commandButton id="btnSearch" icon="ic_lupa_white" actionListener="#{homeBean.buscarPorPalabra()}" immediate="true" partialSubmit="true"
+									styleClass="adip-btn-buscar-detalle" process="@this" />
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="ui-g-12 ui-lg-8 ui-md-8 ui-sm-12 m-auto adip-transparent pt-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+						<p:panelGrid id="pnlTags" columns="1" columnClasses="pnlTags ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid ZeroPadding">
+							<p:repeat var="tag" value="#{homeSeccionesBean.lstTags}">
+								<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" columnClasses="ui-grid-col-3 adip-transparent flex paddingTag adip-align-tags">
+									<p:commandLink actionListener="#{homeBean.buscarPorTag(tag.tituloTag)}" process="@this" immediate="true">
+										<p:tag styleClass="adip-tag" icon="adip-icon-lupa-tag" value="#{tag.tituloTag}" />
+									</p:commandLink>
+								</p:panelGrid>
+							</p:repeat>
+						</p:panelGrid>
+					</p:panelGrid>
+				</p:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="header-breadcrum">
+		<h:form id="header-breadcrum" style="margin-left:auto; max-width: 1440px; margin-right: auto;">
+			<p:panelGrid columns="1" columnClasses="ui-g-10 ui-sm-11 m-auto p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:breadCrumb homeDisplay="text" styleClass="adip-breadcrum">
+					<p:menuitem value="Portal CDMX" styleClass="adip-space-breadcrum" />
+					<p:menuitem value="#{detalleTramiteBean.tramiteSeleccionado.nombreOficial}" styleClass="adip-output-gold" />
+				</p:breadCrumb>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+	<ui:define name="content">
+		<f:metadata>
+			<!--  Dado que el Bean de esta página es de scope View se debe decirle que se restaura la página 
+			cuando ha expirado la vista por el tiempo de sesión. Esto hara que redireccione al home si se caduca la sesión ya que no podra obtener el parametro de la url -->
+			<o:enableRestorableView />
+		</f:metadata>
+
+		<ui:insert name="css_styles">
+			<h:outputStylesheet name="css/mapa-style.css" />
+			<h:outputStylesheet name="css/contenido-style.css" />
+			<h:outputStylesheet name="css/accordion-style.css" />
+			<h:outputStylesheet name="css/detalle-tramite.css" />
+		</ui:insert>
+		<ui:insert name="script_files">
+			<h:outputScript library="js" name="map-script.js" target="head" />
+			<script src="#{detalleTramiteBean.urlGoogleMaps}" type="text/javascript" target="head" />
+			<script type="text/javascript" src="https://www.google.com/jsapi" target="head"></script>
+		</ui:insert>
+
+
+		<!-- Se cambia el titulo de la página HTML dinámicamente para que no tome la del template -->
+		<o:onloadScript>document.title='#{fn:trim(detalleTramiteBean.tramiteSeleccionado.nombreOficial)}'</o:onloadScript>
+
+
+		<h:form id="frmHomeTramite" class="h-full">
+			<div class="col-10 m-auto p-0 pb-3 pt-3">
+				<p:commandButton id="lnkRegresar2" action="#{homeBean.goBack()}" value="Regresar" icon="icon-arrow-white" styleClass="adip-btn-green" />
+			</div>
+			<div class="col-10 p-0 m-auto">
+				<ui:include src="/public/seccionesInformacionTramite/contenidoGralTramite.xhtml" />
+				<ui:include src="/public/seccionesHome/Chatboot.xhtml" />
+			</div>
+		</h:form>
+<style>
+	.adip-panel-collapsed .ui-panel-titlebar {
+	display: none !important;
+}
+
+.adip-panel-collapsed .ui-panel-content {
+	padding: 0px !important;
+	background: transparent !important;
+}
+
+.adip-contenedor-widgets {
+    margin: 0 auto;
+    padding: 0px 0 !important;
+    max-width: 1280px;
+    min-height: 0px;
+    /* background-color: transparent !important; */
+}
+
+.adip-align-tags{
+margin-left: auto;
+    margin-right: auto;
+    width: fit-content !important;
+}
+</style>
+	</ui:define>
+</ui:composition>

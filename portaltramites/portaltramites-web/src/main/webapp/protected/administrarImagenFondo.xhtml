@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:pe="http://primefaces.org/ui/extensions"	
+	>
+
+	
+	<p:panelGrid id="pnlImg" columns="1" columnClasses="ui-g-12 ui-md-12 ui-lg-12 fondo-gris zeroPadding " layout="grid" style="padding: 0% 0 0% 0; max-width: 1280px; margin: auto;"
+				styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding" rendered="true">
+				
+		<p:outputLabel value="Imagen de Fondo Escritorio" style="font-size: 21px; font-weight: 700; color: #4E4E4E;"/>		
+<!-- 		<p:panelGrid id="pgFondo" columns="2" columnClasses="ui-grid-col-3 ZeroPaddingLeft ZeroPaddingRigth center-ta, ui-grid-col-9 ZeroPaddingLeft ZeroPaddingRigth" -->
+<!-- 					 layout="grid" styleClass="ui-panelgrid-blank ui-fluid">	 -->
+		
+<!-- 			<p:graphicImage id="imagenFondo" rendered="#{fondoBean.file ne null}" value="#{streamedView.file}" cache="false" -->
+<!-- 							style="padding:12px !important; width:100% !important;" /> -->
+<!-- 			<p:graphicImage rendered="#{fondoBean.file eq null}" name="img_no_disponible.jpg" cache="false" library="img" -->
+<!-- 									style="padding:12px !important; width:100% !important;" /> -->
+			
+			
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPaddingLeft ZeroPaddingRigth" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:panelGrid columns="2" columnClasses="ui-g-1 ui-md-1 ui-lg-1 align-center-flex, ui-g-11 ui-md-11 ui-lg-11 pl-0 pr-0" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 align-center-flex" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:commandButton id="info" styleClass="p21-btn-icon" value="" title="Info" />
+						<p:overlayPanel for="info" style="width:350px;" styleClass="p21-overlay-panel">
+							<p:panel header="Recomendaciones">
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPaddingLeft ZeroPaddingRigth" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<p:panelGrid columns="2" columnClasses="ui-g-6 ui-md-6 ui-lg-6, ui-g-6 ui-md-6 ui-lg-6" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+										<p:outputLabel value="Alto:" />
+										<p:outputLabel value="465px" />
+										<p:outputLabel value="Ancho:" />
+										<p:outputLabel value="1920px" />
+										<p:outputLabel value="Peso máximo;" />
+										<p:outputLabel value="579Kb" />
+									</p:panelGrid>
+								</p:panelGrid>
+							</p:panel>
+						</p:overlayPanel>
+					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pr-0 ZeroPadding" layout="grid" styleClass="ui-panel-sin-pading">
+						
+<!-- 						<p:fileUpload label="Agregar Imagen" cancelLabel="Cancelar" uploadLabel="Subir" invalidFileMessage="Formato no válido, solo se permiten imagenes" -->
+<!-- 							invalidSizeMessage="Tamaño no válido, máximo 6Mb " skinSimple="true" mode="advanced" messageTemplate="!" accept="image/png,image/jpg,image/jpeg" -->
+<!-- 							required="true" sizeLimit="6291456" process="@this" requiredMessage="Debe elegir un archivo" allowTypes="/(\.|\/)(gif|jpe?g|png)$/i" -->
+<!-- 							update="dtFondo" immediate="true" styleClass="p21-file-upload"  -->
+<!-- 							valueChangeListener="#{fondoBean.asignarArchivo}" -->
+<!-- 							/> -->
+						
+								
+						<p:fileUpload id="uploadImg" listener="#{fondoBean.agregaFondo}" styleClass="adip-file-upload" 
+							accept=".jpg,.png,.jpeg" label="#{msg.lbl_cargar_archivo}" mode="advanced"
+							auto="true" process="@this uploadImg" immediate="true"
+							valueChangeListener="#{fondoBean.asignaImg()}" sizeLimit="524288" invalidSizeMessage="#{msg.msj_documento_oversize}"
+							invalidFileMessage="#{msg.msj_formato_permitido}" allowTypes="/(\.|\/)(jpe?g|png)$/" />	
+						
+						<p:message for="uploadImg" display="text"  style="width: 100%;"/>	
+						
+					</p:panelGrid>
+					
+				</p:panelGrid>
+
+				<p:dataTable id="dtFondo" 
+							 emptyMessage="Sin registros" 
+							 value="#{fondoBean.listFondo}" 
+							 var="fondo" 
+							 styleClass="dt-tramites" 
+							 reflow="true"
+							 lazy="true" 							
+							 rows="8" 
+							 paginator="true" 
+							 paginatorPosition="bottom"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							 currentPageReportTemplate="Mostrados {startRecord}-{endRecord} de {totalRecords} resultados"
+							 >
+					<p:column headerText="Nombre" width="45%">
+						<p:outputLabel value="#{fondo.nombre_archivo}" />
+					</p:column>
+					<p:column headerText="Fecha actualización" width="27%">
+						<p:outputLabel value="#{fondo.fechaModificacion}">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm a" />
+						</p:outputLabel>
+					</p:column>
+					<p:column headerText="#{msg.plh_estatus}" width="12%" style="text-align:center !important;">
+						<p:commandLink id="habilitar" type="button" immediate="true" actionListener="#{fondoBean.actualizaSituacion(fondo)}" update=":formDialog:grMessages dtFondo">
+							<p:graphicImage value="/resources/img/ic_switch_on.png" rendered="#{fondo.situacion}" title="Desactivar" style="width:35px" />
+							<p:graphicImage value="/resources/img/ic_switch_off.png" rendered="#{!fondo.situacion}" title="Activar" style="width:35px" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Acciones" width="16%" style="text-align:center !important;">
+						<!-- 								<p:commandButton styleClass="btn_editar" value="" -->
+						<!-- 									title="Modificar" -->
+						<!-- 									update=":pgEnlace" process="@this" /> -->
+<!-- 						<p:commandButton styleClass="btn_eliminar" value="" title="Eliminar" process="@this" update="dtFondo :formDialog:grMessages" -->
+<!-- 							actionListener="#{fondoBean.eliminaFondo(fondo)}"> -->
+<!-- 							<p:confirm header="Eliminar" message="Está seguro que desea eliminar el archivo?" icon="ui-icon-alert" /> -->
+<!-- 						</p:commandButton> -->
+						
+						<p:commandLink value="Eliminar/" action="#{fondoBean.eliminaFondo(fondo)}" immediate="true" update="dtFondo" styleClass="adip-lbl-campos-tabla">
+							<p:confirm header="Eliminar"
+									   message="Está seguro que desea eliminar la tarjeta"
+									   icon="ui-icon-alert" />
+						</p:commandLink>
+						
+						<p:commandLink value="Ver" title="Ver Imagen" 
+								       target="_blank"
+								       ajax="false"
+								       immediate="true"
+									   action="#{descargaBean.descargar(fondo.ruta_archivo, false)}"
+									   styleClass="adip-lbl-campos-tabla"/>
+						
+						
+<!-- 						<p:commandButton styleClass="p21-btn-download" value="" immediate="true" update=":formDialog:grMessages" title="Descargar" process="@this" -->
+<!-- 							actionListener="#{fondoBean.download(fondo.nombre_archivo)}" ajax="false"> -->
+<!-- 							<p:fileDownload value="#{fondoBean.file}" /> -->
+<!-- 						</p:commandButton> -->
+						
+<!-- 						<p:commandButton styleClass="p21-btn-search" value="" title="Ver" process="@this" update=":form:pnlImg" -->
+<!-- 							actionListener="#{fondoBean.verImagen(fondo.nombre_archivo)}"> -->
+<!-- 						</p:commandButton> -->
+					</p:column>
+				</p:dataTable>
+<!-- 			</p:panelGrid> -->
+			
+			
+		</p:panelGrid>
+		
+		
+			<p:outputLabel value="Imagen de Fondo Mobile" style="font-size: 21px; font-weight: 700; color: #4E4E4E;"/>		
+
+				
+				
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPaddingLeft ZeroPaddingRigth" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:panelGrid columns="2" columnClasses="ui-g-1 ui-md-1 ui-lg-1 align-center-flex, ui-g-11 ui-md-11 ui-lg-11 pl-0 pr-0" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 align-center-flex" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:commandButton id="infoM" styleClass="p21-btn-icon" value="" title="Info" />
+						<p:overlayPanel for="infoM" style="width:350px;" styleClass="p21-overlay-panel">
+							<p:panel header="Recomendaciones">
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPaddingLeft ZeroPaddingRigth" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<p:panelGrid columns="2" columnClasses="ui-g-6 ui-md-6 ui-lg-6, ui-g-6 ui-md-6 ui-lg-6" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+										<p:outputLabel value="Alto:" />
+										<p:outputLabel value="260px" />
+										<p:outputLabel value="Ancho:" />
+										<p:outputLabel value="520px" />
+										<p:outputLabel value="Peso máximo;" />
+										<p:outputLabel value="579Kb" />
+									</p:panelGrid>
+								</p:panelGrid>
+							</p:panel>
+						</p:overlayPanel>
+					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pr-0" layout="grid" styleClass="ui-panel-sin-pading">
+					
+						<p:fileUpload id="uploadImgMobile" listener="#{fondoBean.agregaFondo}" styleClass="adip-file-upload" 
+							accept=".jpg,.png,.jpeg" label="#{msg.lbl_cargar_archivo}" mode="advanced"
+							auto="true" process="@this uploadImg" immediate="true"
+							valueChangeListener="#{fondoBean.asignaImgMobile()}" sizeLimit="524288" invalidSizeMessage="#{msg.msj_documento_oversize}"
+							invalidFileMessage="#{msg.msj_formato_permitido}" allowTypes="/(\.|\/)(jpe?g|png)$/" />	
+							
+						</p:panelGrid>
+					
+					
+					
+					
+				</p:panelGrid>
+
+				<p:dataTable id="dtFondoMobile" 
+							 emptyMessage="Sin registros" 
+							 value="#{fondoBean.listFondoMobile}" 
+							 var="fondo" 
+							 class="p21-datatable" 
+							 reflow="true"
+							 lazy="true" 							
+							 rows="8" 
+							 paginator="true" 
+							 paginatorPosition="bottom"
+							 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							 currentPageReportTemplate="Mostrados {startRecord}-{endRecord} de {totalRecords} resultados"							 
+							 >
+					<p:column headerText="Nombre" width="45%">
+						<p:outputLabel value="#{fondo.nombre_archivo}" />
+					</p:column>
+					<p:column headerText="Fecha actualización" width="27%">
+						<p:outputLabel value="#{fondo.fechaModificacion}">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm a" />
+						</p:outputLabel>
+					</p:column>
+					<p:column headerText="#{msg.plh_estatus}" width="12%" style="text-align:center !important;">
+						<p:commandLink id="habilitar" type="button" immediate="true" actionListener="#{fondoBean.actualizaSituacion(fondo)}" update=":formDialog:grMessages dtFondoMobile">
+							<p:graphicImage value="/resources/img/ic_switch_on.png" rendered="#{fondo.situacion}" title="Desactivar" style="width:35px" />
+							<p:graphicImage value="/resources/img/ic_switch_off.png" rendered="#{!fondo.situacion}" title="Activar" style="width:35px" />
+						</p:commandLink>
+					</p:column>
+					<p:column headerText="Acciones" width="16%" style="text-align:center !important;">
+						<p:commandLink value="Eliminar/" action="#{fondoBean.eliminaFondo(fondo)}" immediate="true" update="dtFondoMobile" styleClass="adip-lbl-campos-tabla">
+							<p:confirm header="Eliminar"
+									   message="Está seguro que desea eliminar la tarjeta"
+									   icon="ui-icon-alert" />
+						</p:commandLink>
+						
+						<p:commandLink value="Ver" title="Ver Imagen" 
+								       target="_blank"
+								       ajax="false"
+								       immediate="true"
+									   action="#{descargaBean.descargar(fondo.ruta_archivo, false)}"
+									   styleClass="adip-lbl-campos-tabla"/>
+					</p:column>
+				</p:dataTable>
+<!-- 			</p:panelGrid> -->
+			
+			
+		</p:panelGrid>
+				
+			
+
+
+	</p:panelGrid>
+	<style>
+		.ui-panel-sin-pading {
+			padding: 0px !important;
+		}
+		
+		.align-center-flex {
+			display: flex !important;
+			justify-content: center !important;
+			align-items: center !important;
+		}
+		
+		.p21-overlay-panel .ui-overlaypanel-content {
+			padding: 0 !important;
+		}
+		
+		.p21-overlay-panel .ui-widget-header {
+			background: #bc955c !important;
+			color: #FFF !important;
+		}
+		
+		.p21-btn-icon {
+			background-image: url(/resources/img/ic_info_dorado.svg) !important;
+			width: 24px !important;
+		    height: 24px !important;
+		    background-color: transparent !important;
+		    border: none !important;
+		    box-shadow: none !important;
+		    background-size: cover !important;
+		}
+	</style>
+	
+</ui:composition>

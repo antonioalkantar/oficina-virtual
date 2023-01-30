@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default-fixednobackground.xhtml">
+
+	<ui:define name="content">
+		<style>
+			.not-found {
+				width: 55% !important;
+			    margin: 5em auto 0em !important;
+			    padding: 7em 3em 7em !important;
+			    background:#fff !important;
+			    border-radius: !important;  
+			}
+			
+			.notfound-top h1 {
+			    font-size: 9.5em !important;
+			    color: #0f4c42 !important;
+			    padding-top: 0.2em !important;
+			    text-align: center !important;
+			}
+			
+			.content404 {  
+			  padding: 7em 3em 7em !important;
+			  float: right;
+			  width:100%;
+			  padding-left: 3em;
+			  border-left: 2px solid  #0f4c42;
+			}
+		</style>
+	
+		<div id="wrap_404" >
+			<p:panelGrid id="pnlError404" columns="2" columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="margin: auto">
+				<p:outputLabel id="lbl404" styleClass="notfound-top">
+					<h1>404</h1>
+				</p:outputLabel>
+				<p:panelGrid id="pnlMensajes" columns="1" columnClasses="ui-grid-col-12" styleClass="content404" layout="grid" style="margin: auto">
+					<p:graphicImage value="/resources/img/error-404.png"></p:graphicImage>
+					<p:outputLabel id="lblMensaje" >
+					¡La página a la que intentas ingresar no existe!
+					</p:outputLabel>
+					<h:form>
+						<p:commandLink  id="cLiInicio404" value="Regresar a la página principal" action="/home.xhtml?faces-redirect=true" immediate="true" styleClass="etiqueta-detalle"/>
+					</h:form>					
+				</p:panelGrid>
+			</p:panelGrid>
+		</div>
+	</ui:define>
+</ui:composition>

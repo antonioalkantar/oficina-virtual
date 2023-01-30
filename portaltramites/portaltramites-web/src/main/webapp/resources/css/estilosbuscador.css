@@ -1,0 +1,937 @@
+.nombre-tramite-buscador {
+    font-family: Inter !important;
+    font-size: 17px !important;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;  
+    line-height: 21px;
+    letter-spacing: -0.425618px;
+    text-align: left;
+    color: #6F7271;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+.descripcion-tramite-buscador {
+    font-family: Inter !important;
+    font-size: 14px !important;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 17px;
+    letter-spacing: -0.43px;
+    text-align: left;
+    color: #666666;  
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+}
+.ver-mas-tramites-buscador {    
+    font-family: Inter !important;
+    font-size: 12px !important;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 12px;
+    letter-spacing: normal;
+    color: #88185B !important;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	text-decoration-line: none !important;
+	background: #F0F0F0;
+    border-radius: 23.5456px;
+    padding: 10px;
+    width: max-content;
+}
+.ui-paginator {
+    position: initial;
+    width: 332px;
+    height: 23.99px !important;
+    background-color: #FFFFFF !important;
+    opacity: 0.8;
+    border-radius: 6px;
+}
+.ui-paginator .ui-paginator-page, .ui-paginator .ui-paginator-pages, .ui-paginator .ui-paginator-next, .ui-paginator .ui-paginator-last, .ui-paginator .ui-paginator-first, .ui-paginator .ui-paginator-prev, .ui-paginator .ui-paginator-current {
+    display: inline-block;
+    zoom: 1;
+    font-family: Inter !important;
+    font-size: 15.9923px !important;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    color: #fff !important;
+    line-height: 1.6em !important;
+    height: 23.99px !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background-color: transparent !important;
+    outline:none !important;
+    font-weight: bold !important;
+    color: black !important;
+    font-size: 15.9923px !important;
+}
+.ui-icon-seek-prev {
+    background-image: url(/resources/img/arrow_negro2.svg) !important;
+    position: sticky!important;
+    background-size: 12px 12px !important;
+    font-size: 15.9923px !important;
+    line-height: 1.6em !important;
+}
+.ui-icon-seek-next{
+	background-image: url(/resources/img/arrow_negro1.svg) !important;
+    position: sticky!important;
+    background-size: 12px 12px !important;
+    font-size: 15.9923px !important;
+    line-height: 1.6em !important;
+}
+.clearbackground>.ui-paginator>.ui-paginator-prev{
+	float: left;
+}
+.clearbackground>.ui-paginator>.ui-paginator-next{
+	float: right;
+}
+.floatDigital{
+     width: 23px;
+    height: 23px;
+    float: right;
+    position: absolute;
+    /* left: 16px; */
+    margin-left: -43px;
+}
+.li-spacing{
+	padding-bottom: 10px;
+}
+.bullet-size{
+	font-size:22px;
+}
+.filtro-tramite-buscador {
+	font-family: 'Inter' !important;
+	font-style: normal !important;
+	font-weight: 700 !important;
+	font-size: 17.9675px !important;
+	line-height: 22px !important;
+	color: #FFFFFF !important;
+}
+/*checkbox*/
+.adip-check-box >span {
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 10.6032px;
+line-height: 12px;
+letter-spacing: 0.19626px;
+color: #8D8D8D;
+}
+.adip-check-box .ui-chkbox-box {
+	border: 1px solid #8B1232 !important;
+	border-width: 2px !important;
+	background: #ffffff !important;
+	width: 1.5em !important;
+	height: 1.5em !important;
+	text-align: center !important;
+	position: relative !important;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+		box-shadow 0.2s !important;
+}
+
+.adip-check-box .ui-chkbox-box.ui-state-hover {
+	border-color: #8B1232 !important;
+	background: transparent !important;
+}
+
+.adip-check-box .ui-chkbox-box.ui-state-focus {
+	box-shadow: 0 0 0 0.2em #8B1232 !important;
+	outline: 0 none !important;
+}
+
+.adip-check-box .ui-chkbox-box.ui-state-active {
+	border-color: #8B1232 !important;
+	background: #8B1232 !important;
+	color: #ffffff !important;
+}
+
+body .ui-panelgrid .ui-panelgrid-cell {
+	background: transparent;
+}
+
+body .ui-button.ui-state-hover {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.ui-paginator-pages {
+    display: contents !important;
+}
+
+.ui-icon-seek-prev {
+    background-image: url(/resources/img/arrow_negro2.svg) !important;
+    position: sticky!important;
+    background-size: 12px 12px !important;
+    line-height: 1.6em;
+}
+
+.ui-icon-seek-next{
+	background-image: url(/resources/img/arrow_negro1.svg) !important;
+    position: sticky!important;
+    background-size: 12px 12px !important;
+    line-height: 1.6em;
+}
+
+.ui-datagrid .ui-paginator-bottom {
+    width: fit-content !important;
+    padding: 0px !important;
+    zoom: 80%;
+}
+
+body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+	background: #8B1232 !important;
+	color: #ffffff !important;
+   	height: 33px !important; 
+   	line-height: 1.6em;
+   	border-radius: 19px;
+   	
+}
+body .ui-datagrid .ui-datagrid-content {
+    background: none !important;
+	padding: 0px !important;
+}
+
+body .ui-chkbox .ui-chkbox-box {
+	border: 1px solid #6F7271 !important;
+	border-width: 2px !important;
+	background: #ffffff !important;
+	width: 1.5em !important;
+	height: 1.5em !important;
+	text-align: center !important;
+	position: relative !important;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+		box-shadow 0.2s !important;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-hover {
+	border-color: #6F7271 !important;
+	background: transparent !important;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-focus {
+	outline: 0 none !important;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-active {
+	border-color: #88185B !important;
+	background: #88185B !important;
+	color: #ffffff !important;
+}
+
+
+	body .ui-datagrid .ui-datagrid-header {
+    border-bottom: 0 none;
+    border: none;
+    background: white !important;
+    margin: 0px;
+    text-align: -webkit-left;
+    border-radius: 10px 10px 0px 0px !important;
+}
+
+
+.texto-salida{
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10.6615px;
+	line-height: 18px;
+	display: contents;
+	align-items: center;
+	letter-spacing: 0.222115px;			
+	color: rgba(84, 84, 84, 0.87);
+}
+
+.ZeroPaddingBottom {
+	padding-bottom: 0px !important;
+	padding-top: 0px !important;
+	padding-left: 1rem !important;
+}
+
+.buscarResponsiveImg {
+	background-image: url(/resources/img/ic_lupa_white.svg) !important;
+	background-size: cover;
+}
+
+.backButtonImg {
+	top: 44% !important;
+    height: 22px !important;
+    width: 30px !important;
+    background-image: url(/resources/img/flechablanca.svg) !important;
+    background-size: contain;
+}
+
+.inicioButtonImg {
+	top: 44% !important;
+    height: 22px !important;
+    width: 30px !important;
+    background-image: url(/resources/img/llaveNew.svg) !important;
+    background-size: contain;
+}
+
+.ui-button-icon-only .ui-icon {
+	    margin-left: -9px;
+}
+.ui-inputfiel {
+	border: none !important;
+	height: 58px !important;
+}
+
+.ui-autocomplete-input {
+	border: none !important;
+	height: 58px !important;
+}
+
+.sizeuiicon>span {
+	width: 30px !important;
+    height: 30px !important;
+    left: 40% !important;
+    top: 35% !important;
+}
+
+.nobordersearch>input {
+	border: none !important;
+	font-family: Inter;
+	font-size: 22px !important;
+	font-weight: bold !important;
+	font-stretch: normal !important;
+	font-style: normal !important;
+	line-height: normal !important;
+	letter-spacing: normal !important;
+	text-align: left !important;
+	color: rgba(0, 0, 0, 0.47) !important;
+	padding-left: 20px;
+	height: 49px !important;
+}
+
+.ui-autocomplete-input {
+	border: none !important;
+}
+
+.panel-busqueda {
+	border-radius: 86.9px;
+	border-right: none !important;
+	box-shadow: 0 4px 44px -5px rgb(0 0 0/ 40%);
+	border-top-right-radius: unset;
+	border-bottom-right-radius: inherit;
+}
+
+.ui-autocomplete-item.ui-state-highlight {
+	background: #F0F0F0 !important;
+	color: black !important;
+	text-shadow: none !important;
+}
+
+.ui-autocomplete-list-item.ui-state-highlight {
+	background: #F0F0F0 !important;
+	color: black !important;
+	text-shadow: none !important;
+}
+
+.ui-autocomplete-emptyMessage {
+	background-color: white !important;
+	padding: 10px !important;
+	font-weight: 700 !important;
+	font-family: Inter !important;
+	line-height: 30px !important;
+	border-bottom-left-radius: 8px !important;
+	border-bottom-right-radius: 8px !important;
+}
+
+.autocompletado {
+	border-radius: 24.5659px !important;
+	box-shadow: 0px 3.15678px 3.15678px rgba(0, 0, 0, 0.25) !important;
+	border: solid 2.36758px #88185B !important;
+	background-color: #ffffff !important;
+	height: 49.72px !important;
+}
+.autocompletadoMobile {
+    border-radius: 26.5px !important;
+    box-shadow: 0px 3.41603px 3.41603px rgb(0 0 0 / 25%) !important;
+    border: solid 2.36758px #88185B !important;
+    background-color: #ffffff !important;
+    height: 34px;
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+}
+
+body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item
+	{
+	background-color: white !important;
+}
+
+.adip-output-white {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15.4555px;
+	line-height: 17px;
+	align-items: center;
+	color: #FFFFFF;
+}
+
+@media only screen and (min-width: 1420px) and ( max-width : 10000px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 55% !important;
+		max-width: 780px !important;
+		padding-left: 20px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: none !important;
+	}
+	body .ui-paginator .ui-paginator-prev:before {
+		content: "Anterior";
+		text-decoration: underline;
+		font-family: 'Inter' !important;
+	}
+	body .ui-paginator .ui-paginator-next:before {
+		content: "Siguiente";
+		text-decoration: underline;
+		font-family: 'Inter' !important;
+	}
+	body .ui-paginator .ui-paginator-pages .ui-paginator-page {
+		padding: 5px;
+		border: 1px solid transparent;
+		text-align: center;
+		line-height: 2.286em;
+		min-width: 34px;
+		height: 2.286em;
+		color: #6c757d;
+		margin: 0px 0.325em;
+		border-radius: 19px;
+		transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+			box-shadow 0.2s;
+		height: 34px !important;
+	}
+}
+
+@media only screen and (min-width: 641px) and ( max-width : 1419px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 57% !important;
+		max-width: 750px !important;
+		padding-left: 20px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: none !important;
+	}
+	body .ui-paginator .ui-paginator-prev:before {
+		content: "Anterior";
+		text-decoration: underline;
+		font-family: 'Inter' !important;
+	}
+	body .ui-paginator .ui-paginator-next:before {
+		content: "Siguiente";
+		text-decoration: underline;
+		font-family: 'Inter' !important;
+	}
+	body .ui-paginator .ui-paginator-pages .ui-paginator-page {
+		padding: 5px;
+		border: 1px solid transparent;
+		text-align: center;
+		line-height: 2.286em;
+		min-width: 34px;
+		height: 2.286em;
+		color: #6c757d;
+		margin: 0px 0.325em;
+		border-radius: 19px;
+		transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+			box-shadow 0.2s;
+		height: 34px !important;
+	}
+}
+
+@media only screen and (min-width: 0px) and ( max-width : 640px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 73% !important;
+		padding-left: 10px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: block !important;
+	}
+	body .ui-paginator .ui-paginator-prev:before {
+		content: "Ant.";
+		text-decoration: underline;
+		font-family: 'Inter' !important;
+	}
+	body .ui-paginator .ui-paginator-next:before {
+		content: "Sig.";
+		text-decoration: underline;
+		font-family: 'Inter' !important;
+	}
+	body .ui-paginator .ui-paginator-pages .ui-paginator-page {
+    padding: 5px 0;
+    border: 1px solid transparent;
+    text-align: center;
+    line-height: 2.286em;
+    min-width: 32px;
+    height: 2.286em;
+    color: #6c757d;
+    margin: 0px 0.1em;
+    border-radius: 19px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    height: 34px !important;
+}
+}
+
+/* Estilos para scrollbar */
+/* width */
+.webkit-scroll::-webkit-scrollbar {
+	width: 7px !important;
+}
+
+/* Track */
+.webkit-scroll-track::-webkit-scrollbar-track {
+	background: #EDEDED !important;
+}
+
+/* Handle */
+.webkit-scroll-thumb::-webkit-scrollbar-thumb {
+	border-radius: 10px !important;
+	background: #6F7271 !important;
+}
+
+/* Handle on hover */
+.webkit-scroll-thumb-hover::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+/* Fin  Estilos para scrollbar */
+
+.ui-selectmanycheckbox.ui-widget td, .ui-selectoneradio.ui-widget td {
+	display: grid;
+    border-bottom: 1px solid #F0F0F0 !important;
+    grid-template-columns: 10% 90%;
+    align-items: center;
+}
+
+.ui-datagrid-column {
+	padding-left: 3px !important;
+	padding-right: 3px !important;
+	padding-top: 0px !important;
+	padding-bottom: 3px !important;
+}
+.Col1 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 8.3333%;
+}
+
+.tramiteDigital{
+	font-family: 'Inter' !important;
+	font-style: normal !important;
+	font-weight: 700 !important;
+	font-size: 11.7978px !important;
+	line-height: 14px !important;
+	align-items: center !important;
+	text-align: center !important;
+	letter-spacing: -0.274468px !important;
+	color: #8B652E !important;
+}
+
+.btnInicioSesionLlave{
+	background: #FFFFFF !important;
+    border: 1.77692px solid #BC955C !important;
+    box-shadow: -1px 3.17843px 3.17843px rgb(0 0 0 / 10%) !important;
+    border-radius: 22.7657px !important;
+    height: 30px !important;
+    width: 101px !important;
+    text-align: center !important;
+	font-style: normal !important;
+	font-size: 15.6994px !important;
+	align-items: center !important;
+	letter-spacing: -0.365236px !important;
+	color: #BC955C !important;
+	left: 1.5rem;
+}
+
+.backgroundDorado{
+	background-color: #DDC9A3 !important;
+}
+
+.text-detail-tram {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    padding-bottom: 0px !important;
+}
+
+.ui-sidebar-close {
+    visibility: collapse;		   
+}	
+.buscarResponsiveImage{
+	background-image: url(/resources/img/lupita-gris.svg) !important;
+	background-size: cover;
+}
+.backButtonImgResponsive {
+    top: 53% !important;
+    height: 15px !important;
+    width: 30px !important;
+    background-image: url(/resources/img/flechablanca.svg) !important;
+    background-size: contain;
+}
+.filterButtonImgResponsive{
+	top: 53% !important;
+	left: 30% !important;
+    height: 16px !important;
+    width: 20px !important;
+    background-image: url(/resources/img/icon-filter-mobile.svg) !important;
+    background-size: contain;			
+}
+.boton-continuar-llave-home {
+    background-image: url(/resources/img/llaveNew.svg) !important;
+    background-position: left !important;
+    background-repeat: no-repeat !important;
+    background-position-x: 5px !important;
+    background-size: 28px !important;
+    border-radius: 5px !important;
+    width: 103px !important;
+    height: 39px !important;
+    padding: 0px 0 6px 20px !important;
+    background-color: #88185B !important;
+    color: #FFFFFF !important;
+    font-size: 16px important;
+    font-weight: 600 !important;
+    border-radius: 22.7657px !important;
+    border: 1.77692px solid #88185B !important;
+    padding-left: 19px !important;
+    padding-top: 3px !important;
+}
+
+body .ui-commandlink{
+    color: #BC955C;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.span-zeropadding>span.ui-button-text.ui-c{
+	padding: 0px !important;
+}
+
+.span-zeropaddingMobile>span.ui-button-text.ui-c {
+    padding-top: 0px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.boton-continuar-llave-home-mobile {
+    background-image: url(/resources/img/llaveNew.svg) !important;
+    background-position: left !important;
+    background-repeat: no-repeat !important;
+    background-position-x: 5px !important;
+    background-size: 22px !important;
+    border-radius: 5px !important;
+    width: 87px !important;
+    height: 30px !important;
+    padding: 0px 0 6px 20px !important;
+    background-color: #fff !important;
+    color: #BC955C !important;
+    font-size: 16px important;
+    font-weight: 600 !important;
+    border-radius: 22.7657px !important;
+    border: 1.77692px solid #88185B !important;
+    padding-left: 10px !important;
+}
+		
+.background-paginator>.ui-paginator.ui-paginator-bottom {
+   	background-color: transparent !important;
+  		border: none !important;
+}
+
+border-radius-paginator>body.ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+ 			background: #8B1232 !important;
+ 			color: #ffffff !important;
+}
+
+zeropaddingleft-llavecdmx>.ui-g-12 {
+    padding-left: 0px !important;
+    width: 100%;
+}
+
+.paginator-desktop>.ui-paginator {
+    margin: 0.8rem !important;
+}
+
+
+.nombre-tramite-buscador-mobile {
+    font-family: Inter !important;
+    font-size: 14px !important;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 18px;
+    letter-spacing: -0.378145px;
+    text-align: left;
+    color: #6F7271;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 3px !important;
+}
+
+.descripcion-tramite-buscador-mobile {
+    font-family: Inter !important;
+    font-size: 11px !important;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 15px;
+    letter-spacing: -0.382038px;
+    text-align: left;
+    color: #666666;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 5px ;
+}
+.tramiteDigital-mobile {
+    font-family: 'Inter' !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 14.78px !important;
+    line-height: 14px !important;
+    align-items: center !important;
+    text-align: left !important;
+    letter-spacing: -0.274468px !important;
+    color: #6F7271 !important;
+}
+.nobordersearch-mobile>input {
+    border: none !important;
+    font-family: Inter;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    text-align: left !important;
+    color: rgba(0, 0, 0, 0.47) !important;
+    padding-left: 20px;
+    height: 29.99px !important;
+}
+.sizeuiicon-mobile>span {
+    width: 16px !important;
+    height: 16px !important;
+    left: 60% !important;
+    top: 50% !important;
+}
+
+.col-12 {
+    flex: 0 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+
+body .ui-paginator .ui-paginator-first, body .ui-paginator .ui-paginator-prev, body .ui-paginator .ui-paginator-next, body .ui-paginator .ui-paginator-last {
+    color: #6c757d;
+    width: 3.8em;
+    height: 2.286em;
+    margin: 0 0.125em;
+    border: 1px solid transparent;
+    vertical-align: top;
+    padding: 5px 0;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+body .ui-paginator .ui-paginator-first span, body .ui-paginator .ui-paginator-prev span, body .ui-paginator .ui-paginator-next span, body .ui-paginator .ui-paginator-last span {
+    display: none;
+}
+
+body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-hover {
+    background: #8B1232;
+    color: #495057;
+    border-color: transparent;
+    border-radius: 19px;
+    height: 34px !important;
+}
+body .ui-paginator .ui-paginator-first.ui-state-hover, body .ui-paginator .ui-paginator-prev.ui-state-hover, body .ui-paginator .ui-paginator-next.ui-state-hover, body .ui-paginator .ui-paginator-last.ui-state-hover {
+    background: transparent;
+    color: #495057;
+    border-color: transparent;
+    
+}
+ .ui-datagrid-content-empty {
+ min-height: 700px;
+ color: white !important;
+ padding: 4px 10px;
+ }
+ 
+ .btn-centro{
+ 	place-self: center;
+ }
+ 
+ .adip-r-smcb{
+	padding: 3px !important;
+    font-size: 12px !important;
+    display: grid !important;
+    border-bottom: 1px solid #F0F0F0 !important;
+    grid-template-columns: 10% 90%;
+ }
+ 
+ 
+ /* ESTILO ACORDEÓN */
+.adip-read-more-state {
+	display: none;
+}
+
+.adip-read-more-target {
+	opacity: 0;
+	max-height: 0;
+	font-size: 0;
+	transition: .25s ease;
+}
+
+.adip-read-more-wrap {
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+	overflow: hidden;
+	padding-bottom:0px;
+}
+
+.adip-read-more-text{
+	margin: 0;
+}
+
+/* .adip-read-more-state:checked ~ .adip-read-more-wrap { */
+/* 	opacity: 1; */
+/* 	font-size: inherit; */
+/* 	max-height: 999em; */
+/* } */
+
+.adip-read-more-state:checked ~ .adip-read-more-text .adip-read-more-wrap
+	{
+	opacity: 0;
+	max-height: 0;
+	font-size: 0;
+}
+.adip-read-more-state:checked ~ .adip-read-more-text
+	{
+	padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.adip-read-more-state:checked ~ .adip-read-more-text .adip-read-more-target
+	{
+	opacity: 1;
+	font-size: inherit;
+	max-height: 999em;    
+}
+
+/* .adip-read-more-state ~ .adip-read-more-trigger:before { */
+/* 	content: "\e902" !important; */
+/* } */
+
+/* .adip-read-more-state:checked ~ .adip-read-more-trigger:before { */
+/* 	content: "\e903" !important; */
+/* } */
+/* .adip-read-more-state ~ .adip-read-more-trigger:before { */
+/* 	content: "\e902" !important; */
+/* } */
+
+/* .adip-read-more-state:checked ~ .adip-read-more-trigger { */
+/* 	background-image: url(/resources/img/ic_arrow_contract.svg) !important; */
+/* } */
+
+.adip-read-more-trigger {
+	cursor: pointer;
+	padding: 5px 10px;
+	color: #666;
+/* 	font-size: .9em; */
+/* 	line-height: 2; */
+	border: none;
+	border-radius: .25em;
+    background-repeat: no-repeat;
+    background-size: 17px;
+    background-position: center;
+}
+.adip-arrow-expand {
+	background-image: url(/resources/img/ic_arrow_expand.svg) !important;
+}
+.adip-arrow-contract {
+	background-image: url(/resources/img/ic_arrow_contract.svg) !important;
+}
+
+@media only screen and (max-width: 640px) {
+ 	.adip-tablet-btn-arrow{ 
+ 		display:none !important; 
+ 	} 
+ 	.adip-mov-btn-arrow{ 
+/*  		display:block;  */
+ 	} 
+ 	
+ 	.adip-read-more-state:checked ~ .adip-read-more-text .adip-read-more-target
+	{
+    font-size: 11px !important;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 15px;
+    letter-spacing: -0.382038px;
+    text-align: left;
+    color: #666666;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    
+	}
+ }
+@media only screen and (min-width: 641px) and ( max-width : 991px) {
+ 	.adip-tablet-btn-arrow{ 
+/*  		display:block;  */
+ 	} 
+ 	.adip-mov-btn-arrow{ 
+ 		display:none; 
+ 	} 
+ 	
+ 	.adip-read-more-state:checked ~ .adip-read-more-text .adip-read-more-target
+	{
+    font-size: 11px !important;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 15px;
+    letter-spacing: -0.382038px;
+    text-align: left;
+    color: #666666;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    
+}
+}

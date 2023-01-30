@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<!-- 	<p:spacer /> -->
+	<p:panelGrid columns="1" columnClasses="ui-g-12 pl-0 pr-0 pt-0 pb-1 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+		<!-- 		<p:outputLabel value="Estatus de tu reporte:" styleClass="adip-o-reporte-titulo" /> -->
+		<p:graphicImage value="/resources/img/ic_locatel_sin_fondo.svg" style="height:62px" styleClass="pb-2 mt-3"/>
+		<p:separator styleClass="adip-o-separator pb-3" />
+		<p:outputLabel
+			value="Hola, #{authenticatorBean.usuarioLogueado.nombre.concat(' ')
+			.concat(authenticatorBean.usuarioLogueado.primerApellido ne null ? authenticatorBean.usuarioLogueado.primerApellido : '')
+			.concat(authenticatorBean.usuarioLogueado.segundoApellido ne null ? ' '.concat(authenticatorBean.usuarioLogueado.segundoApellido) : '')
+			.concat(', recibimos tu reporte:')}"
+			styleClass="adip-o-reporte-atencion" />
+		<p>
+			<span class="adip-o-reporte-folio" style="font-weight: 400;">Folio:</span> <span class="adip-o-reporte-folio" style="font-weight: 700;">#{tarjetaSuacBean.tarjetaSuacDTO.folio}</span>
+		</p>
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid pb-2">
+		<p:graphicImage value="/resources/img/ic_comilla_inicio.png" style="height: 20px; display: block; position: relative; margin-bottom: -7px !important;" />
+		<p:panelGrid columns="1" columnClasses="ui-g-12 adip-o-reporte-overflow" styleClass="ui-panel-sin-pading adip-o-reporte-bg-grey">
+			<p:outputLabel value="#{tarjetaSuacBean.tarjetaSuacDTO.descripcionSolicitud}" styleClass="adip-o-reporte-contenido" />
+		</p:panelGrid>
+		<p:graphicImage value="/resources/img/ic_comilla_fin.png" style="height: 20px; display: block; position: relative; margin-top: -7px !important;float: right;" />
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-g-12 pl-0 pr-0 pt-0 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+		<!-- 		<p:outputLabel value="Fue atendido por:" styleClass="adip-o-reporte-atencion" /> -->
+		<!-- 		<p:outputLabel value="#{tarjetaSuacBean.registroSUAC.atiende}" styleClass="adip-o-reporte-subtitulo" /> -->
+		<p:outputLabel value="Autoridad responsable:" styleClass="adip-o-reporte-atencion" />
+		<p:outputLabel value="#{tarjetaSuacBean.tarjetaSuacDTO.atiende}" styleClass="adip-o-reporte-subtitulo" />
+
+		<p:outputLabel value="El estatus de tu folio es :" styleClass="adip-o-reporte-atencion" />
+		<p:separator styleClass="adip-o-separator" />
+
+		<p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-12 ui-lg-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+			<!-- Stepper HTML -->
+			<p:outputPanel>
+				<ul class="adip-stepProgress">
+					<li
+						class="adip-stepProgress-item #{tarjetaSuacBean.tarjetaSuacDTO.idEstatus == tarjetaSuacBean.ID_ESTATUS_SUAC_RECIBIDO
+					? 'is-active' : 'current'}"><p:outputLabel
+							styleClass="font-texto-medio" value="Recibido" /></li>
+
+					<li class="adip-stepProgress-item #{tarjetaSuacBean.tarjetaSuacDTO.idEstatus == tarjetaSuacBean.ID_ESTATUS_SUAC_TURNADO
+					? 'is-active' : 'current'}"><p:outputLabel
+							styleClass="font-texto-medio" value="Turnado" /></li>
+
+					<li
+						class="adip-stepProgress-item #{tarjetaSuacBean.tarjetaSuacDTO.idEstatus == tarjetaSuacBean.ID_ESTATUS_SUAC_ATENDIDO or 
+														tarjetaSuacBean.tarjetaSuacDTO.idEstatus == tarjetaSuacBean.ID_ESTATUS_SUAC_CANCELADO
+														? 'is-active' : 'current'}"><p:outputLabel
+							styleClass="font-texto-medio" value="Atendido" /></li>
+
+					<li class="adip-stepProgress-item #{tarjetaSuacBean.tarjetaSuacDTO.idEstatus == tarjetaSuacBean.ID_ESTATUS_SUAC_CERRADO
+					? 'is-active' : 'current'}"><p:outputLabel
+							styleClass="font-texto-medio" value="Cerrado" /></li>
+				</ul>
+			</p:outputPanel>
+			<!-- End Stepper HTML -->
+		</p:panelGrid>
+		<p:separator styleClass="adip-o-separator" />
+		<p:outputLabel value="¿Tienes dudas sobre la atención de tu reporte?" styleClass="adip-o-reporte-grey" />
+
+		<!-- 		<p:link value="Sí, finalizar reporte" styleClass="adip-o-reporte-green" href="#{tarjetaSuacBean.urlAction()}" target="_blank" /> -->
+		<!-- 		<p:link value="No, reabrir reporte" styleClass="adip-o-reporte-red" href="#{tarjetaSuacBean.urlAction()}" target="_blank" /> -->
+		<p:link value="Ir al sitio" styleClass="adip-o-reporte-guinda" href="#{tarjetaSuacBean.urlAction()}" target="_blank" />
+	</p:panelGrid>
+</ui:composition>

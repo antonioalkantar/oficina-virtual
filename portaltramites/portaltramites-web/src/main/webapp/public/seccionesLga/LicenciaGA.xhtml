@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<div class="espacio"/>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="Licencia de Gobierno Abierto de la Ciudad de México (LGACDMX)" />
+		<p:outputLabel styleClass="text-content-bold" value="Versión 2.0 | 1 de septiembre de 2017" />
+		<p:outputLabel styleClass="text-content" value="Gobierno de la Ciudad de México" />
+	</p:panelGrid>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="1. Justificación legal de la licencia" />
+		<p:outputLabel styleClass="text-content" escape="html" value="#{msg.lbl_justificacion}" />
+	</p:panelGrid>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="2. Aplicabilidad" />
+		<p:outputLabel styleClass="text-content" escape="html" value="#{msg.lbl_aplicabilidad}" />
+	</p:panelGrid>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="3. Derechos y obligaciones de la licencia" />
+		<p:outputLabel styleClass="text-content" escape="html" value="#{msg.lbl_derechos_obligaciones}" />
+		
+	</p:panelGrid>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="4. Derechos de terceros" />		
+		<p:outputLabel styleClass="text-content" escape="html" value="#{msg.lbl_derechos}" />
+	</p:panelGrid>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="5. Limitaciones" />
+		<p:outputLabel styleClass="text-content" escape="html" value="#{msg.lbl_limitaciones}" />
+	</p:panelGrid>
+	
+	<p:panelGrid styleClass="pnl-white" columns="1" layout="grid">
+		<p:outputLabel styleClass="title" value="6. Interpretación" />
+		<p:outputLabel styleClass="text-content" escape="html" value="#{msg.lbl_interpretacion}" />
+	</p:panelGrid>
+	
+	<style>
+		.pnl-white {
+			margin-bottom: 28px !important;
+			-moz-border-radius: 10px !important;
+			-webkit-border-radius: 10px !important;
+			padding: 21px 28px !important;
+	 		background: linear-gradient(145.24deg, rgba(16, 76, 66, 0.4) 37.84%, rgba(16, 76, 66, 0) 79.52%), rgba(4, 14, 7, 0.37) !important;
+	/* 		background: linear-gradient(145.24deg, rgba(149, 125, 90, 0.8) 37.84%, rgba(188, 149, 92, 0.168) 79.52%), rgba(4, 14, 7, 0.65); */
+			border: none !important;
+			border-radius: 10px !important;
+			font-family: Inter !important;
+		}
+		
+		.pnl-white > div{
+			background: transparent !important;
+		}
+		
+		.title{
+		    font-family: Inter !important;
+		    color:  #BC955C !important;
+	/* 	    color:  #FFFFFF !important; */
+		    margin-top: 20px !important;
+		    margin-bottom: 10px !important;
+		    font-size: 30px !important;
+		    line-height: 35px !important;
+		    font-weight: 700 !important;
+		    padding: 0 !important;
+		    background: transparent !important;
+		}
+		
+		.text-content{
+		    font-family: Inter !important;
+		    font-size: 18px !important;
+		    line-height: 28px !important;
+		    font-weight: unset !important;
+		    background: transparent !important;
+		    color:  #BC955C !important;
+		    color:  #FFFFFF !important;
+		}
+		
+		.text-content-bold{
+		    font-family: Inter !important;
+		    font-size: 18px !important;
+		    line-height: 28px !important;
+		    font-weight: bold !important;
+		    color:  #FFFFFF !important;
+		}
+		
+		.ui-widget-content a {
+	    	color: #BC955C !important;
+	    	font-weight: 700 !important;
+	    	text-decoration: none !important;
+		}
+	</style>
+
+</ui:composition>

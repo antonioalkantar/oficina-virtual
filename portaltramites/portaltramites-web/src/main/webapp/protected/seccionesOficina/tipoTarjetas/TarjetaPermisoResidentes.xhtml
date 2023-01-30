@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:o="http://omnifaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pb-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading adip-o-bg-white">
+		<p:graphicImage alt="" cache="false"
+			value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.pathImagen eq null ?
+		 tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO
+		 :'/resources/img/sistemas/ic_permisos_para_residentes.svg'}"
+			styleClass="adip-o-gi-size" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0 pr-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
+		<p:outputLabel
+			value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.sistema ne null ?
+		tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.sistema : ''}"
+			styleClass="adip-o-tarjeta-titulo" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Folio del trámite:" styleClass="adip-o-tarjeta-subtitulo" />
+		<p:outputLabel
+			value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.folio ne null ?
+		tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.folio : ''}"
+			styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Placa:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel
+			value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.placa ne null ? 
+		tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.placa : ''}"
+			styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center flex" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-0 flex"
+		contentStyleClass="flex m-auto" style="display:flex !important">
+		<p:outputLabel value="Polígono autorizado:" styleClass="adip-o-tarjeta-output-grey" style="display:flex" />
+		<p:graphicImage style="height: 16px; margin-left: 10px; display:flex" value="/resources/img/mi-beca-info-tooltip.png" cache="false" 
+		rendered="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.idEstatus eq tarjetaPermisoResidentesBean.ID_ESTATUS_PPR_BAJA or 
+			tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.idEstatus eq tarjetaPermisoResidentesBean.ID_ESTATUS_PPR_APROBADO_DIRECTOR}"/>
+		<p:tooltip for="@previous" value="Si tu solicitud es aprobada, el detalle de tu zona asignada lo recibirás en tu correo asociado a tu cuenta Llave CDMX."
+			my="right bottom" at="center top" styleClass="adip-o-tooltip ui-tooltip-top" position="left"
+			rendered="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.idEstatus eq tarjetaPermisoResidentesBean.ID_ESTATUS_PPR_BAJA or 
+			tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.idEstatus eq tarjetaPermisoResidentesBean.ID_ESTATUS_PPR_APROBADO_DIRECTOR}"/>
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-0 mb-1">
+		<p:outputLabel
+			value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.poligonoAutorizado ne null ?
+		tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.poligonoAutorizado : ''}"
+			styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Fecha de vigencia:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel
+			value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.fechaVigencia ne null ?
+		tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.fechaVigencia : ''}"
+			styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid
+		rendered="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.documentoDisponible ne null and 
+		tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.documentoDisponible eq true}"
+		columns="1" columnClasses="ui-grid-col-12 ZeroPadding adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+		<p:commandLink immediate="true" process="@this" style="text-decoration:none;" actionListener="#{tarjetaPermisoResidentesBean.download()}">
+			<p:graphicImage library="img" name="descargaDoc.svg" styleClass="img-descarga" />&nbsp;
+	      		<p:outputLabel value="Descargar documento" styleClass="descarga-documento" style="cursor:pointer !important;" />
+			<p:fileDownload value="#{tramitesOficinaBean.file}" />
+		</p:commandLink>
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-11 m-auto mb-4 mt-3">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="Estatus del trámite:" styleClass="adip-o-tarjeta-output-black" />
+			<p:outputLabel
+				value="#{tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.estatusDictaminador ne null ?
+			tarjetaPermisoResidentesBean.tarjetaPermisoResidentesDTO.estatusDictaminador : ''}"
+				styleClass="adip-o-tarjeta-output-black-bold" />
+		</p:panelGrid>
+
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pb-3" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:link styleClass="adip-o-tarjeta-btn-guinda" value="#{msg.lbl_consultar}" href="#{tarjetaPermisoResidentesBean.urlAction()}" target="_blank" />
+		</p:panelGrid>
+	</p:panelGrid>
+
+
+</ui:composition>

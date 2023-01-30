@@ -1,0 +1,273 @@
+@charset "UTF-8";
+
+@media screen and (max-width: 355px) {
+  .img-header {
+    width: 55%;
+  }
+  .header-sedeco{
+	font-size: 22px !important;
+  }
+  .header-siapem{
+	font-size: 8px !important;
+  }
+}
+
+/*
+body{
+	margin: 0 0;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    
+}
+/* Esta hoja de estilos es utilizada por el header de la aplicacion para que el header permanezca presente en la pagina en la parte superior cuando
+   en la pantalla se hace un scroll. El style .header es utilizado en el div del default.xhtml y el style .sticky es utilizado en el javascript onScrollHeader.js  */
+
+
+ /* Style the header */
+.header {
+  padding: 15px 2%;
+  min-height: 3em !important;
+  height: auto !important;
+  background: #FFFFFF; 
+  color: #f1f1f1;
+  border-bottom: 4px solid #f0f0f0; 
+  flex: 0 0 auto;
+}
+
+.line {
+  float: left;
+  width: 0.3px !important;
+  height: 34.6px;
+  border-right: solid 2px #898d8d;
+  margin: 5px auto !important;
+  padding-left: 10px !important;
+  
+}
+
+.header-sedeco{
+	font-family: sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.17;
+	letter-spacing: normal;
+	color: #898d8d;
+	margin: 5px auto !important;
+	padding: 6px 5px 2px 10px;
+}
+
+.header-siapem{
+	font-family: sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.17;
+	letter-spacing: normal;
+	color: #898d8d;
+	margin: 5px auto !important;
+	padding: 6px 5px 8px 5px;
+}
+
+.divicion {
+	margin: 0 auto;
+	width: 100%;
+	height: 32px !important;
+	background: #f8f8f8;
+}
+
+/* Page content */
+.content {
+  padding: 0px;
+  width: 100%;
+  height: 90%;
+  flex: 0 0 auto;
+}
+.contenido{
+	width: 100%;
+	height: 90%;
+	flex: 0 0 auto;
+	
+}
+
+/* The sticky class is added to the header with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 102px;
+}
+
+/*
+NUEVOS ESTILOS PARA EL NUEVO PORTAL
+*/
+
+.ZeroPadding-menu {
+    padding-left: 0!important;
+    padding-right: 8px !important;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+}
+
+
+@media screen and (max-width: 700px) {
+	.menu-normal {
+		display: none !important;
+		padding-bottom: 10px;
+	}	
+	
+	.espacioIndicador{
+		padding-top: 33px;
+	}
+	
+	.espacio{
+		padding-top: 40px;
+	
+	} 
+	
+	.espacio-cintillo{
+		padding-top: 47px;
+	}
+	
+}
+
+@media screen and (min-width: 700px) {
+	.menu-responsive {
+		display: none !important;
+		padding-right: 0!important;
+	}
+	
+	#idGridMenuRespon{
+		display: none;
+	}	
+		
+	.menu-normal {
+		padding-bottom: 6px;
+	    height: 80px;
+	    align-content: space-evenly;
+	}
+	
+	.espacio{
+		padding-top: 50px;
+	
+	} 
+	
+	.espacioIndicador{
+		padding-top: 27px;
+	}
+	.espacio-cintillo{
+		padding-top: 37px;
+	}
+}
+
+
+
+.claseButttonHeader .ui-button .ui-icon-triangle-1-s {
+	background-image: none !important;
+}
+
+.fontRespSidebar {
+	font-size: 17px !important;
+}
+
+.opcionmenuGreen {
+	text-decoration: none;
+	color: #000 !important;
+	font-weight: bold;
+	color: #104C42 !important;
+}
+
+.opcionmenuGreen:hover {
+	text-decoration: none;
+	color: #691c32 !important;
+	font-weight: bold;
+}
+
+.imagexgreenMenu {
+	top: 20px !important;
+}
+
+.header-cdmx-tramites {
+	padding: 10px;
+	min-height: 3em !important;
+	background: #FFFFFF;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-header {
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 10px;
+	text-align: center;	
+    text-decoration: none;
+	color: #104C42 !important
+}
+
+.menu-header:hover {
+	text-decoration: underline;
+}
+
+.menu-header-principal {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 15px !important;
+	line-height: 22px;
+	text-align: center;
+	text-decoration-line: underline !important;
+	color: #104C42 !important;
+}
+
+.img-header-sidebar{
+	width: 80px
+}
+
+/*.ui-icon-closethick {
+	display: none !important;
+}*/
+
+@media screen and (max-width: 361px) {
+	.imagexgreenMenu {
+		top: -35px !important;
+	}
+	
+	.espacio-cintillo{
+		padding-top: 0px;
+	}
+}
+
+@media screen and (min-width: 641px) {
+	.imagexgreenMenu {
+		top: -35px !important;
+	}
+	
+	.espacio-cintillo{
+		padding-top: 37px;
+	}
+}
+
+@media screen and (min-width: 425px) and (max-width: 441px) {
+	.imagexgreenMenu {
+		bottom: 45px !important;
+	}
+	
+	.espacio-cintillo{
+		padding-top: 7px;
+	}
+}
+
+@media screen and (min-width: 442px) and (max-width: 640px) {
+	.imagexgreenMenu {
+		top: 8px !important;
+	}
+	.espacio-cintillo{
+		padding-top: 27px;
+	}
+}

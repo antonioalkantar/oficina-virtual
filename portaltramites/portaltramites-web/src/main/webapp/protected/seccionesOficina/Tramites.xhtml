@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<p:dataTable id="dtTramites" widgetVar="dtTramites" value="#{tramitesOficinaBean.lstRegistroFiltered}" var="tramite" rowKey="#{tramite.idRegistro}" lazy="false"
+		selectionMode="single" selection="#{tramitesOficinaBean.registroSelected}" styleClass="adip-o-datatable adip-o-paginator" rows="11" paginator="true"
+		paginatorPosition="bottom" paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" rowIndexVar="selectedRowIndex">
+		<!-- 		<p:ajax event="rowSelect" update="frmTramites:pgTarjetas" process="@this" disabled="#{tramite.catTipoFuncionalidadDTO.idTipoFuncionalidad eq tramitesOficinaBean.ID_TIPO_REPORTE}"/> -->
+		<p:ajax event="rowSelect" update="frmTramites:pgTarjetas" process="@this" />
+		<!-- 								<f:setPropertyActionListener value="#{tramite}" target="#{tramitesOficinaBean.tramiteSelected}" /> -->
+		<!-- 							</p:ajax> -->
+		<p:column headerText="Trámite, reporte o programa social." width="45%" sortable="true" sortBy="#{tramite.catFuncionalidadDTO.nombre}">
+			<div class="adip-o-dt-div-grid" onclick="PF('dtTramites').selectRow(#{selectedRowIndex}, false);">
+<!-- 				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-12 m-auto" style="width: 45px !important;"> -->
+<!-- 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1 pl-0 pr-0" layout="grid" styleClass="ui-panel-sin-pading"> -->
+						<p:graphicImage value="#{tramite.catSistemaDTO.pathImagen}" styleClass="adip-o-gi-table" />
+<!-- 					</p:panelGrid> -->
+<!-- 				</p:panelGrid> -->
+				<h:outputText value="#{tramite.catFuncionalidadDTO.nombre}" styleClass="adip-o-output-dt-green"
+					style="padding-left: 10px;display: grid; align-self: center; height: 100%; width: 100%;" />
+			</div>
+		</p:column>
+		<p:column headerText="#{msg.plh_estatus}" width="25%" sortable="true" sortBy="#{tramite.catEstatusDTO.descripcion}" style="text-align:center">
+			<div onclick="PF('dtTramites').selectRow(#{selectedRowIndex}, false);">
+				<div
+					class="adip-o-circle #{tramite.catEstatusDTO.idEstatus eq 5 or tramite.catEstatusDTO.idEstatus eq 7 or tramite.catEstatusDTO.idEstatus eq 8 ? 'adip-o-bg-green' 
+				: tramite.catEstatusDTO.idEstatus eq 1 or tramite.catEstatusDTO.idEstatus eq 2 or tramite.catEstatusDTO.idEstatus eq 3 or tramite.catEstatusDTO.idEstatus eq 4 
+				? 'adip-o-bg-yellow' 
+				:'adip-o-bg-red'}" />
+				<h:outputText value="#{tramite.catEstatusDTO.descripcion}" styleClass="adip-o-output-dt-grey" />
+			</div>
+		</p:column>
+		<p:column headerText="#{msg.lbl_fecha_realizacion}" width="30%" styleClass="adip-center" sortable="true" sortBy="#{tramite.fechaRegistro}">
+			<h:outputText value="#{tramite.fechaRegistro}" styleClass="adip-o-output-dt-green">
+				<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+
+</ui:composition>

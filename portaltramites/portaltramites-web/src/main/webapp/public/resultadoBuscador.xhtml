@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:o="http://omnifaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    template="/WEB-INF/templates/default-nologin.xhtml"
+>
+    <ui:define name="content">
+
+		<ui:insert name="css_styles">
+           <h:outputStylesheet name="css/estilosbuscador.css" />		 
+        </ui:insert>
+
+        <!-- Se cambia el titulo de la página HTML dinámicamente para que no tome la del template -->
+		<o:onloadScript>document.title='Portal CDMX - Resultado de la búsqueda'</o:onloadScript> 
+		<h:form id="frmHomeTramite" class="h-full w-full" style="overflow: hidden !important;">
+		
+		<f:metadata>
+			<f:viewAction action="#{homeBean.cerrarIndicadores()}" />
+		</f:metadata>		
+			
+		<div class="col-12" style="background-image: url(/resources/img/fondo-content-search.jpg) !important; background-size: cover;">
+				
+			<div style="background: rgba(0, 0, 0, 0.1);">
+					<div class="flex-row" style="max-width: 1280px; margin: 0 auto;">
+						<div class="flex-12">	
+							<ui:include src="/public/seccionesHome/Indicadores.xhtml" />
+						</div>
+					</div>
+			</div>	
+			
+			<div class="flex-row" style="max-width: 1280px; margin: 0 auto;">
+				<div class="flex-12">									
+					<ui:include src="/public/seccionesBuscador/SearchDesktop.xhtml" />
+					<ui:include src="/public/seccionesBuscador/SearchMobile.xhtml" />
+				</div>
+			</div>
+				
+		</div>
+			
+		</h:form>
+		<p:remoteCommand id="updateAutocomplete" name="updateAutocomplete" update="frmHomeTramite:acSimpleMob frmHomeTramite:acSimple"/>
+		<p:remoteCommand id="updateAutocompleteMob" name="updateAutocompleteMob" update="frmHomeTramite:acSimpleMob frmHomeTramite:acSimple"/>
+ 		<p:remoteCommand name="pageChanged" actionListener="#{busquedaBean.pageChanged()}"/>		
+		
+		<script type="text/javascript">
+            jQuery(document).ready(function () {
+            	updateAutocomplete();
+            });
+            jQuery(document).ready(function () {
+            	updateAutocompleteMob();
+            });
+        </script> 
+<style>
+.ventana-header {
+    display: none !important;
+}
+
+.ui-datagrid-column {
+    padding: 0px !important;
+}
+
+a{
+	text-decoration-line: none !important;
+}
+
+.ui-widget-content .ui-state-active{ 
+	background: #F0F0F0;
+	color: #88185B;
+}
+
+</style>
+
+<script type="text/javascript">
+	function updateClass(id){
+		if (document.getElementById(id).classList.contains('adip-arrow-expand')) {
+			document.getElementById(id).classList.remove('adip-arrow-expand');
+			document.getElementById(id).classList.add('adip-arrow-contract');
+		}else{
+		    document.getElementById(id).classList.add('adip-arrow-expand');
+			document.getElementById(id).classList.remove('adip-arrow-contract');
+		}
+	}
+</script>
+	</ui:define>
+</ui:composition>

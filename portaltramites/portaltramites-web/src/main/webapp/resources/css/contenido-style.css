@@ -1,0 +1,23 @@
+.span-li>div.li{
+		padding-bottom: 23px;
+		line-height: 24px; 
+	}
+    
+    .datalist-nobackground .ui-widget-content {
+		paddinng-left: 0px !important;
+		padding-top: 0px !important;
+		margin-top: 0px !important;
+		color: #000000 !important;
+		fornt-family: 'Inter' !important;
+		font-size: 16px !important;
+	}
+	.ui-datalist .ui-datalist-nobullets{
+		padding-left: 0px !important;
+		margin-top:0px !important;
+		padding-top: 0px !important;
+	}
+
+	.separacion{ 
+		padding-bottom: 23px;
+		line-height: 24px; 
+	}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:p="http://primefaces.org/ui" 
+xmlns:pe="http://primefaces.org/ui/extensions" 
+xmlns:jsf="http://xmlns.jcp.org/jsf"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 pl-0 pr-0 pt-0 pb-1 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+	
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_circulacion.svg" styleClass="adip-o-gi-size" />							
+		</p:panelGrid>
+		
+		<p:outputLabel value="Refrendo de Tarjeta de Circulación" styleClass="adip-titulo-tarjeta-principal"/>
+		
+		<div style="padding-bottom: 24px;"/>
+		
+		<p:outputLabel value="Folio del trámite:" styleClass="adip-titulo-folio-tarjeta"/>
+		
+		<p:outputLabel value="#{tarjetaRefrendoTarjetaCirculacionBean.tarRefrendoTCDTO.folioSemovi}" styleClass="adip-contenido-tarjeta"/>
+		
+		<div style="padding-bottom: 24px;"/>		
+
+		<p:outputLabel value="Placa:" styleClass="adip-titulo-tarjeta"/>
+		
+		<p:outputLabel value="#{tarjetaRefrendoTarjetaCirculacionBean.tarRefrendoTCDTO.placa}" styleClass="adip-contenido-tarjeta"/>
+		
+		<div style="padding-bottom: 24px;"/>	
+		
+		<p:outputLabel value="Fecha de nueva vigencia:" styleClass="adip-titulo-tarjeta"/>
+		
+		<p:outputLabel value="#{tarjetaRefrendoTarjetaCirculacionBean.tarRefrendoTCDTO.fhVigencia}" styleClass="adip-contenido-tarjeta"/>
+		
+		<div style="padding-bottom: 20px;"/>	
+		
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="float:right;" rendered="#{tarjetaRefrendoTarjetaCirculacionBean.tarRefrendoTCDTO.idEstatus eq 3}">
+	      	<p:commandLink immediate="true" process="@this" actionListener="#{tarjetaRefrendoTarjetaCirculacionBean.download()}">
+	      		<p:graphicImage library="img" name="descargaDoc.svg" styleClass="img-descarga"/>&nbsp;
+	      		<p:outputLabel  value="Descargar documento" styleClass="descarga-documento"/>
+				<p:fileDownload value="#{tramitesOficinaBean.file}"/>
+	      	</p:commandLink>
+	  	</p:panelGrid>
+	  							
+	</p:panelGrid>
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-11 m-auto mb-4 mt-3">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="Estatus del trámite:" styleClass="adip-o-tarjeta-output-black" />
+			<p:outputLabel value="#{tarjetaRefrendoTarjetaCirculacionBean.tarRefrendoTCDTO.nbEstatus}" styleClass="adip-o-tarjeta-output-black-bold" />
+		</p:panelGrid>
+
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pb-3" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:link styleClass="adip-o-tarjeta-btn-guinda" value="#{msg.lbl_consultar}" href="#{tarjetaRefrendoTarjetaCirculacionBean.urlAction()}" target="_blank" />
+		</p:panelGrid>
+	</p:panelGrid>
+
+</ui:composition>

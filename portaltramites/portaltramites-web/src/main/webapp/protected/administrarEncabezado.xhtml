@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"	
+	>	
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-12 ui-lg-12 fondo-gris zeroPadding " layout="grid" style="padding: 0% 0 0% 0; max-width: 1280px; margin: auto;"
+				styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding" rendered="true">
+		
+		<p:outputPanel style="background: #FFF; border-radius: 10px;" styleClass="fondo-gris zeroPadding">
+			
+			<p:dataTable id="dtEncabezado" value="#{encabezadoBean.listEncabezado}" var="encabezados" lazy="true" styleClass="dt-tramites" reflow="true" rows="1">									
+								
+				<f:facet name="header">
+	                <p:outputLabel value="#{msg.titulo_menu_encabezado}" style="font-size: 21px; font-weight: 700; color: #4E4E4E;"/>
+	            </f:facet>							
+				
+				<p:column headerText="#{msg.lbl_descripcion_enc}" width="40%" styleClass="adip-lbl-titulos-tabla">
+						<p:outputLabel value="#{encabezados.descripcion_encabezado}" escape="false"  style="text-align-last: initial;"/>							
+				</p:column>
+				<p:column headerText="#{msg.lbl_enlace_enc}" width="30%" styleClass="adip-lbl-titulos-tabla">									
+						<p:outputLabel value="#{encabezados.link_encabezado}" styleClass="adip-lbl-campos-tabla"/>	
+				</p:column>
+				<p:column headerText="#{msg.lbl_fondo_enc}" width="5%" styleClass="adip-lbl-titulos-tabla">									
+						<div style="background:#{encabezados.background} !important; height: 30px !important;" />										
+				</p:column>
+				<p:column headerText="#{msg.plh_estatus}" width="6%" styleClass="adip-lbl-titulos-tabla">
+					<p:outputLabel value="#{encabezados.situacion ?  msg.lbl_activo : msg.lbl_inactivo }" styleClass="adip-lbl-campos-tabla"/>
+				</p:column>				
+				<p:column headerText="#{msg.lbl_accion}" width="19%" styleClass="adip-lbl-titulos-tabla">
+					<p:commandLink value="#{encabezados.situacion ? 'Desactivar/' : 'Activar/'}" action="#{encabezadoBean.actualizarSituacion(encabezados)}" immediate="true" update="dtEncabezado" styleClass="adip-lbl-campos-tabla"/>					
+					<p:commandLink value="#{msg.editar}" title="Modificar" process="@this" oncomplete="PF('dialogHeader').show();" update="form:dialogHeader"  actionListener="#{encabezadoBean.modificarEncabezado(encabezados)}" styleClass="adip-lbl-campos-tabla"/>
+				</p:column>
+			</p:dataTable>								
+		</p:outputPanel>
+	</p:panelGrid>			
+	
+		<p:dialog id="dialogHeader" widgetVar="dialogHeader" modal="true" closable="true"
+			showEffect="fade" hideEffect="fade" header="Editar encabezado" onShow="document.getElementById('form:color_livePreview').innerHTML=''; return false;"
+			resizable="false" styleClass="p21-modal-form" width="560" responsive="true">
+			<p:panelGrid id="pgHeader" columns="2"
+				columnClasses="ui-grid-col-3 ZeroPaddingLeft ZeroPaddingRigth, ui-grid-col-9 ZeroPaddingLeft ZeroPaddingRigth"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel for="descripcion" value="#{msg.lbl_descripcion_enc}" />
+				<p:textEditor id="descripcion" styleClass="p21-input-text-editor" secure="false"
+							  value="#{encabezadoBean.encabezadoSelect.descripcion_encabezado}" validator="#{encabezadoBean.isLengthValid}"  height="200">
+					<f:facet name="toolbar">
+						<span class="ql-formats">
+							<button class="ql-bold"></button>
+							<button class="ql-italic"></button>
+							<button class="ql-underline"></button>
+							<button class="ql-strike"></button>
+							<button class="ql-list" value="ordered"></button>
+							<button class="ql-list" value="bullet"></button>
+							<button class="ql-link"></button>
+							<button class="ql-clean"></button>
+						</span>
+						<span class="ql-formats"> 
+							<select class="ql-color" /> 
+							<select class="ql-background" />
+						</span>
+						<span class="ql-formats">
+						<select class="ql-font"></select>
+							<select class="ql-size"></select>
+						</span>
+					</f:facet>
+				</p:textEditor>
+				<p:outputLabel for="enlace" value="#{msg.lbl_enlace_enc}" />
+				<p:inputTextarea id="enlace" styleClass="p21-input-text-area"
+					value="#{encabezadoBean.encabezadoSelect.link_encabezado}"/>
+				<p:outputLabel for="color" value="#{msg.lbl_color}" />
+				<p:colorPicker id="color"
+					value="#{encabezadoBean.encabezadoSelect.background}" mode="popup"
+					styleClass="p21-color-picker" />
+			</p:panelGrid>
+			<f:facet name="footer">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:commandButton value="#{msg.btn_cancelar}" class="p21-btn-cancel"
+							oncomplete="PF('dialogHeader').hide();" process="@this">
+						</p:commandButton>
+						<p:commandButton value="#{msg.actualizar}" class="p21-btn-save"
+							oncomplete="PF('dialogHeader').hide()"
+							actionListener="#{encabezadoBean.guardarEncabezado(encabezadoBean.encabezadoSelect)}"
+							update="dtEncabezado :formDialog:grMessages"
+							process="@this pgHeader" partialSubmit="true" />
+					</div>
+				</div>
+			</f:facet>
+
+		</p:dialog>
+		
+		<style>
+			.p21-modal-form .ui-dialog-titlebar {
+		    height: 51px;
+		    box-sizing: border-box;
+		    font-size: 16px !important;
+		    display: block;
+		    align-items: center;
+		    width: 100%;
+		    padding: 18px 10px !important;
+		    border-bottom: solid 1px rgba(189, 189, 189, 0.5) !important;
+		    margin-bottom: 0px !important;
+			}
+			
+			.p21-modal-form .ui-dialog-titlebar-icon .ui-icon-closethick {
+			    background-image: none !important;
+			    background-position: 0px 0px !important;
+			}
+			
+		</style>
+	
+</ui:composition>

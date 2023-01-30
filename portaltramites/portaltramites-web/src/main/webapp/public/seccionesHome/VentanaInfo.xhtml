@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<style>
+		@media screen and (max-width: 640px) {
+			.alinear-texto{
+				text-align: left;
+			}
+		}
+		
+		@media screen and (min-width: 641px) {
+			.alinear-texto{
+				text-align: right;
+			}
+		}	
+		
+		.ui-panel .ui-panel-content {	
+			border: none !important;	    
+		    background: transparent !important;
+		    padding: 0px !important;	   
+		}
+		
+		.ui-widget-header {
+			background: none !important;
+			border: none;
+		}
+		
+		.ui-state-default, .ui-widget-content .ui-state-default,
+			.ui-widget-header .ui-state-default {
+			border: none;
+			background: none;
+		}
+		
+		.ui-panel .ui-panel-titlebar {
+		    padding: 6px 0px 0px !important;
+		    height: 0px;
+		    border: none !important;
+		}
+		
+		.derecha {
+			text-align: right;
+		}
+		
+		.izquierda {
+		}
+		.alinear-texto{                  
+			place-self: center;
+		}
+		
+		#ventana-info_header .ui-panel-title{                   
+			display: none;
+		}
+		
+		body .ui-panelgrid .ui-panelgrid-cell{
+			background: transparent;
+		}
+		
+		formHeader:j_idt30{
+			background: red !important;
+		}
+		
+		.ui-panel .ui-panel-titlebar-icon, .ui-panel .ui-panel-titlebar-icon:hover, .ui-panel .ui-panel-titlebar-icon:focus{                                       
+			height: 14px;
+		
+		}
+		
+		
+	</style>
+
+	<p:panel  styleClass="ventana-header" style="background-color: #{notificacionesBean.detEncabezadoDTO.background} !important; margin-left: auto; max-width: 100%; margin-right: auto; box-shadow: 0px 2.66667px 3.55556px 1.77778px rgba(0, 0, 0, 0.15) !important;" rendered="#{notificacionesBean.mostrarNotificacion and notificacionesBean.detEncabezadoDTO.situacion}">	
+	  <p:panel id="ventana-info" header="" closable="true" closeSpeed="500" class="ZeroPadding" style="background-color: #{notificacionesBean.detEncabezadoDTO.background} !important; margin-left: auto; margin-right: auto; max-width: 1280px;" styleClass="ventana-header" rendered="#{notificacionesBean.mostrarNotificacion and notificacionesBean.detEncabezadoDTO.situacion}">
+		<p:ajax event="close" listener="#{notificacionesBean.onClose}" update="ventana-info"/>	
+		<div class="grid-box ZeroPadding grid" style="margin-left: auto; max-width: 1280px; margin-right: auto; background-color: #0000 !important;" >
+			<div class="col-1"></div>
+				<div class="col-10 ZeroPadding" style="background: transparent;">
+			
+					<p:panelGrid id="pnlventana" columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding"
+						columnClasses="ui-xl-11 ui-lg-10 ui-g-10 ui-md-10 ui-sm-12 ZeroPadding-Left ZeroPadding-Right transparente, ui-xl-1 ui-lg-2 ui-g-2 ui-md-2 ui-sm-12 ZeroPadding-Left ZeroPadding-Right alinear-texto"
+						style="background-color: #0000 !important; padding-bottom: 5px !important;">
+						
+						<h:outputLabel value="#{notificacionesBean.detEncabezadoDTO.descripcion_encabezado}" styleClass="" 
+							style="font-size: 14px; font-family: Inter; font-weight: normal; font-stretch: normal; font-style: normal; line-height: normal; letter-spacing: normal; text-align: left; display: flex; background: transparent !important;"
+							escape="false"/>
+								  
+						<p:link href="#{notificacionesBean.detEncabezadoDTO.link_encabezado}" value="Ver más" immediate="true" target="_blank" 
+							style="font-family: Inter;
+								  font-size: 13px;
+								  font-weight: bold;
+								  font-stretch: normal;
+								  font-style: normal;
+								  line-height: normal;
+								  letter-spacing: normal;
+								  text-align: center;
+								  color: rgba(0, 0, 0, 0.62);
+								  padding: 6px 9px;
+								  border-radius: 6px;
+								  border: solid;
+								  border-width: thin; 
+								  text-decoration: solid;">
+						</p:link>
+					</p:panelGrid>
+				</div>
+			<div class="col-1"></div>
+		</div>
+	  </p:panel>
+	</p:panel>
+</ui:composition>

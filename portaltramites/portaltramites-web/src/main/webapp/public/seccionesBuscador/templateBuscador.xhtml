@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+>
+<style>
+
+
+	body .ui-button.ui-state-hover {
+	    background: #ffffff;
+	    border-color: #ffffff;
+	    color: #ffffff;
+	}
+
+	.cerrarResponsiveImg {
+		background-image: url(/resources/img/cerrarcolor.svg) !important;
+		background-size: cover;
+	}
+
+	.sizeuiicon>span{
+		width: 24px !important;
+		height: 24px !important;
+	}
+
+	.closesizeuiicon>span{
+		width: 20px !important;
+		height: 20px !important;
+	}
+
+	.ui-paginator-pages {
+	    display: contents !important;
+	}
+	.ui-icon-seek-prev {
+	    background-image: url(/resources/img/arrow_negro2.svg) !important;
+	    position: sticky!important;
+	        background-size: 12px 12px !important;
+	}
+	.ui-icon-seek-next{
+		background-image: url(/resources/img/arrow_negro1.svg) !important;
+	    position: sticky!important;
+	        background-size: 12px 12px !important;
+	}
+	
+	.ui-datagrid .ui-paginator-bottom {
+	    width: fit-content !important;
+	    padding: 0px !important;
+	}
+	
+	body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    	background: #8B1232 !important;
+    	color: #ffffff !important;
+	}
+	body .ui-datagrid .ui-datagrid-content {
+	    background: none !important;
+	}
+	
+body .ui-chkbox .ui-chkbox-box {
+	border: 1px solid #8B1232 !important;
+	border-width: 2px !important;
+	background: #ffffff !important;
+	width: 1.5em !important;
+	height: 1.5em !important;
+	text-align: center !important;
+	position: relative !important;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+		box-shadow 0.2s !important;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-hover {
+	border-color: #8B1232 !important;
+	background: transparent !important;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-focus {
+	box-shadow: 0 0 0 0.2em #8B1232 !important;
+	outline: 0 none !important;
+}
+
+body .ui-chkbox .ui-chkbox-box.ui-state-active {
+	border-color: #8B1232 !important;
+	background: #8B1232 !important;
+	color: #ffffff !important;
+}
+.texto-salida{
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10.6615px;
+	line-height: 18px;
+	/* or 167% */
+	
+	display: contents;
+	align-items: center;
+	letter-spacing: 0.222115px;
+	
+	color: rgba(84, 84, 84, 0.87);
+}
+
+@media screen and (max-width: 580px) {
+	.ZeroPaddingRigth {
+		padding-right: 1rem!important;
+	}
+}
+@media screen and (min-width: 377px) and ( max-width : 640px) {
+	.ZeroPaddingRigth {
+		padding-right: 1rem !important;
+	}
+}
+
+@media screen and (min-width: 641px) and ( max-width: 767px) {
+	.ZeroPaddingRigth {
+		padding-right: 1rem !important;
+	}
+}
+
+@media screen and (min-width: 768px) and ( max-width : 10000px) {
+	.ZeroPaddingRigth {
+		padding-right: 0px !important;
+	}
+}
+
+@media screen and (min-width: 10001px) {
+	.ZeroPaddingRigth {
+		padding-right: 0px !important;
+	}
+}
+
+</style> 
+
+    <div class="grid grid-nogutter" style="background: rgba(0, 0, 0, 0.27) !important;border-radius: 22px;">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-3 adip-transparent ZeroPaddingRigth, ui-grid-col-9 adip-transparent" layout="grid"
+			styleClass="ui-panelgrid-blank ui-fluid">
+
+            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPaddingRigth styleBackgroundTransparent" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+            	<p:panelGrid id="pnlFiltroTramite" columns="1" columnClasses="ui-grid-col-12  ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" 
+		            style="text-align: left !important; border-radius: 6px !important; background: #ffffff !important; padding-top: 1.5rem !important;">
+
+					<p:outputLabel value="Filtros" styleClass="filtro-tramite-buscador" style="padding: 15px !important;"/>
+
+		            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+				        <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="border: 0px solid #F0F0F0 !important; box-shadow: 0px 4px 4px rgb(0 0 0 / 25%) !important; border-radius: 14.2154px !important;">
+		                    <p:repeat value="#{busquedaBean.lstEsTramiteServicio}" var="comentariosBD">
+		                        <p:panelGrid id="pnlRepeatSelect" columns="2" columnClasses="ui-grid-col-11 ZeroPadding,ui-grid-col-2 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="padding-top: 0px !important;padding-bottom: 0px !important;">
+						            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+			                            <p:outputLabel value="#{comentariosBD.descripcion}" styleClass="texto-salida" />
+			                        </p:panelGrid>
+						            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+										<p:commandButton id="btnSearch" icon="cerrarResponsiveImg"
+												actionListener="#{busquedaBean.buscarPorPalabra()}"
+												immediate="true"
+												partialSubmit="true"
+												styleClass="closesizeuiicon"
+											    style="float: right;"/>
+			                        </p:panelGrid>
+		                        </p:panelGrid>
+		                    </p:repeat>
+		                    <p:repeat value="#{busqueda.lstCatDependenciaDTO}" var="comentariosBD">
+		                        <p:panelGrid id="pnlRepeatSelect" columns="2" columnClasses="ui-grid-col-11 ZeroPadding,ui-grid-col-2 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="padding-top: 0px !important;padding-bottom: 0px !important;">
+						            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+			                            <p:outputLabel value="#{comentariosBD.nombreDependencia}" styleClass="texto-salida" />
+			                        </p:panelGrid>
+						            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+										<p:commandButton id="btnSearch" icon="cerrarResponsiveImg"
+												actionListener="#{busqueda.buscarPorPalabra()}"
+												immediate="true"
+												partialSubmit="true"
+												styleClass="closesizeuiicon"
+											    style="float: right;"/>
+			                        </p:panelGrid>
+		                        </p:panelGrid>
+		                    </p:repeat>
+		                    <p:repeat value="#{busqueda.lstCatMateriaDTO}" var="comentariosBD">
+		                        <p:panelGrid id="pnlRepeatSelect" columns="2" columnClasses="ui-grid-col-11 ZeroPadding,ui-grid-col-2 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="padding-top: 0px !important;padding-bottom: 0px !important;">
+						            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+			                            <p:outputLabel value="#{comentariosBD.descripcion}" styleClass="texto-salida" />
+			                        </p:panelGrid>
+						            <p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" >
+										<p:commandButton id="btnSearch" icon="cerrarResponsiveImg"
+												actionListener="#{busquedaBean.buscarPorPalabra()}"
+												immediate="true"
+												partialSubmit="true"
+												styleClass="closesizeuiicon"
+											    style="float: right;"/>
+			                        </p:panelGrid>
+		                        </p:panelGrid>
+		                    </p:repeat>
+			            </p:panelGrid>
+		            </p:panelGrid>
+
+					<p:outputLabel value="Clasificación" styleClass="filtro-tramite-buscador" style="padding: 15px !important;"/>
+		            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				        <p:selectCheckboxMenu id="menu" value="#{busquedaBean.selectedClasificacion}" label="Clasificación" style="width: 100% !important; border: 1px solid #D3D3D3 !important;"
+	                        filter="true" filterMatchMode="startsWith" panelStyle="width: auto !important" scrollHeight="250"
+	                        dynamic="true">
+				            <f:selectItems value="#{busquedaBean.lstEsTramiteServicio}" var="clasifica" itemValue="#{clasifica.id}" itemLabel="#{clasifica.descripcion}"/>
+				            <p:ajax listener="#{busquedaBean.checkSelectClasificacion()}" update="pnlFiltroTramite"/>
+				        </p:selectCheckboxMenu>
+		            </p:panelGrid>
+		            
+					<p:outputLabel value="Dependencia" styleClass="filtro-tramite-buscador" style="padding: 15px !important;"/>
+		            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				        <p:selectCheckboxMenu id="menuDependencia" value="#{busquedaBean.selectedDependencia}" label="Dependencia" style="width: 100% !important; border: 1px solid #D3D3D3 !important;"
+	                        filter="true" filterMatchMode="startsWith" panelStyle="width: auto !important" scrollHeight="250"
+	                        dynamic="true">
+				            <f:selectItems value="#{busquedaBean.lstAllCatDependenciaDTO}" var="dep" itemValue="#{dep.idDependencia}" itemLabel="#{dep.nombreDependencia}"/>
+				            <p:ajax listener="#{busquedaBean.checkSelectDependencia()}" update="pnlFiltroTramite"/>
+				        </p:selectCheckboxMenu>
+		            </p:panelGrid>
+
+					<p:outputLabel value="Tema" styleClass="filtro-tramite-buscador" style="padding: 15px !important;"/>
+		            <p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				        <p:selectCheckboxMenu id="menuTema" value="#{busquedaBean.selectedTema}" label="Tema" style="width: 100% !important; border: 1px solid #D3D3D3 !important;"
+	                        filter="true" filterMatchMode="startsWith" panelStyle="width: auto !important" scrollHeight="250"
+	                        dynamic="true">
+				            <f:selectItems value="#{busquedaBean.lstAllCatMateriaDTO}" var="tema" itemValue="#{tema.id}" itemLabel="#{tema.descripcion}"/>
+				            <p:ajax listener="#{busquedaBean.checkSelectTema()}" update="pnlFiltroTramite"/>
+				        </p:selectCheckboxMenu>
+		            </p:panelGrid>
+
+	            </p:panelGrid>
+            </p:panelGrid>
+
+            <p:dataGrid
+                columns="1"
+                rows="9"
+                value="#{busquedaBean.lstPortalTramitesFiltrada}"
+                styleClass="ui-datagrid-content ui-widget-content ui-grid ui-grid-responsive ZeroPadding"
+                style="text-align: -webkit-center;"
+                var="tram"
+                paginator="true"
+                paginatorPosition="bottom"
+                layout="grid"
+                emptyMessage="No se encontraron trámites"
+                flex="true"
+                rowIndexVar="rowIndex"
+                paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}"
+            >
+                <p:panelGrid id="pnlTarjetaTramite" columns="1" columnClasses="ui-grid-col-12  ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid rectangle-white" 
+                style="text-align: left !important; border: 3.55384px solid #BC955C !important; box-shadow: 0px 1.77692px 3.55384px rgba(0, 0, 0, 0.1) !important; border-radius: 4.4423px !important">
+                    <div style="padding-top: 15px;" />
+                       <p:outputLabel id="nombreTramite" value="* #{tram.nombreOficial}" styleClass="nombre-tramite-buscador" />
+                    <div style="padding-top: 15px;" />
+	                    <p:outputLabel value="#{tram.descripcionTramite}" styleClass="descripcion-tramite-buscador" />
+                    <div style="padding-top: 15px;" />
+    	                <p:commandLink value="Más información" styleClass="ver-mas-tramites-buscador" action="#{busquedaBean.detalleTramite(tram, false, 3)}" process="@this" style="padding-left: 1.5rem !important;"/>
+                    <div style="padding-top: 15px;" />
+                </p:panelGrid>
+            </p:dataGrid>
+		</p:panelGrid>
+    </div>
+</ui:composition>

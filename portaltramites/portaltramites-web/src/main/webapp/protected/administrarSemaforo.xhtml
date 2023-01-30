@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"	
+	>	
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 ui-md-12 ui-lg-12 fondo-gris zeroPadding " layout="grid" style="padding: 0% 0 0% 0; max-width: 1280px; margin: auto;"
+				styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding" rendered="true">
+		
+		<p:outputPanel style="background: #FFF; border-radius: 10px;" styleClass="fondo-gris zeroPadding">
+			
+			<p:dataTable id="dtSemaforo" value="#{semaforoBean.listSemaforoDTO}" var="semaforo" lazy="true" styleClass="dt-tramites" reflow="true" rows="1">									
+								
+				<f:facet name="header">
+	                <p:outputLabel value="#{msg.titulo_menu_semaforo}" style="font-size: 21px; font-weight: 700; color: #4E4E4E;"/>
+	            </f:facet>							
+				
+				<p:column headerText="#{msg.lbl_nombre_semaforo}" width="40%" styleClass="adip-lbl-titulos-tabla">
+						<p:outputLabel value="#{semaforo.nombre}" escape="false"  style="text-align-last: initial;"/>							
+				</p:column>				
+				<p:column headerText="#{msg.lbl_color}" width="40%" styleClass="adip-lbl-titulos-tabla">									
+						<div style="background:#{semaforo.color} !important; height: 30px !important;" />								
+				</p:column>						
+				<p:column headerText="#{msg.lbl_accion}" width="20%" styleClass="adip-lbl-titulos-tabla">					
+					<p:commandLink value="#{msg.editar}" title="Modificar" process="@this" oncomplete="PF('dialogSemaforo').show();" update="form:dialogSemaforo" actionListener="#{semaforoBean.editarSemaforo(semaforo)}" styleClass="adip-lbl-campos-tabla"/>
+				</p:column>
+			</p:dataTable>								
+		</p:outputPanel>
+	</p:panelGrid>			
+	
+	<p:dialog id="dialogSemaforo" widgetVar="dialogSemaforo" modal="true"
+			showEffect="fade" hideEffect="fade" header="Editar registro"
+			resizable="false" styleClass="p21-modal-form" dynamic="true" style="overflow-y: hidden !important;">
+			<p:panelGrid id="pgSemaforo" columns="2"
+				columnClasses="ui-grid-col-4 ZeroPaddingLeft ZeroPaddingRigth, ui-grid-col-6 ZeroPaddingLeft ZeroPaddingRigth"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				
+				<p:outputLabel for="nombre" value="Nombre" />
+				<p:inputText id="nombre"
+					value="#{semaforoBean.semaforoDTOSelect.nombre}"
+					styleClass="p21-input-text" />
+				<p:outputLabel for="color" value="Color" />
+				<p:colorPicker id="color"
+					value="#{semaforoBean.semaforoDTOSelect.color}" mode="popup"
+					styleClass="p21-color-picker" />
+			</p:panelGrid>
+			<f:facet name="footer">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:commandButton value="Cancelar" class="p21-btn-cancel"
+							oncomplete="PF('dialogSemaforo').hide()">
+						</p:commandButton>
+						<p:commandButton value="Guardar" class="p21-btn-save"
+							oncomplete="PF('dialogSemaforo').hide()"
+							actionListener="#{semaforoBean.guardaSemaforoEp(semaforoBean.semaforoDTOSelect)}"
+							update="dtSemaforo :formDialog:grMessages" process="@this pgSemaforo" partialSubmit="true"/>
+					</div>
+				</div>
+			</f:facet>
+
+		</p:dialog>
+		
+		<style>
+			.p21-modal-form .ui-dialog-titlebar {
+		    height: 51px;
+		    box-sizing: border-box;
+		    font-size: 16px !important;
+		    display: block;
+		    align-items: center;
+		    width: 100%;
+		    padding: 18px 10px !important;
+		    border-bottom: solid 1px rgba(189, 189, 189, 0.5) !important;
+		    margin-bottom: 0px !important;
+			}			
+			.p21-modal-form .ui-dialog-titlebar-icon .ui-icon-closethick {
+			    background-image: none !important;
+			    background-position: 0px 0px !important;
+			}			
+		</style>
+	
+</ui:composition>

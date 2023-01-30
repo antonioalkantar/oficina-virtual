@@ -1,0 +1,346 @@
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets" 
+	  xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>
+        <title>CDMX - Trámites y Servicios</title>
+        <meta name="description" content="Portal de la Ciudad de México donde podrás consultar el listado de trámites, servicios y programas sociales disponibles" />
+  		<meta name="keywords" content="CDMX, Trámites, Servicios, Ciudad de México" />
+  		
+        <!-- La vista de compatibilidad le permite al usuario o al navegador establecer el modo de compatibilidad, por defecto  -->
+        <!-- IE=edge significa que IE debe usar la última versión (edge) de su motor de renderizado -->
+        <!-- chrome=1 significa que IE debe usar el motor de renderizado Chrome si está instalado -->
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+
+        <!-- Indica al servidor que el contenido de la pagina es codigo HTML y su codificacion de caracteres es UTF-8 -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <!--  Con la siguiente línea se renderiza la pantalla de acuerdo al tamaño del dispositivo que la abra -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        
+        <!-- Facebook Meta Tags -->
+		<meta property="og:url" content="https://www.cdmx.gob.mx"/>
+		<meta property="og:type" content="website"/>
+		<meta property="og:title" content="CDMX - Portal de Trámites y Servicios"/>
+		<meta property="og:description" content="Portal de la Ciudad de México donde podrás consultar el listado de trámites, servicios y programas sociales disponibles"/>
+		<meta property="og:image" content="https://cdmx.gob.mx/resources/img/img_redes.png"/>
+		<meta property="og:image:height" content="734"/>
+		<meta property="og:image:width" content="907"/>
+		<meta property="og:image:type" content="image/png"/>
+		
+		<!-- Twitter Meta Tags -->
+		<meta property="twitter:url" content="https://www.cdmx.gob.mx"/>
+		<meta name="twitter:title" content="CDMX - Portal de Trámites y Servicios"/>
+		<meta name="twitter:description" content="Portal de la Ciudad de México donde podrás consultar el listado de trámites, servicios y programas sociales disponibles"/>
+		<meta name="twitter:image" content="https://cdmx.gob.mx/resources/img/img_redes.png"/>
+		
+		<!-- Meta Tags par robots -->
+		<meta name="robots" content="#{configurationBean.parametroMetaRobots()}" />
+
+        <!-- Agrega el ícono con el cual se identifica el sistema en las pestañas de los navegadores web -->
+        <link rel="shortcut icon" type="image/svg" href="#{request.contextPath}/resources/img/logotipo.png" />
+        
+        <!--  Se agrega fuente Inter -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" /> 
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/> 
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+
+        <!-- El proyecto de grafica base requiere JQuery para cargar header y footer, pero dado que en este proyecto ocupamos 
+ 	primefaces debemos de reutilizar la que ya trae embebida (v.3.2.1) sino puede causar conflictos -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <!--  	No se puede agregar una versión especifica de JQuery porque primefaces ya incluye una y se tendrían problemas   -->
+        <!--    	<script src="https://code.jquery.com/jquery-3.3.1.js" -->
+        <!-- 			  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" -->
+        <!-- 			  crossorigin="anonymous"> -->
+        <!-- 	</script> -->
+
+        <!-- Se agrega el javascript que carga las leyendas de Primefaces en el idioma español de México es_MX. Busca el archivo indicado dentro de resources la carpeta js. -->
+        <h:outputScript library="js" name="primefaces_locale.js" />
+
+        <!-- Se agrega el javascript que contiene las funciones para validar el tipo de caracteres de entrada-->
+        <h:outputScript library="js" name="validacion_caracteres.js" />
+
+        <!-- Javascript que bloquea al usuario el poder utilizar el botón atrás del navegador web -->
+<!--         <h:outputScript library="js" name="noBack.js" target="head" /> -->
+
+        <!-- Javascript que hace que el header se mantenga visible cuando se hace un scroll hacia abajo. Depende del DIV con ID Header y de la hoja de estilos adip-header.css-->
+        <!-- 	<h:outputScript library="js" name="onScrollHeader.js" target="body" /> -->
+
+        <h:outputStylesheet name="css/adip-header.css" />
+
+        <h:outputStylesheet name="css/adip-footer.css" />
+
+        <h:outputStylesheet name="css/adip-componentes.css" />
+
+        <h:outputStylesheet name="css/primeflex.css" />
+        
+        <h:outputStylesheet name="css/primefaces-personalizado.css" />
+        
+		<h:outputStylesheet name="css/indicadores.css" />
+		
+<!-- 		 <h:outputStylesheet name="css/estilosbuscador.css" /> -->
+		 
+		 <h:outputStylesheet name="css/detalle-tramite.css" />
+		 
+		
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async="true" src="https://www.googletagmanager.com/gtag/js?id=G-7BLKQFST12"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'G-7BLKQFST12');
+		</script>
+
+	</h:head>
+    <h:body>
+        <div id="page-container" >        
+			
+			<ui:include src="/WEB-INF/templates/components/header-miOficina.xhtml"/>
+		
+		<div id="content-wrap" class="img-background" style="background-image: url(/resources/img/fondo_santiago_arau.svg)">
+		<div id="content-wrap" >
+		     <!-- all other page content -->            
+		
+				<div id="messages_div" style="text-align: left;">
+                    <p:messages id="messages" showDetail="true" closable="true" globalOnly="false">
+                        <p:autoUpdate />
+                    </p:messages>
+                </div>
+<!--                 <div style="background: rgba(0, 0, 0, 0.1) !important"> -->
+<!--                     <ui:insert name="widget-oficina"></ui:insert> -->
+<!--                 </div>   -->
+<!--              	<div style="background: rgba(0, 0, 0, 0.1) !important"> -->
+<!--                     <ui:insert name="header-buscador"> -->
+<!--                     </ui:insert> -->
+<!--                 </div> -->
+             	<div style="margin-left: auto; margin-right: auto; max-width: 1280px;" class="custom-width-oficina">
+                <ui:insert name="content">
+                    [Template content will be inserted here]
+                </ui:insert>
+               	</div>
+		   </div>
+		   </div>
+		   
+		   <ui:include src="/WEB-INF/templates/components/footer.xhtml" />
+		 
+		</div>
+
+	<p:ajaxStatus id="loader" onstart="PF('statusDialog').show()"
+	onsuccess="PF('statusDialog').hide()"	/>
+<!-- 		 -->
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false"
+		header="Procesando..." styleClass="p-0"
+		style="overflow-y:hidden !important; width: 60px !important; ">
+		
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid"
+			styleClass="centro p-0" style="max-height: 104px;   overflow: hidden;">
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid"
+				styleClass="p-0">				
+				<p:graphicImage value="/resources/img/loadingCDMX.gif" width="80px"
+					height="92px" styleClass="pt-0 pb-0 mr-5 ml-5 "/>
+				<p:outputLabel value="Procesando..."
+					style="text-align:center; top: -18px;	position: relative; color: #1A6058;"
+					styleClass="adip-output-campos-dialog-green" />
+			</p:panelGrid>
+		</p:panelGrid>
+	</p:dialog>
+	<style>
+* {
+	font-family: 'Inter' !important;
+}
+
+* {
+	box-shadow: none !important;
+}
+
+.ventana-header>#ventana-info_header>#ventana-info_closer>span.ui-icon.ui-icon-closethick
+	{
+	background-image: url(/resources/img/close2.svg);
+	background-size: 20px 21px !important;
+	background-position: 0 !important;
+	position: relative;
+	top: 25px !important;
+	width: 20px !important;
+	height: 24px !important;
+	left: -130% !important;
+}
+
+#page-container {
+	position: relative;
+	min-height: 100vh;
+	overflow-x: hidden !important;
+}
+
+#content-wrap {
+	padding-bottom: 0rem; /* Footer height */
+}
+
+#footer {
+	/*position: absolute; */
+	bottom: 0;
+	width: 100%;
+	/* height: 1.5rem;  Footer height */
+	background-color: #00312d !important;
+}
+
+#header {
+	background: transparent !important;
+	background-color: transparent !important;
+	position: relative;
+	top: 0;
+	width: 100%;
+}
+
+.adjustContent {
+	margin-left: auto;
+	max-width: 1280px;
+	margin-right: auto;
+	background-size: 100%;
+	background-position-y: 30%;
+	display: grid !important;
+}
+
+.img-background {
+	/* 			background-image: linear-gradient( */
+	/* 							      rgba(0, 0, 0, 0.5), */
+	/* 							      rgba(0, 0, 0, 0.5) */
+	/* 							    ),url(/resources/img/fondo-portal.jpg); */
+	/* 			background-image: linear-gradient( rgb(0 0 0 / 0%), rgb(0 0 0 / 40%) ),url(/resources/img/fondo-portal.jpg); */
+	/* 			background-image: url('background-image: url('https://es.rankiapro.com/wp-content/uploads/2019/08/fondo-tecnologico-preferido-selectores.jpg');'); */
+	/*  			background-image: url(/resources/img/fondo-portal.jpg);  */
+	margin-left: auto;
+	max-width: 100%;
+	margin-right: auto;
+	height: 100%;
+	background-size: cover;
+	background-position-y: 60%;
+}
+
+.colorgreen {
+	background-color: #00312d !important;
+	margin-left: auto;
+	max-width: 1440px;
+	margin-right: auto;
+}
+
+.texto-corto-anuncios {
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+	overflow: hidden;
+}
+
+.texto-corto-anuncios-mobile {
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+	overflow: hidden;
+}
+
+.ui-g .ui-panelgrid-cell {
+	flex-wrap: initial;
+	place-items: center !important;
+	background-color: transparent;
+}
+
+.menu-header {
+	display: flex;
+	justify-content: left;
+	text-underline-position: under;
+}
+
+.menu-header:hover {
+	text-decoration: none;
+}
+
+.menu-header-tags {
+	display: flex;
+	text-underline-position: under;
+	flex-direction: row-reverse;
+}
+
+.color-btn-buscar {
+	background: #BC955C !important;
+	border-radius: 21px;
+	width: 45px;
+	height: 42px;
+	margin-top: 0px !important;
+	margin-right: 20px !important;
+	float: left;
+	border: none !important;
+}
+
+.color-btn-buscarR {
+	background: #BC955C !important;
+	border-radius: 21px;
+	width: 45px;
+	height: 42px;
+	margin-top: 0px !important;
+	margin-right: 0px !important;
+	float: left;
+	border: none !important;
+}
+
+.color-btn-buscar-false {
+	background: #AAAAAA !important;
+	border-radius: 21px;
+	width: 45px;
+	height: 42px;
+	margin-top: 0px !important;
+	margin-right: 20px !important;
+	float: left;
+	border: none !important;
+}
+
+.color-btn-buscarR-false {
+	background: #AAAAAA !important;
+	border-radius: 21px;
+	width: 45px;
+	height: 42px;
+	margin-top: 0px !important;
+	margin-right: 0px !important;
+	float: left;
+	border: none !important;
+}
+
+.centro {
+	text-align-last: center !important;
+}
+
+.panel-estatus {
+	height: 267px !important;
+	max-height: 400px !important;
+}
+
+@media ( max-width : 640px) {
+	.ui-panelgrid .ui-grid-responsive .ui-grid-row {
+		border-top: none !important;
+		/* 			    display: flex !important; */
+	}
+}
+</style>
+
+</h:body>
+</html>

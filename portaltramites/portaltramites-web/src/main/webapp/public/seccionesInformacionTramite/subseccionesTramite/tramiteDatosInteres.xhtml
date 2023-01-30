@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:c="http://java.sun.com/jstl/core">
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-bg-white">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+
+			<p:accordionPanel style="width: -webkit-fill-available;" activeIndex="" styleClass="adip-accordion">
+				<p:tab title="#{msg.lbl_datos_interes_oracion}">
+					<div class="grid grid-nogutter pt-3 pb-1 pl-3">
+						<!-- 						<ol> -->
+						<!-- 							<li class="li-spacing"> -->
+						<h:outputText value="1. Tipo de Ficta que procede: #{detalleTramiteBean.detalleTramiteServicioDTO.tipoFicta}" styleClass="adip-requisitos"
+							rendered="#{not detalleTramiteBean.tramiteSeleccionado.tieneModalidades}" />
+						<h:outputText value="1. Tipo de Ficta que procede: #{detalleTramiteBean.modalidadesTramiteServicioDTO.tipoFictaModalidad}" styleClass="adip-requisitos"
+							rendered="#{detalleTramiteBean.modalidadesTramiteServicioDTO ne null and detalleTramiteBean.tramiteSeleccionado.tieneModalidades}" />
+						<!-- 									</li> -->
+						<!-- 						</ol> -->
+					</div>
+					<div class="grid grid-nogutter pt-3 pb-3">
+						<div class="col-12 pb-3">
+							<h:outputText value="#{msg.lbl_informacion_util}"
+								styleClass="adip-output-encabezado" />
+						</div>
+						<div class="col-12">
+							<h:outputText value="#{msg.lbl_sin_informacion}." styleClass="adip-requisitos pb-2" style="word-break: break-word;"
+								rendered="#{detalleTramiteBean.detalleTramiteServicioDTO.informacionUtil eq null or empty detalleTramiteBean.detalleTramiteServicioDTO.informacionUtil}" />
+							<h:outputText value="#{detalleTramiteBean.detalleTramiteServicioDTO.informacionUtil}"
+								rendered="#{detalleTramiteBean.detalleTramiteServicioDTO.informacionUtil ne null and not empty detalleTramiteBean.detalleTramiteServicioDTO.informacionUtil}"
+								styleClass="adip-requisitos pb-2" style="word-break: break-word;" />
+						</div>
+
+					</div>
+					<div class="grid grid-nogutter pt-3 pb-3">
+						<div class="col-12">
+							<h:outputText value="#{msg.lbl_duracion_respuesta}"
+								styleClass="adip-output-encabezado" />
+						</div>
+
+						<div class="col-12 pl-3 pt-2 pb-2">
+
+							<h:outputText rendered="#{detalleTramiteBean.detalleTramiteServicioDTO.esResolucionInmediata}" value="Resolución inmediata." styleClass="adip-requisitos adip-icon-list"
+								style="padding: 0px 0px 0px 20px;" />
+							<h:outputText rendered="#{not detalleTramiteBean.detalleTramiteServicioDTO.esResolucionInmediata}"
+								value="#{detalleTramiteBean.detalleTramiteServicioDTO.plazoResolver} #{detalleTramiteBean.detalleTramiteServicioDTO.descripcionUnidadPlazo}"
+								styleClass="adip-requisitos adip-icon-list" style="padding: 0px 0px 0px 20px;" />
+
+
+						</div>
+						<div class="col-12 pl-5" style="padding-left: 0px !important;">
+							<div class="flex justify-content-start flex-wrap adip-container-grey">
+								<div class="flex align-items-center justify-content-center  p-3">
+									<p:outputLabel value="#{msg.lbl_datos_interes_alert}" class="adip-output-panel-grey" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</p:tab>
+			</p:accordionPanel>
+
+		</p:panelGrid>
+	</p:panelGrid>
+
+</ui:composition>

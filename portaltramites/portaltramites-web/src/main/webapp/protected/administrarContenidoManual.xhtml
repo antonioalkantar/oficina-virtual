@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<p:panelGrid columns="1"
+		columnClasses="ui-g-12 ui-md-12 ui-lg-12 fondo-gris zeroPadding "
+		layout="grid"
+		style="padding: 0% 0 0% 0; max-width: 1280px; margin: auto;"
+		styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding"
+		rendered="true">
+		
+		<p:outputPanel style="background: #FFF; border-radius: 10px;" styleClass="fondo-gris zeroPadding">
+
+			<p:panelGrid columns="3" columnClasses="ui-g-12 ui-md-4 ui-lg-4 fondo-gris, ui-g-12 ui-md-4 ui-lg-4 fondo-gris,  ui-g-12 ui-md-4 ui-lg-4 fondo-gris"
+						 layout="grid" styleClass="ui-panel-sin-pading center">
+
+				<p:inputText id="txtTitulo" value="#{contenidoManualBean.filtroTitulo}" placeholder="#{msg.lbl_titulo}" styleClass="campos-captura" maxlength="20" />
+
+				<p:selectOneMenu id="slOneEstatus" value="#{contenidoManualBean.filtroEstatus}"  class="adip-selectonemenu" panelStyleClass="adip-selectonemenu-panel">
+					<f:selectItem itemLabel="#{msg.plh_estatus}" noSelectionOption="true" />
+					<f:selectItem itemLabel="#{msg.lbl_activo}" itemValue="true"/>
+					<f:selectItem itemLabel="#{msg.lbl_inactivo}" itemValue="false"/>
+				</p:selectOneMenu>
+
+				<p:commandButton id="btnBuscar" value="#{msg.buscar}" action="#{contenidoManualBean.buscarCriterios()}" update=":form:pnlContenido" partialSubmit="true" 
+						         process="@this txtTitulo slOneEstatus"	styleClass="adip-btn-cafe" />
+
+				<p:column />
+				<p:column />
+				<p:commandButton id="btnNuevoCont"  process="@this" title="Agregar Contenido" value="#{msg.lbl_nuevo_contenido}"
+								 oncomplete="PF('dialogContenido').show();" update="form:dialogContenido" actionListener="#{contenidoManualBean.agregarNuevoContenido()}"
+								 styleClass="adip-btn-cafe" style="float: right;" />
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:panelGrid>
+
+	<p:dataTable id="dtContenido" value="#{contenidoManualBean.lstContManual}" var="contenidos" lazy="true" styleClass="dt-tramites" reflow="true"
+		rows="8" paginator="true" paginatorPosition="bottom"
+		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+		currentPageReportTemplate="Mostrados {startRecord}-{endRecord} de {totalRecords} resultados">
+
+		<f:facet name="header">
+			<p:outputLabel value="#{msg.titulo_menu_contenido_manual}" style="font-size: 21px; font-weight: 700; color: #4E4E4E;" />
+		</f:facet>
+
+		<p:column headerText="#{msg.lbl_titulo}" width="20%" styleClass="adip-lbl-titulos-tabla">
+				<p:outputLabel value="#{contenidos.titulo}" style="font-weight: 600; color: #4E4E4E;"/>
+		</p:column>
+		<p:column headerText="#{msg.lbl_dependencia}" width="20%" styleClass="adip-lbl-titulos-tabla">			
+				<p:outputLabel value="#{contenidos.catDependenciasDTO.nombreDependencia}" styleClass="adip-lbl-campos-tabla"/>
+		</p:column>
+		<p:column headerText="#{msg.lbl_tags}" styleClass="adip-lbl-titulos-tabla">
+			<p:outputLabel value="#{contenidos.palabrasClave}" styleClass="adip-lbl-campos-tabla"/>
+		</p:column>
+		<p:column headerText="#{msg.plh_estatus}" width="10%" styleClass="adip-lbl-titulos-tabla">	
+			<p:outputLabel value="#{contenidos.activo ? msg.lbl_activo : msg.lbl_inactivo }"  styleClass="adip-lbl-campos-tabla" />	
+		</p:column>
+		<p:column headerText="#{msg.lbl_accion}" width="30 %" styleClass="adip-lbl-titulos-tabla">
+			<p:commandLink value="#{contenidos.activo ? 'Desactivar/' : 'Activar/'}" action="#{contenidoManualBean.activoInactivo(contenidos)}" immediate="true" update="dtContenido" styleClass="adip-lbl-campos-tabla"/>
+			<p:commandLink value="Eliminar/" action="#{contenidoManualBean.removerContenido(contenidos)}" immediate="true" update="dtContenido" styleClass="adip-lbl-campos-tabla">
+				<p:confirm header="Eliminar"
+						   message="Está seguro que desea eliminar el Contenido manual"
+						   icon="ui-icon-alert" />
+			</p:commandLink>
+			<p:commandLink value="#{msg.editar}" title="Modificar" process="@this" oncomplete="PF('dialogContenido').show();" update="form:dialogContenido"  actionListener="#{contenidoManualBean.verModificarContenido(contenidos)}" styleClass="adip-lbl-campos-tabla"/>
+		</p:column>
+	</p:dataTable>
+	
+	<p:dialog id="dialogContenido" widgetVar="dialogContenido" modal="true" style="min-width: 1000px !important;"
+			  showEffect="fade" hideEffect="fade" header="#{contenidoManualBean.lblTitulo} Contenido"
+			  resizable="false" styleClass="p21-modal-form" dynamic="true">
+		
+		<p:panelGrid id="pnlDContenido" columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading zeroPadding">
+			
+			<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-4 ui-lg-3, ZeroPaddingLeft ui-g-12 ui-md-4 ui-lg-4, ui-g-12 ui-md-4 ui-lg-2 ZeroPaddingRigth, ui-g-12 ui-md-4 ui-lg-3"
+						 layout="grid" styleClass="ui-panel-sin-pading center zeroPadding">
+				
+				<p:outputLabel value="#{msg.lbl_titulo}:" for="txtTituloCont"/>		
+				<p:inputText id="txtTituloCont" value="#{contenidoManualBean.contenidoManualDTO.titulo}" required="true" requiredMessage="#{msg.msj_campo_requerido}" maxlength="100" placeholder="Ingresa título" styleClass="p21-input-text" />
+								
+				<p:outputLabel value="#{msg.plh_estatus}:" for="slOneEstatusD"/>
+				<p:selectOneMenu id="slOneEstatusD" value="#{contenidoManualBean.contenidoManualDTO.activo}" required="true" requiredMessage="#{msg.msj_campo_requerido}" class="adip-selectonemenu" panelStyleClass="adip-selectonemenu-panel">
+					<f:selectItem itemLabel="#{msg.plh_estatus}" noSelectionOption="true" />
+					<f:selectItem itemLabel="#{msg.lbl_activo}" itemValue="true" />
+					<f:selectItem itemLabel="#{msg.lbl_inactivo}" itemValue="false" />
+				</p:selectOneMenu>
+				
+				<p:column/>
+				<p:message for="txtTituloCont" style="width: 100%"> <p:autoUpdate/> </p:message>				
+				<p:column/>
+				<p:message for="slOneEstatusD" style="width: 100%"> <p:autoUpdate/> </p:message>
+				
+			</p:panelGrid>
+			
+			<p:panelGrid columns="2"
+					     columnClasses="ui-grid-col-3 ZeroPaddingLeft ZeroPaddingRigth, ui-grid-col-9 ZeroPaddingLeft ZeroPaddingRigth"
+						 layout="grid" styleClass="ui-panelgrid-blank ui-fluid zeroPadding">
+				<p:outputLabel value="#{msg.lbl_descipcion_corta}" for="txtDescCorta" />
+				<p:inputTextarea id="txtDescCorta" value="#{contenidoManualBean.contenidoManualDTO.descripcion}" required="true" requiredMessage="#{msg.msj_campo_requerido}" maxlength="500" styleClass="p21-input-text-area" />
+				<p:column/>
+				<p:message for="txtDescCorta" style="width: 100%"> <p:autoUpdate/> </p:message>								
+			</p:panelGrid>	
+			
+			
+			<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-4 ui-lg-3, ZeroPaddingLeft ui-g-12 ui-md-4 ui-lg-4, ui-g-12 ui-md-4 ui-lg-2 ZeroPaddingRigth, ui-g-12 ui-md-4 ui-lg-3"
+						 layout="grid" styleClass="ui-panel-sin-pading center zeroPadding">
+				
+				<p:outputLabel value="#{msg.lbl_dependencia}:" for="slOneDep"/>		 
+				<p:selectOneMenu id="slOneDep"  class="adip-selectonemenu" value="#{contenidoManualBean.contenidoManualDTO.catDependenciasDTO.idDependencia}" required="true" requiredMessage="#{msg.msj_campo_requerido}" panelStyleClass="adip-selectonemenu-panel">
+				          <f:selectItem itemLabel="#{msg.seleccionar}" noSelectionOption="true"/>
+				          <f:selectItems value="#{contenidoManualBean.lstDep}" var="dependencias" itemLabel="#{dependencias.nombreDependencia}" itemValue="#{dependencias.idDependencia}" />			          
+				</p:selectOneMenu>
+							
+				
+				<p:outputLabel value="#{msg.lbl_tema}" for="slOneTemaD"/>
+				<p:selectOneMenu id="slOneTemaD" value="#{contenidoManualBean.contenidoManualDTO.catTemaDTO.idCatTema}" required="true" requiredMessage="#{msg.msj_campo_requerido}" class="adip-selectonemenu" panelStyleClass="adip-selectonemenu-panel">
+					<f:selectItem itemLabel="#{msg.seleccionar}" noSelectionOption="true" />
+					<f:selectItems value="#{contenidoManualBean.lstTemas}" var="temas" itemLabel="#{temas.descripcion}" itemValue="#{temas.idCatTema}"/>
+				</p:selectOneMenu>
+				
+				
+				<p:column/>
+				<p:message for="slOneDep" style="width: 100%"> <p:autoUpdate/> </p:message>		
+				<p:column/>
+				<p:message for="slOneTemaD" style="width: 100%"> <p:autoUpdate/> </p:message>				
+			
+			</p:panelGrid>			
+			
+			<p:panelGrid columns="2"
+					     columnClasses="ui-grid-col-3 ZeroPaddingLeft ZeroPaddingRigth, ui-grid-col-9 ZeroPaddingLeft ZeroPaddingRigth"
+						 layout="grid" styleClass="ui-panelgrid-blank ui-fluid zeroPadding">
+				
+				<p:outputLabel value="#{msg.lbl_tags_palabras_clave}" for="txtPalabrasClave" />
+				<p:inputTextarea id="txtPalabrasClave" value="#{contenidoManualBean.contenidoManualDTO.palabrasClave}" required="true" requiredMessage="#{msg.msj_campo_requerido}" maxlength="200" styleClass="p21-input-text-area" />	
+				<p:column/>
+				<p:message for="txtPalabrasClave" style="width: 100%"> <p:autoUpdate/> </p:message>	
+				
+				<p:outputLabel value="#{msg.lbl_url_destino}" for="txtUrlDest" />
+				<p:inputText id="txtUrlDest" value="#{contenidoManualBean.contenidoManualDTO.link}" required="true" 
+							 requiredMessage="#{msg.msj_campo_requerido}" validatorMessage="Ingrese una Url Valida"  placeholder="https://www.ejemplo.com"  maxlength="100" styleClass="p21-input-text">
+							 <f:validateRegex pattern="[(http(s)?):\/\/(www\.)?(ftp)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&amp;//=]*)" />
+				</p:inputText>	
+				<p:column/>
+				<p:message for="txtUrlDest" style="width: 100%"> <p:autoUpdate/> </p:message>							
+			</p:panelGrid>				
+
+		</p:panelGrid>	
+			<f:facet name="footer">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:commandButton value="#{msg.btn_cancelar}" class="p21-btn-cancel" actionListener="#{contenidoManualBean.init()}" update="form:dialogContenido pnlContenido"  process="@this" immediate="true" />		
+						<p:commandButton value="#{msg.guardar}" class="p21-btn-save" action="#{contenidoManualBean.guardarContenido()}" rendered="#{contenidoManualBean.lblTitulo == 'Nuevo'}" />						
+						<p:commandButton value="#{msg.actualizar}" class="p21-btn-save" action="#{contenidoManualBean.actualizarContenido()}" rendered="#{contenidoManualBean.lblTitulo =='Modificar'}" />
+					</div>
+				</div>
+			</f:facet>
+		
+		</p:dialog>
+	
+	<style>
+		.p21-modal-form .ui-dialog-titlebar {
+		    height: 51px;
+		    box-sizing: border-box;
+		    font-size: 16px !important;
+		    /* background-color: #f6f6f6 !important; */
+		    display: block;
+		    align-items: center;
+		    width: 100%;
+		    padding: 18px 10px !important;
+		    border-bottom: solid 1px rgba(189, 189, 189, 0.5) !important;
+		    margin-bottom: 0px !important;
+		}
+		
+		.p21-modal-form .ui-dialog-titlebar-icon .ui-icon-closethick {
+		    background-image: none !important;
+		    background-position: 0px 0px !important;
+		}
+			
+	</style>
+	
+</ui:composition>

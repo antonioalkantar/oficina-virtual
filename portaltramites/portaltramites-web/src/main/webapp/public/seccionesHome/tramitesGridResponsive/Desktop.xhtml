@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<div id="tramites-Desktop" style="padding:41px 0;">
+
+		<p:panelGrid id="pnlTarjetas" columns="2" columnClasses="ui-g-10-personal height-tarjetas p-0 pr-2 adip-tarjetas-fondo, ui-g-2-personal  p-0 pl-1 adip-line height-tarjetas adip-tarjetas-fondo" layout="grid"
+			styleClass="ui-panelgrid-blank ui-fluid " style="padding-top:4px;">
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-transparent" layout="grid" styleClass="ui-panel-sin-pading adip-tarjetas-fondo height100Porcent" style="">
+				<p:dataView id="dataTarjeta" var="tarjeta" value="#{homeSeccionesBean.lstAnuncios}" multiViewState="true" rows="8" layout="grid" styleClass="adip-dataView ">
+					<p:dataViewGridItem columns="4" >
+						<h:outputLink value="#{tarjeta.link}" target="_blank" style="text-decoration: none;">
+							<p:panelGrid id="tarjeta" columns="1" columnClasses="ui-grid-col-12 p-1 adip-transparent" layout="grid" style="background-color:transparent;">
+								<img class="icon-tramites" src="#{homeSeccionesBean.toBase64Img(tarjeta.imagen)}" style="width: 100%; height: 100px; border-radius: 6px;" />
+								<p:outputLabel value="#{tarjeta.titulo}" styleClass="adip-titulo-tarjeta texto-corto-anuncios" />
+								<p:outputLabel value="#{tarjeta.descripcion}" styleClass="adip-output-campos-tarjeta texto-corto-anuncios" />
+							</p:panelGrid>
+						</h:outputLink>
+					</p:dataViewGridItem>
+				</p:dataView>
+			</p:panelGrid>
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-transparent pb-1" layout="grid" styleClass="ui-panel-sin-pading adip-tarjetas-fondo height100Porcent">				
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:outputLabel value="Explora todos los" style="font-weight: 400 !important; font-size: 21px !important; color: #FFFFFF;" styleClass="p-0 ui-panel-sin-pading" escape="false"/>
+						<p:outputLabel value="#{msg.lbl_home_titulo_tramites_programas_desktop}" style=" font-size: 26px !important; color: #FFFFFF; font-weight: normal;" styleClass=" p-0" escape="false"/>				
+				</p:panelGrid>	
+				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(3)}">
+<!-- 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading pnlTarjetaMini background-prog-sociales">	 -->
+					<div id="contFlexConsulta" style="display: flex !important; justify-content: flex-start; align-items: center;" class="ui-panel-sin-pading pnlTarjetaMini background-prog-sociales">
+						<p:outputLabel value="#{homeBean.numProgramasSociales} Programas sociales" styleClass="adip-output-white-tram-serv  "  style="flex-basis: 115px; margin-left: 10px;"/>
+						<h:graphicImage url="/resources/img/btn-consultar.svg" style="margin:0 auto; width: 31px;" styleClass=""/>
+					</div>
+<!-- 					</p:panelGrid> -->
+				</p:commandLink>
+				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(1)}">
+					<div id="contFlexConsulta" style="display: flex !important; justify-content: flex-start; align-items: center;" class="ui-panel-sin-pading pnlTarjetaMini background-tramites">
+						<p:outputLabel value="575 Trámites" styleClass="adip-output-white-tram-serv  "  style="flex-basis: 115px; margin-left: 10px;"/>
+						<h:graphicImage url="/resources/img/btn-consultar.svg" style="margin:0 auto; width: 31px;" styleClass=""/>
+					</div>
+				</p:commandLink>			
+			</p:panelGrid>
+<!-- 			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-transparent" layout="grid" styleClass="ui-panel-sin-pading adip-tarjetas-fondo pt-4 pb-4"> -->
+<!-- 				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(0)}"> -->
+<!-- 					<p:outputLabel value="Busca otros #{homeBean.lstPortalTramitesBusquedaDTO.size()}..." styleClass="adip-titulo  adip-link " /> -->
+<!-- 				</p:commandLink> -->
+<!-- 				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(3)}"> -->
+<!-- 					<p:outputLabel value="Programas sociales" styleClass="adip-output-white  adip-link " /> -->
+<!-- 				</p:commandLink> -->
+<!-- 				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(1)}"> -->
+<!-- 					<p:outputLabel value="Trámites" styleClass="adip-output-white  adip-link " /> -->
+<!-- 				</p:commandLink> -->
+<!-- 				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(2)}"> -->
+<!-- 					<p:outputLabel value="Servicios Públicos" styleClass="adip-output-white  adip-link " /> -->
+<!-- 				</p:commandLink> -->
+<!-- 			</p:panelGrid> -->
+
+		</p:panelGrid>
+	</div>
+<!-- 	<p:repeat var="tooltipAnuncio" value="#{homeSeccionesBean.lstAnuncios}"> -->
+<!-- 		 <p:tooltip for="frmHome:dataTarjeta:#{homeSeccionesBean.lstAnuncios.indexOf(tooltipAnuncio)}:tarjeta" value="#{tooltipAnuncio.descripcion}"  -->
+<!-- 		 atPosition="top center" myPosition="bottom center"  -->
+<!-- 		 showEffect="clip" hideEffect="clip"  -->
+<!-- 		 styleClass="adip-tooltip"/>  -->
+<!-- 	</p:repeat> -->
+	
+</ui:composition>

@@ -1,0 +1,447 @@
+body .ui-panelgrid .ui-panelgrid-cell {
+	background: transparent !important;
+}
+
+.espaciohome1 {
+	padding-top: 10px;
+}
+
+.espaciohome2 {
+	padding-top: 0px;
+}
+
+.pdding14pxleft {
+	padding-left: 14px !important;
+}
+
+.ZeroPadding {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.ZeroPaddingLeft {
+	padding-left: 0px !important;
+}
+
+.ZeroPaddingRigth {
+	padding-right: 0px !important;
+}
+
+.buscarResponsiveImg {
+	background-image: url(/resources/img/ic_lupa_gris.svg) !important;
+	background-size: cover;
+}
+
+.ui-button-icon-only .ui-icon {
+	margin-left: -9px;
+}
+
+.ui-inputfiel {
+	border: none !important;
+	height: 58px !important;
+}
+
+.ui-autocomplete-input {
+	border: none !important;
+	height: 58px !important;
+}
+
+.sizeuiicon>span {
+	width: 20px !important;
+	height: 20px !important;
+	left: 40% !important;
+	top: 47% !important;
+}
+
+.nobordersearch>input {
+	border: none !important;
+	font-size: 22px !important;
+	font-weight: bold !important;
+	font-stretch: normal !important;
+	font-style: normal !important;
+	line-height: normal !important;
+	letter-spacing: normal !important;
+	text-align: left !important;
+	color: rgba(0, 0, 0, 0.47) !important;
+	padding-left: 20px;
+	height: 25px !important;
+}
+
+.ui-autocomplete-input {
+	border: none !important;
+}
+
+.panel-busqueda {
+	border-radius: 86.9px;
+	border-right: none !important;
+	box-shadow: 0 4px 44px -5px rgb(0 0 0/ 40%);
+	border-top-right-radius: unset;
+	border-bottom-right-radius: inherit;
+}
+
+.ui-autocomplete-item.ui-state-highlight {
+	background: #F0F0F0 !important;
+	color: black !important;
+	text-shadow: none !important;
+}
+
+.ui-autocomplete-list-item.ui-state-highlight {
+	background: #F0F0F0 !important;
+	color: black !important;
+	text-shadow: none !important;
+}
+
+.ui-autocomplete-emptyMessage {
+	background-color: white !important;
+	padding: 10px !important;
+	font-weight: 700 !important;
+	font-family: Inter !important;
+	line-height: 30px !important;
+	border-bottom-left-radius: 8px !important;
+	border-bottom-right-radius: 8px !important;
+}
+
+.autocompletado {
+	border-radius: 26.5px !important;
+	box-shadow: 0px 3.41603px 3.41603px rgba(0, 0, 0, 0.25) !important;
+	border: solid 4px #fff !important;
+	background-color: #ffffff !important;
+	height: 34px;
+}
+
+body .ui-autocomplete-panel .ui-autocomplete-items .ui-autocomplete-item
+	{
+	background-color: white !important;
+}
+
+.adip-btn-sesion {
+	background: #FFFFFF !important;
+	box-shadow: 0px 2.90457px 2.90457px rgba(0, 0, 0, 0.1) !important;
+	border-radius: 20.8042px !important;
+	width: 100%;
+	height: 37px;
+	max-width: 160px !important;
+	margin: 0px !important;
+	padding: 0px !important;
+	border: none !important;
+}
+
+.adip-btn-sesion .ui-button-text {
+	font-style: normal;
+	font-weight: 700 !important;
+	font-size: 14.3467px;
+	line-height: 17px !important;
+	display: grid;
+	align-items: center;
+	letter-spacing: -0.333767px;
+	color: #BC955C;
+	text-align: center;
+}
+
+.adip-icon-llave {
+	background-image: url(/resources/img/ic_llave_45.svg) !important;
+	width: 25px !important;
+	height: 35px !important;
+	top: 21% !important;
+	left: 0% !important;
+	background-size: cover;
+}
+
+.adip-fondo-tarjeta-sesion {
+	background: rgba(0, 0, 0, 0.3);
+	background-blend-mode: multiply;
+	border-radius: 16px;
+}
+
+.adip-output-white {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 15.4555px;
+	line-height: 17px;
+	align-items: center;
+	color: #FFFFFF;
+}
+
+@media only screen and (min-width: 1420px) and ( max-width : 10000px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 55% !important;
+		max-width: 618px !important;
+		padding-left: 20px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: none !important;
+	}
+	::placeholder {
+		color: #666666 !important;
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 17.6193px;
+		line-height: 25px;
+		opacity: .9;
+	}
+	.txt-inicia-sesion-p {
+		padding: 0 !important;
+	}
+}
+
+@media only screen and (min-width: 641px) and ( max-width : 1419px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 57% !important;
+		max-width: 618px !important;
+		padding-left: 20px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: none !important;
+	}
+	.nobordersearch>input {
+		padding: 2px 2px 2px 20px !important;
+	}
+	.txt-inicia-sesion-p {
+		padding: 0 !important;
+	}
+}
+
+@media only screen and (min-width: 641px) and ( max-width : 1419px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 57% !important;
+		max-width: 618px !important;
+		padding-left: 20px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: none !important;
+	}
+	.nobordersearch>input {
+		padding: 2px 2px 2px 20px !important;
+	}
+	::placeholder {
+		color: #666666 !important;
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 17.6193px;
+		line-height: 25px;
+		opacity: .9;
+	}
+	.txt-inicia-sesion-p {
+		padding: 0 !important;
+	}
+}
+
+@media only screen and (min-width: 641px) and ( max-width : 991px) {
+	.ui-tag {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100% !important;
+		max-width: 618px !important;
+	}
+	.contenedorTags {
+		margin: 0 auto;
+		width: 57%;
+	}
+	::placeholder {
+		color: #666666 !important;
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 17.6193px;
+		line-height: 25px;
+		opacity: .9;
+	}
+	.txt-inicia-sesion-p {
+		padding: 0 !important;
+	}
+}
+
+@media only screen and (min-width: 0px) and ( max-width : 640px) {
+	.ui-autocomplete-panel {
+		position: absolute;
+		overflow: auto;
+		width: 73% !important;
+		padding-left: 10px !important;
+		margin-left: 20px !important;
+		background: none !important;
+	}
+	.mobile {
+		display: block !important;
+	}
+	.nobordersearch>input {
+		font-size: 18px !important;
+		padding: 2px 2px 2px 20px !important;
+	}
+	.ui-tag {
+		display: inline-flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100% !important;
+		max-width: 618px !important;
+	}
+	::placeholder {
+		color: #666666 !important;
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 17.6193px;
+		line-height: 25px;
+		opacity: .9;
+	}
+	.txt-inicia-sesion-p {
+		padding: 10px 5px 10px 16px !important;
+	}
+}
+
+.ui-autocomplete-empty-message {
+	background-color: white;
+}
+
+.adip-tooltip {
+	max-width: 260px;
+}
+
+.adip-tooltip .ui-tooltip-text {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 15px;
+	letter-spacing: 0.031903px;
+	background: #fff !important;
+	color: #666 !important;
+	border-radius: 6px !important;
+	padding: 6px 10px;
+	border: solid 1px #b1b1b1;
+}
+
+.adip-tooltip .ui-tooltip-arrow {
+	border-right-color: #D0D0D0 !important;
+	left: -1px;
+	margin-top: -7px;
+	border-width: 7px 7px 7px 0px;
+}
+
+.adip-icon-lupa-white {
+	background-image: url(/resources/img/ic_lupa_white.svg) !important;
+	width: 20px !important;
+	height: 20px !important;
+	background: no-repeat;
+	background-size: 12px;
+	background-position-y: center;
+	background-position-x: center;
+}
+
+.ui-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.boton-continuar-llave-home {
+	padding-left: 22px;
+	background-image: url(/resources/img/llaveNew.svg) !important;
+	background-position: left !important;
+	background-repeat: no-repeat !important;
+	background-position-x: 9px !important;
+	background-size: 30px !important;
+	width: 169.37px !important;
+	height: 46.04px !important;
+	background-color: #88185B !important;
+	box-shadow: 0px 3.58062px 3.58062px rgba(0, 0, 0, 0.1) !important;
+	border-radius: 36.8px !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-size: 17.686px !important;
+	background-image: url(/resources/img/llaveNew.svg) !important;
+	/* 	top: 20px; */
+	/*     left: 50px; */
+}
+
+.boton-continuar-llave-home span {
+	padding: 0px !important;
+}
+
+.boton-continuar-llave-home-mobile {
+	background-image: url(/resources/img/logoLlave2.svg) !important;
+	background-position: left !important;
+	background-repeat: no-repeat !important;
+	background-position-x: 7px !important;
+	background-size: 26px !important;
+	font-weight: 700 !important;
+	padding-left: 5px !important;
+	background-color: #fff !important;
+	color: #BC955C !important;
+	width: 100% !important;
+	height: 35px;
+	box-shadow: 0px 2.64201px 2.64201px rgba(0, 0, 0, 0.1);
+	border-radius: 44.7427px !important;
+}
+
+.boton-continuar-llave-home-mobile span {
+	padding: 0px !important;
+}
+
+@media only screen and (min-width: 1025px) {
+	.contenedorInicSesionDesktop {
+		/* 		margin-top: 60px !important; */
+		
+	}
+	.contenedorInicSesionMobile {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 1024px) {
+	.contenedorInicSesionDesktop {
+		display: none;
+	}
+	.contenedorInicSesionMobile {
+		margin-bottom: 26px !important;
+	}
+}
+
+.pl-35 {
+	padding-left: 0.85rem !important;
+}
+
+@media screen and (min-width: 64.063em) {
+	.ui-lg-4R {
+		width: 28% !important;
+	}
+	.ui-lg-8R {
+		width: 72% !important;
+	}
+}
+
+@media screen and (min-width: 40.063em) {
+	.ui-md-4R {
+		width: 28% !important;
+	}
+	.ui-md-8R {
+		width: 72% !important;
+	}
+}
+
+.adip-pc-a{
+	place-content: flex-end;
+	padding-right: 16px !important;
+}
+.adip-align-txt{
+	text-align: right;
+}
+.adip-padding-p{
+	 padding: 18px 0;
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	
+
+	<h:form id="frmBusqueda">
+		<p:panelGrid id="pnlBuscador" columns="3"
+			columnClasses="ui-grid-col-1 ZeroPadding, ui-grid-col-10 , ui-grid-col-1 ZeroPadding"
+			layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+			<p:column></p:column>
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2 ZeroPadding, ui-grid-col-8 ZeroPadding, ui-grid-col-2 ZeroPadding"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:column></p:column>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-xl-11 ui-lg-11 ui-g-11 ui-md-10 ui-sm-10 ZeroPadding, ui-xl-1 ui-lg-1 ui-g-1 ui-md-2 ui-sm-2 ZeroPadding"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid autocompletado">
+						<p:panelGrid columns="1"
+							columnClasses="ui-grid-col-12 ZeroPadding" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ">
+							<p:autoComplete id="acSimple" maxResults="5" minQueryLength="3"
+								converter="entityConverter"
+								value="#{homeBean.tramiteSeleccionado}"
+								emptyMessage="No existen resultados asociados a su búsqueda"
+								completeMethod="#{homeBean.completeText}" var="tramite"
+								itemValue="#{tramite}" itemLabel="#{tramite.nombreOficial}"
+								scrollHeight="250" styleClass="nobordersearch" effect="blind"
+								itemStyleClass="acSimple-panel-ui-state-highlight"
+								autoHighlight="false" autoSelection="false" moreText="..."
+								cache="false"
+								placeholder="Busca trámites y servicios  |"
+								onkeydown="if (event.keyCode == 13) {document.getElementById('frmHome:frmBusqueda:btnSearch').click(); return false;}">
+								<p:ajax event="itemSelect"
+									listener="#{homeBean.detalleTramite(homeBean.tramiteSeleccionado, true, 1)}"
+									process="@this acSimple" onstart="document.getElementById('frmHome:frmBusqueda:btnSearch').classList.add('ui-state-disabled')"/>
+								<p:ajax event="moreTextSelect" listener="#{homeBean.buscarPorPalabra()}" onstart="document.getElementById('frmHome:frmBusqueda:btnSearch').classList.add('ui-state-disabled')"/>
+							</p:autoComplete>
+						</p:panelGrid>
+						<p:panelGrid columns="1"
+							columnClasses="ui-grid-col-12 ZeroPadding" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+							<p:commandButton id="btnSearch" icon="buscarResponsiveImg"
+								actionListener="#{homeBean.buscarPorPalabra()}" immediate="true"
+								partialSubmit="true"
+								styleClass="sizeuiicon adip-btn-buscar-home" style=""
+								process="@this" />
+						</p:panelGrid>
+					</p:panelGrid>
+				</p:panelGrid>
+				<p:column></p:column>
+			</p:panelGrid>
+			<p:column></p:column>
+		</p:panelGrid>
+		<p:panelGrid id="pnlTags" columns="1"
+			columnClasses="pnlTags ZeroPadding" layout="grid" 
+			styleClass="ui-panelgrid-blank ui-fluid ZeroPadding contenedorTags"
+			>
+
+			<p:repeat var="tag" value="#{homeSeccionesBean.lstTags}">
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					columnClasses=" paddingTag">
+					<p:commandLink
+						actionListener="#{homeBean.buscarPorTag(tag.tituloTag)}"
+						process="@this" immediate="true">
+						<p:tag styleClass="adip-tag-transparent"
+							icon="adip-icon-lupa-white" value="#{tag.tituloTag}" />
+					</p:commandLink>
+				</p:panelGrid>
+			</p:repeat>
+		</p:panelGrid>
+
+		<div class="col-12 mb-3 mt-3 adip-fondo-tarjeta-sesion mobile"
+			style="width: 90%; margin-right: auto; margin-left: auto;"
+			jsf:rendered="false">
+			<div class="grid m-0">
+				<div class="col-6">
+					<div class="col-12 p-0">
+						<p:outputLabel value="Mi oficina de"
+							styleClass="adip-output-white" style="font-weight: 500;" />
+						<br />
+						<p:outputLabel value="gobierno en línea."
+							styleClass="adip-output-white" style="font-weight: 700;" />
+					</div>
+				</div>
+				<div class="col-6">
+					<p:commandButton styleClass="adip-btn-sesion"
+						value="Iniciar sesión" icon="adip-icon-llave">
+					</p:commandButton>
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+	<!-- <div class="espaciohome2" /> -->
+</ui:composition>

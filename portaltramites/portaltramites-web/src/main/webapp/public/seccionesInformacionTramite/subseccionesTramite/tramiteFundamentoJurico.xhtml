@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf">
+	
+	<p:panelGrid columns="1" columnClasses="ui-g-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-bg-white">
+		<p:accordionPanel style="width: -webkit-fill-available;" activeIndex="" styleClass="adip-accordion">
+			<p:tab title="#{msg.lbl_fundamentojuridico}">
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+					<p:repeat value="#{detalleTramiteBean.lstTramiteFundamento}" var="fundamentos">
+						<div class="pt-2 pb-2">
+							<p:outputLabel value="#{fundamentos.catLeye.nombre}: " styleClass="adip-requisitos" />
+							<p:outputLabel value="#{fundamentos.articuloLey}" styleClass="adip-requisitos pb-2" rendered="#{fundamentos.otraLey.isEmpty()}" />
+							<p:outputLabel value="#{fundamentos.otraLey}: " styleClass="adip-requisitos pb-2"
+								rendered="#{!fundamentos.otraLey.isEmpty() or fundamentos.catLeye.nombre == 9999}" />
+							<p:outputLabel value="#{fundamentos.articuloLey}" styleClass="adip-requisitos" rendered="#{!fundamentos.otraLey.isEmpty()}" />
+						</div>
+					</p:repeat>
+				</p:panelGrid>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading adip-container-grey">
+					<p:outputLabel styleClass="adip-output-panel-grey"
+						value="#{msg.lbl_contenido_legal}" />
+				</p:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+	</p:panelGrid>
+	
+</ui:composition>

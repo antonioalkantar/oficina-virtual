@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pb-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading adip-o-bg-white">
+		<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_licencia_tipo_a.svg" styleClass="adip-o-gi-size" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0 pr-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
+		<p:outputLabel value="Renovación de Licencia" styleClass="adip-o-tarjeta-titulo" /> 
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="#{tarjetaLicenciaBean.tarjetaLicencia.tipoLicencia}" style="font-weight: bold; font-size: 21.23px !important" styleClass="adip-o-tarjeta-output-guinda" />
+<!-- 		<p:outputLabel value="#{tarjetaLicenciaBean.tarjetaLicencia.folio}" styleClass="adip-o-tarjeta-output-grey" style="font-size: 12.5753px !important; " /> -->
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Número de Licencia:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel value="#{tarjetaLicenciaBean.tarjetaLicencia.numeroLicencia ne 'null' ? tarjetaLicenciaBean.tarjetaLicencia.numeroLicencia : 'No aplica'}" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+<!-- Número de Licencia: -->
+<!-- N12752234 -->
+
+<!-- Fecha nueva vigencia:  -->
+<!-- 06/01/2023 -->
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Fecha nueva vigencia:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel value="#{tarjetaLicenciaBean.tarjetaLicencia.estatusTramite == 'Renovada' ? tarjetaLicenciaBean.tarjetaLicencia.fechaNuevaVigencia : 'No aplica'}" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+	
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPadding" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="text-align: center;">
+		<p:commandLink immediate="true" process="@this" rendered="#{tarjetaLicenciaBean.tarjetaLicencia.estatusTramite == 'Renovada'}" actionListener="#{tarjetaLicenciaBean.descargarDocumento()}">
+			<p:graphicImage library="img" name="descargaDoc.svg" styleClass="img-descarga"/>&nbsp;
+			<p:outputLabel  value="Descargar documento" styleClass="descarga-documento" style="font-size: 12px; cursor: pointer;" />
+			<p:fileDownload value="#{tramitesOficinaBean.file}" />
+		</p:commandLink>
+  	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-11 m-auto mb-4 mt-3">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="Estatus del trámite:" styleClass="adip-o-tarjeta-output-black" />
+			<p:outputLabel value="#{tarjetaLicenciaBean.tarjetaLicencia.estatusTramite}" styleClass="adip-o-tarjeta-output-black-bold" />
+		</p:panelGrid>
+
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pb-3" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:link styleClass="adip-o-tarjeta-btn-guinda" value="#{msg.lbl_consultar}" href="#{tarjetaLicenciaBean.urlAction()}" target="_blank" />
+		</p:panelGrid>
+	</p:panelGrid>
+
+</ui:composition>

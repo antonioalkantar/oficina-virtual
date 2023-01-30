@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+>
+
+
+	<div class="grid grid-nogutter back-tramiteinfo-footer pl-5 pr-5 mt-4 pt-2 pt-3 pb-2"  >
+        <div class="col-5 ">
+
+			 <div class="grid p-0">
+				 <div class="xs:col-12 sm:col-5 ">
+					 <h:outputText value="#{msg.lbl_utilpagina}"  styleClass="black text-base" />
+				</div>
+       
+		        <div class="xs:col-12 sm:col-7 ">
+					<p:commandLink  >
+			            <h:outputText value="#{msg.si}"/>
+			        </p:commandLink>
+					&nbsp;
+					<p:commandLink  >
+			            <h:outputText value="#{msg.no}"/>
+			        </p:commandLink>
+				</div>
+		
+			</div>
+			 
+		</div>
+       
+        <div class="col-7 text-right">
+				<p:commandLink  >
+			            <h:outputText value="#{msg.lbl_problema_pagina}"/>
+			    </p:commandLink>
+		</div>
+    </div>
+
+
+</ui:composition>

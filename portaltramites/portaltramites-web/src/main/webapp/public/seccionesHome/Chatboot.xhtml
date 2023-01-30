@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	<p:panelGrid id="pnlChatBoot" columns="1"
+		columnClasses="ui-xl-12 ui-lg-12 ui-g-12 ui-md-12 ui-sm-12 ZeroPadding "
+		layout="grid" styleClass=" ui-panelgrid-blank">
+	</p:panelGrid>
+
+
+<style>
+
+.ui-overlaypanel-content {
+	padding: 0px;
+    zoom: 65%;
+    margin-left: 0px;    
+}
+
+
+.frame-style {		
+		border: 0px !important;
+		border-radius: 10px !important;
+		box-shadow: 0 4px 14px 0 rgba(112, 112, 112, 0.28) !important;
+		position: relative;
+	    overflow: hidden;	    
+}	
+
+.btn-flotante {
+	position: fixed;
+	bottom: 0px;
+	right: 0;
+	z-index: 101 !important;
+}
+
+
+@media only screen and (min-width: 0px) and ( max-width : 260px) {
+	
+	.frame-style {
+		width: 500px !important;
+		height: 500px !important;		
+	}	
+}
+
+@media only screen and (min-width: 261px) and ( max-width : 376px) {
+	
+	.frame-style { 
+		width: 500px !important;
+		height: 800px !important;		
+	}	
+}
+
+@media only screen and (min-width: 377px) and ( max-width : 640px) {
+	
+	.frame-style {
+		width: 600px !important;
+		height: 800px !important;		
+	}	
+}
+
+@media only screen and (min-width: 641px) and ( max-width: 768px) {
+	
+	.frame-style {
+		width: 600px !important;
+		height: 800px !important;		
+	}
+}
+
+@media only screen and (min-width: 769px) and ( max-width : 10000px) {
+	
+	.frame-style {
+	width: 600px !important; 
+	height: 800px !important; 	
+	}
+}
+
+
+.mybutton:focus {
+ 	display: block;
+ 	background-image: url('/resources/img/victoriaChatHover.png'); 	
+    width: 192px;
+    height: 92px;
+	flex-grow: 0;
+	float: right;
+	background-size: cover;
+	background-size: auto 92px;
+    background-position-x: right;
+    background-repeat: no-repeat;
+}
+
+.mybutton {
+ 	display: block;
+	background-image: url('/resources/img/victoriaChatHover.svg');
+    width: 192px;
+	height: 92px;
+	flex-grow: 0;
+	float: right;
+	background-size: cover;
+	background-size: auto 92px;
+    background-position-x: right;
+    background-repeat: no-repeat;
+}
+
+.mybutton:active {
+ 	display: block;
+ 	background-image: url('/resources/img/victoriaChatHover.png'); 	
+    width: 192px;
+    height: 92px;
+	flex-grow: 0;
+	float: right;
+	background-size: cover;
+	background-size: auto 92px;
+    background-position-x: right;
+    background-repeat: no-repeat;
+}
+
+.victoriaSin {
+ 	display: block;
+	background-image: url('/resources/img/victoriaChatHover.png');
+    width: 192px;
+	height: 92px;
+	flex-grow: 0;
+	float: right;
+	background-size: cover;
+	background-size: auto 92px;
+    background-position-x: right;
+    background-repeat: no-repeat;
+}
+
+.victoriaCon {
+ 	display: block;
+	background-image: url('/resources/img/victoriaChatAyuda.svg');
+    width: 192px;
+	height: 92px;
+	flex-grow: 0;
+	float: right;
+	background-size: cover;
+	background-size: auto 92px;
+    background-position-x: right;
+    background-repeat: no-repeat;
+}
+
+.ui-overlaypanel-close {
+    position: absolute;
+    top: 12px;
+    right: 23px;
+    -webkit-border-radius: 10px !important;
+	background-image: url(/resources/img/close_chat.svg)!important;
+    background-size: 23px 21px !important;
+    background-position: 0 !important;
+    background-repeat: no-repeat !important;
+}
+
+.ui-icon-closethick {    
+    background-position: 30px!important;
+}
+
+.ui-overlaypanel.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-overlay-visible>.ui-overlaypanel-close.ui-state-default>span.ui-icon ui-icon-closethick{
+
+    background: black; !important;
+
+}
+
+
+</style>
+<script>
+function onShow(){	
+	if(document.getElementById('chatBoot').classList.contains('victoriaCon')){
+	    document.getElementById('chatBoot').classList.remove('victoriaCon');
+	    document.getElementById('chatBoot').classList.add('victoriaSin');
+	}else{
+		document.getElementById('chatBoot').classList.remove('victoriaSin')
+		document.getElementById('chatBoot').classList.add('victoriaCon');
+	}
+}
+
+function toggleButton(){	
+	document.getElementById('chatBoot').classList.add('victoriaCon');
+	document.getElementById('chatBoot').classList.remove('victoriaSin');
+}
+
+
+var LHC_API = LHC_API||{};
+LHC_API.args = {mode:'widget',lhc_base_url:'//chat.311locatel.cdmx.gob.mx/index.php/',wheight:450,wwidth:350,pheight:520,pwidth:500,domain:'https://cdmx.gob.mx//home.xhtml',leaveamessage:true,check_messages:false,lang:'esp/'};
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.setAttribute('crossorigin','anonymous'); po.async = true;
+var date = new Date();po.src = '//chat.311locatel.cdmx.gob.mx/design/defaulttheme/js/widgetv2/index.js?'+(""+date.getFullYear() + date.getMonth() + date.getDate());
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+
+</script>
+
+</ui:composition>

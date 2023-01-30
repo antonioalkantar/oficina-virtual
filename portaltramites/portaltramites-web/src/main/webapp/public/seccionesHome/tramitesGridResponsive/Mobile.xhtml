@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf">
+	<div id="tramites-Mobile">
+		
+		<p:panelGrid  columns="1" columnClasses="ui-grid-col-12 p-2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+			<p:repeat id="contTarjetasMobile" var="tarjeta" value="#{homeSeccionesBean.lstAnuncios}">			
+
+			<h:outputLink id="linkTarjeta" value="#{tarjeta.link}" target="_blank" style="text-decoration: none;">				
+				<p:panelGrid id="pnlTarjetasMobile" columns="2" columnClasses="ui-xl-4 ui-lg-4 ui-g-4 ui-md-4 ui-sm-4 ZeroPadding, ui-xl-8 ui-lg-8 ui-g-8 ui-md-8 ui-sm-8 ZeroPadding" style="margin-bottom: 14px;" layout="grid" styleClass=" adip-transparent adip-tarjetas-fondo-mobile">
+							<p:panelGrid id="imgTarjeta" columns="1" columnClasses="ui-xl-12 ui-lg-12 ui-g-12 ui-md-12 ui-sm-12 paddingImgTarjeta"  styleClass="" layout="grid">
+								<img class="icon-tramites " src="#{homeSeccionesBean.toBase64Img(tarjeta.imagen)}" style="width: 100%; height: 100px; object-fit: cover; border-radius: 5px; border-radius: 6px;"/>
+							</p:panelGrid>
+							<p:panelGrid id="pnlBtnInicSes" columns="1" columnClasses="ui-xl-12 ui-lg-12 ui-g-12 ui-md-12 ui-sm-12 paddigTitTarjeta" styleClass="" layout="grid">
+									<p:outputLabel value="#{tarjeta.titulo}" styleClass="adip-titulo-tarjeta texto-corto-anuncios-mobile" />
+									<p:outputLabel value="#{tarjeta.descripcion}" styleClass="adip-output-campos-tarjeta texto-corto-anuncios-mobile" />
+							</p:panelGrid>
+				</p:panelGrid>
+			</h:outputLink>
+				
+			</p:repeat>
+<!-- 			<p:repeat var="tooltipAnuncio" value="#{homeSeccionesBean.lstAnuncios}"> -->
+<!-- 		 <p:tooltip for="frmHome:contTarjetasMobile:#{homeSeccionesBean.lstAnuncios.indexOf(tooltipAnuncio)}:pnlTarjetasMobile" value="#{tooltipAnuncio.descripcion}" position="bottom" showEffect="clip" hideEffect="fold" />  -->
+<!-- 	</p:repeat> -->
+		</p:panelGrid>
+
+
+<!-- 		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-transparent pt-2 pb-2" layout="grid" styleClass="ui-panel-sin-pading adip-transparent pt-0 pb-4"> -->
+<!-- 			<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(0)}" styleClass="adip-link"> -->
+<!-- 				<p:outputLabel value="Busca otros #{homeBean.lstPortalTramitesBusquedaDTO.size()}..." styleClass="adip-titulo" /> -->
+<!-- 			</p:commandLink> -->
+<!-- 			<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(3)}" styleClass="adip-link"> -->
+<!-- 				<p:outputLabel value="Programas sociales" styleClass="adip-output-white" /> -->
+<!-- 			</p:commandLink> -->
+<!-- 			<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(1)}" styleClass="adip-link"> -->
+<!-- 				<p:outputLabel value="Trámites" styleClass="adip-output-white" /> -->
+<!-- 			</p:commandLink> -->
+<!-- 			<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(2)}" styleClass="adip-link"> -->
+<!-- 				<p:outputLabel value="Servicios Públicos" styleClass="adip-output-white" /> -->
+<!-- 			</p:commandLink> -->
+<!-- 		</p:panelGrid> -->
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-transparent" layout="grid" styleClass="ui-panel-sin-pading adip-tarjetas-fondo height100Porcent" style="margin: 0 10px;">				
+					<p:outputLabel value="#{msg.lbl_home_titulo_tramites_programas}" escape="false" styleClass="  pt-2" style="font-weight: normal; !important; font-size: 23px !important; color: #FFFFFF;   line-height: 30px;"/>				
+				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(3)}">
+<!-- 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading pnlTarjetaMini background-prog-sociales">	 -->
+					<div id="contFlexConsulta" style="" class="ui-panel-sin-pading pnlTarjetaMini background-prog-sociales contFlexConsulTodoMobile">
+						<p:outputLabel value="#{homeBean.numProgramasSociales} Programas sociales" styleClass="adip-output-white-tram-serv  contFlexConsulTodoMobile-label"  style="flex-basis: 65%; margin-left: 20px;"/>
+						<h:graphicImage url="/resources/img/btn-consultar.svg" style="margin:0 auto; width: 48px;" styleClass=""/>
+					</div>
+<!-- 					</p:panelGrid> -->
+				</p:commandLink>
+				<p:commandLink actionListener="#{homeBean.filtraPorClasificacion(1)}">
+					<div id="contFlexConsulta" style="" class="ui-panel-sin-pading pnlTarjetaMini background-tramites contFlexConsulTodoMobile">
+						<p:outputLabel value="575 Trámites" styleClass="adip-output-white-tram-serv contFlexConsulTodoMobile-label "  style=""/>
+						<h:graphicImage url="/resources/img/btn-consultar.svg" style="margin:0 auto; width: 48px;" styleClass=""/>
+					</div>
+				</p:commandLink>			
+			</p:panelGrid>
+
+		
+	</div>
+
+	<style>
+.adip-link {
+	text-decoration: underline 1px !important;
+	color: #FFF !important;
+	cursor: pointer;
+	-webkit-text-decoration-line: underline !important;
+    text-decoration-line: underline !important;
+}
+body .ui-commandlink:hover, body .ui-link:hover {
+    color: #FFF;
+    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-thickness: initial;
+    text-decoration-style: initial;
+    text-decoration-color: initial;
+}
+body .ui-commandlink, body .ui-link {
+    color: #fff;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.adip-inicio-sesion-mobile {
+	position: absolute;
+	width: 317px;
+	height: 69px;
+	left: 20px;
+	top: 388px;
+	background: rgba(0, 0, 0, 0.3);
+	background-blend-mode: multiply;
+	border-radius: 16px;
+}
+.paddingBottomZero{
+padding-bottom: 0 !important;
+}
+.paddingLeftZero{
+padding-left: 0 !important;
+}
+.paddingLeftTxtTarjetas{
+padding-left: 8px !important;
+}
+.paddingImgTarjeta{
+padding: 8px !important;
+}
+.paddigTitTarjeta{
+padding: 10px 16px 2px 8px !important;
+}
+
+</style>
+</ui:composition>

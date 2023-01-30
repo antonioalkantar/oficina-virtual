@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:c="http://java.sun.com/jstl/core" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+
+	<p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-6 ui-lg-6 p-0, ui-g-12 ui-md-6 ui-lg-6 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0" layout="grid" styleClass="ui-panel-sin-pading">
+				<h:outputText value="#{msg.lbl_descarga_formatos}" styleClass="adip-requisitos-bold" />
+			</p:panelGrid>
+			<p:panelGrid id="gridArchivosSinModalidad" columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+				rendered="#{!detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+				<h:outputText rendered="#{detalleTramiteBean.lstFormatosDTO.isEmpty()}" value="Sin formatos" styleClass="adip-requisitos" />
+				<p:repeat value="#{detalleTramiteBean.lstFormatosDTO}" var="archivosTramite">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 pt-2 pb-2" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:commandLink immediate="true" styleClass="adip-output-magenta adip-icon-pdf" value="#{archivosTramite.nombreArchivo}" ajax="false"
+							actionListener="#{detalleTramiteBean.download(archivosTramite.nombreArchivo)}" process="@this">
+							<p:fileDownload value="#{detalleTramiteBean.file}" />
+						</p:commandLink>
+					</p:panelGrid>
+				</p:repeat>
+			</p:panelGrid>
+			<p:panelGrid id="gridArchivosConModalidad" columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+				rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+				<h:outputText rendered="#{detalleTramiteBean.lstFormatosModalidadDTO.isEmpty()}" value="Sin formatos" styleClass="adip-requisitos" />
+				<p:repeat value="#{detalleTramiteBean.lstFormatosModalidadDTO}" var="archivosTramite">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 pt-2 pb-2" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:commandLink immediate="true" styleClass="adip-output-magenta adip-icon-pdf" value="#{archivosTramite.nombreArchivo}" ajax="false"
+							actionListener="#{detalleTramiteBean.downloadModalidad(archivosTramite.nombreArchivo,archivosTramite.rutaArchivo)}">
+							<p:fileDownload value="#{detalleTramiteBean.file}" />
+						</p:commandLink>
+					</p:panelGrid>
+				</p:repeat>
+			</p:panelGrid>
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0" layout="grid" styleClass="ui-panel-sin-pading">
+				<h:outputText value="#{msg.lbl_documentos_adjuntos}" styleClass="adip-requisitos-bold" />
+			</p:panelGrid>
+			<p:panelGrid id="gridDocumentosAdjuntos" columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+				rendered="#{!detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+
+				<h:outputText rendered="#{detalleTramiteBean.lstArchivosTramiteDTO.isEmpty()}" value="Sin formatos" styleClass="adip-requisitos" />
+				<p:repeat value="#{detalleTramiteBean.lstArchivosTramiteDTO}" var="docAdjuntos">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 pt-2 pb-2" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:commandLink immediate="true" styleClass="adip-output-magenta adip-icon-pdf" value="#{docAdjuntos.nombreArchivo}" ajax="false"
+							actionListener="#{detalleTramiteBean.download(docAdjuntos.nombreArchivo)}">
+							<p:fileDownload value="#{detalleTramiteBean.file}" />
+						</p:commandLink>
+					</p:panelGrid>
+				</p:repeat>
+			</p:panelGrid>
+			<p:panelGrid id="gridDocumentosAdjuntosMod" columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+				rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+				<h:outputText rendered="#{detalleTramiteBean.lstArchivosModalidadDTO.isEmpty()}" value="Sin formatos" styleClass="adip-requisitos" />
+				<ui:repeat value="#{detalleTramiteBean.lstArchivosModalidadDTO}" var="docAdjuntoMod">
+					<ul>
+						<li class="magentalink pt-1 pb-1 not-inline"><p:commandLink immediate="true" styleClass="magentalink text-base" style="text-decoration: underline !important;"
+								value="#{docAdjuntoMod.nombreArchivo}" ajax="false" actionListener="#{detalleTramiteBean.downloadModalidad(docAdjuntoMod.nombreArchivo,docAdjuntoMod.rutaArchivo)}">
+								<p:fileDownload value="#{detalleTramiteBean.file}" />
+							</p:commandLink></li>
+					</ul>
+				</ui:repeat>
+			</p:panelGrid>
+		</p:panelGrid>
+
+		<!-- COSTOS -->
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0" layout="grid" styleClass="ui-panel-sin-pading">
+				<h:outputText value="#{msg.lbl_costos}" styleClass="adip-requisitos-bold" />
+				<h:outputText value="Sin costo " styleClass="adip-requisitos" rendered="#{not detalleTramiteBean.tieneCosto}" />
+			</p:panelGrid>
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+				rendered="#{not detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+				<ui:repeat value="#{detalleTramiteBean.lstConceptoCostoDTO}" var="datCosto">
+					<div class="col-12 pl-0" jsf:rendered="#{datCosto.catTipoConceptoDTO.id eq 3}">
+						<h:outputText value="#{msg.lbl_costo_variable}" styleClass="adip-requisitos" />
+					</div>
+					<div class="col-12 pl-0" jsf:rendered="#{datCosto.catTipoConceptoDTO.id ne 3}">
+						<h:outputText value="#{datCosto.descripcionConcepto}" styleClass="adip-requisitos" />
+					</div>
+					<div class="col-12 pl-0" jsf:rendered="#{datCosto.catTipoConceptoDTO.id ne 3}">
+						<h:outputText value="Monto a pagar: $" styleClass="adip-requisitos" />
+						<h:outputText value="#{datCosto.monto}" styleClass="adip-requisitos-bold">
+							<f:convertNumber locale="es_MX" minFractionDigits="2" maxFractionDigits="2" currencySymbol="$" type="currency" pattern="###,###,##0.00" />
+						</h:outputText>
+					</div>
+				</ui:repeat>
+			</p:panelGrid>
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading" rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+				<ui:repeat value="#{detalleTramiteBean.lstConceptoModalidadDTO}" var="datCostoMod">
+					<div class="col-12 pl-0" jsf:rendered="#{datCostoMod.detModalidadesTramite.catTipoConcepto.id eq 3}">
+						<p:outputLabel value="#{msg.lbl_costo_variable}" styleClass="adip-requisitos-bold" />
+					</div>
+					<div class="col-12 pl-0" jsf:rendered="#{datCostoMod.detModalidadesTramite.catTipoConcepto.id ne 3}">
+						<p:outputLabel value="#{datCostoMod.descripcionConcepto}" styleClass="adip-requisitos" />
+					</div>
+					<div class="col-12 pl-0" jsf:rendered="#{datCostoMod.monto ne null and datCostoMod.detModalidadesTramite.catTipoConcepto.id ne 3}">
+						<p:outputLabel value="Monto a pagar: $" styleClass="adip-requisitos" />
+						<p:outputLabel value="#{datCostoMod.monto}" styleClass="adip-requisitos-bold">
+							<f:convertNumber locale="es_MX" minFractionDigits="2" maxFractionDigits="2" currencySymbol="$" type="currency" pattern="###,###,##0.00" />
+						</p:outputLabel>
+					</div>
+				</ui:repeat>
+			</p:panelGrid>
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+				rendered="#{detalleTramiteBean.tieneCosto and (not empty detalleTramiteBean.lstDetMedioBanco or not empty detalleTramiteBean.lstDetMedioOficina or not empty detalleTramiteBean.lstDetMedioOnline)}">
+
+				<h:outputText value="Puedes pagar en: " styleClass="adip-requisitos" />
+
+				<ui:repeat value="#{detalleTramiteBean.lstDetMedioBanco}" var="datMedBanco">
+					<h:outputText rendered="#{detalleTramiteBean.tieneCosto}" value="#{datMedBanco.nombre}" styleClass="adip-requisitos" />
+				</ui:repeat>
+
+				<ui:repeat value="#{detalleTramiteBean.lstDetMedioOficina}" var="datMedOf">
+					<h:outputText rendered="#{detalleTramiteBean.tieneCosto}" value="#{datMedOf.nombreOficinaTributaria}" styleClass="adip-requisitos" />
+				</ui:repeat>
+
+				<ui:repeat value="#{detalleTramiteBean.lstDetMedioOnline}" var="datMedOn">
+					<p:commandLink rendered="#{detalleTramiteBean.tieneCosto}" process="@this" immediate="true" styleClass="magentalink not-inline">
+				                                    #{datMedOn.url}
+				                                </p:commandLink>
+				</ui:repeat>
+			</p:panelGrid>
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading" rendered="#{detalleTramiteBean.tieneCosto}">
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0" layout="grid" styleClass="ui-panel-sin-pading">
+					<p:outputLabel value="#{msg.lbl_fundamentojuridico}" styleClass="adip-requisitos-bold" />
+				</p:panelGrid>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading">
+					<h:outputText value="#{detalleTramiteBean.detalleTramiteServicioDTO.obtenerFundamentoCosto}" styleClass="adip-requisitos p-0" />
+					<h:outputText value="#{detalleTramiteBean.detalleTramiteServicioDTO.idFundamentoCosto !=  0 ? detalleTramiteBean.detalleTramiteServicioDTO.articuloLeyReglamentoCostos:''}"
+						styleClass="adip-requisitos" />
+				</p:panelGrid>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panel-sin-pading"
+					rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades  and detalleTramiteBean.tieneCosto and detalleTramiteBean.modalidadesTramiteServicioDTO ne null}">
+					<h:outputText value="#{detalleTramiteBean.modalidadesTramiteServicioDTO.descFundamentoCostos}" styleClass="adip-requisitos" />
+					<h:outputText value="#{detalleTramiteBean.modalidadesTramiteServicioDTO.articuloLeyReglamentoCostos}" styleClass="adip-requisitos"
+						rendered="#{detalleTramiteBean.modalidadesTramiteServicioDTO ne null and detalleTramiteBean.modalidadesTramiteServicioDTO.articuloLeyReglamentoCostos ne null}" />
+				</p:panelGrid>
+			</p:panelGrid>
+
+		</p:panelGrid>
+	</p:panelGrid>
+</ui:composition>

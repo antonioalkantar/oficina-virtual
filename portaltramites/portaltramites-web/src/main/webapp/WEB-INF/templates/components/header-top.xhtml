@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+>
+<div class="adjustContent" style="align-content: center">
+      <div class="grid ZeroPadding-Right menu-normal">
+                  
+	  	<div class="col-12">	         		       
+		      <div class="col-12 ZeroPadding">
+		            <p:panelGrid id="pnlMenus" columns="2" 
+		            			 columnClasses="
+		                		  ui-g-12 ui-md-3 ui-lg-3 ZeroPadding menu-header, 
+		            			  ui-g-12 ui-md-9 ui-lg-9	ZeroPadding	            												            							
+		            			  "            											
+		            			layout="grid" styleClass="ui-panel-sin-pading">	
+		            			
+		            			<p:link href="#{request.contextPath}/home.xhtml">
+		                        	  <h:graphicImage value="/resources/img/adip-header2.svg"/>
+		                        </p:link>
+		            			
+		            		<p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-12 ui-lg-12 menu-header-tags ZeroPadding-Right , ui-g-12 ui-md-0 ui-lg-0 ZeroPadding"      											
+		            					 layout="grid" styleClass="ui-panel-sin-pading ">	
+		            			
+		            			<ui:repeat value="#{homeSeccionesBean.listDetEnlace}" var="enlace">                        	
+			                           <p:link value="#{enlace.descripcion}" href="#{enlace.enlace}" immediate="true" target="_blank" styleClass="menu-header-principal" />	 &nbsp; &nbsp;                       
+		                        </ui:repeat>
+		                        
+		                        <p:column/>
+		                        
+<!-- 		                        <p:panelGrid columns="2" columnClasses="ui-g-6 ZeroPadding, ui-g-6 ZeroPadding" layout="grid" styleClass="ui-panel-sin-pading">-->
+		            			
+<!-- 			            			<p:link href="https://llave.cdmx.gob.mx/" immediate="true" target="_blank" styleClass="adip-enlace-llave"> -->
+<!-- 			                              <p:graphicImage value="/resources/img/logoLlave.svg"/> -->
+<!-- 			                                Llave CDMX -->
+<!-- 			                        </p:link>	 -->
+			                        
+<!-- 			                        <p:commandLink actionListener="#{homeBean.actualizaMenu(homeBean.menuIndicador)}" immediate="true" update="pnlMenus" styleClass="#{homeBean.verIndicadores eq true ? 'adip-ciudad-hoy-false' : 'adip-ciudad-hoy'}"> -->
+<!-- 			                        	  <p:graphicImage value="/resources/img/flechaArriba.svg" rendered="#{homeBean.verIndicadores}"/> -->
+<!-- 			                        	  <p:graphicImage value="/resources/img/flechaAbajo.svg" rendered="#{!homeBean.verIndicadores}"/> -->
+<!-- 			                        	  &nbsp;La ciudad hoy -->
+<!-- 			                        </p:commandLink> -->
+<!--		                        </p:panelGrid> -->
+		                      </p:panelGrid>		
+						
+					</p:panelGrid>               
+		      </div>
+	  	 </div>
+       
+	</div>
+</div>      
+          <p:panelGrid id="idGridMenuRespon" columns="4" style="margin: 0; width: 100%; text-align: right; background: #FFFFFF; justify-content: space-around; zoom: 70%;" 
+            			 columnClasses=
+            			 "ui-grid-col-5 ZeroPadding-Right,
+            			  ui-grid-col-6 adip-posicion-llave ZeroPadding-Left ZeroPadding-Right,
+            			  ui-grid-col-0.5 adip-posicion-llave,
+            			  ui-grid-col-0.5 adip-posicion-llave 
+            			  " 
+            			  layout="grid" styleClass="ui-grid-col-12 ZeroPadding-Right menu-responsive">               
+                
+                <p:link href="#{request.contextPath}/home.xhtml">
+                	<h:graphicImage class="img-header pt-1 menu-responsive" value="/resources/img/logotipo-mobile.svg" style="float: left; width: 80px;" />
+                </p:link>
+                
+                <p:column/>
+                <p:column/>
+                
+<!--                 <p:commandLink actionListener="#{homeBean.actualizaMenu(homeBean.menuIndicador)}" immediate="true" update="idGridMenuRespon" styleClass="#{homeBean.verIndicadores eq true ? 'adip-ciudad-hoy-false' : 'adip-ciudad-hoy'}"> -->
+<!--                    	  <p:graphicImage value="/resources/img/flechaArriba.svg" rendered="#{homeBean.verIndicadores}"/> -->
+<!--                    	  <p:graphicImage value="/resources/img/flechaAbajo.svg" rendered="#{!homeBean.verIndicadores}"/> -->
+<!--                    	     &nbsp; La ciudad hoy -->
+<!--                 </p:commandLink> -->
+                
+<!--                  <p:link href="https://llave.cdmx.gob.mx/" immediate="true" target="_blank" styleClass="color-btn-buscarR" style="background: linear-gradient(109.88deg, #BC955C 40.2%, rgba(159, 34, 65, 0.67) 73.95%) !important;"> -->
+<!--                       <p:graphicImage value="/resources/img/logoLlave.svg" styleClass="img-llave-mobile" style="width: 30px !important; height: 30px !important;"/> -->
+<!--                 </p:link> -->
+                	
+             
+                <p:commandButton
+                    type="button"
+                    value=""
+                    immediate="true"
+                    styleClass="menu-responsive claseButttonHeader"
+                    onclick="PF('sidebar1').show()"
+                    style="font-size: 25px; background-image: url(/resources/img/menu-mobile-gris.svg); height: 20px; width: 27px; border: none; border-radius: 0; zoom: 125%;"
+                />
+            </p:panelGrid>
+       
+    
+
+
+		
+</ui:composition>

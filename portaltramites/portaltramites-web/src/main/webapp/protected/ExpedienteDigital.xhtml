@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	template="/WEB-INF/templates/default-oficina.xhtml">
+	<ui:define name="header-buscador">
+		<h:form id="formBuscador"
+			style="margin-left:auto; max-width: 1440px; margin-right: auto;">
+			<p:panel id="panelBuscador" header="" toggleable="true"
+				toggleSpeed="500" closeSpeed="500" widgetVar="panelBuscador"
+				styleClass="adip-panel-collapsed" collapsed="true"
+				style="background: transparent;">
+				<p:panelGrid id="pgBuscador" columns="1" columnClasses="ui-g-12 p-0"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="1"
+						columnClasses="ui-g-12 ui-lg-5 ui-md-5 ui-sm-12 m-auto adip-transparent pt-5"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+						<p:panelGrid columns="2"
+							columnClasses="ui-xl-11 ui-lg-11 ui-g-11 ui-md-10 ui-sm-10 ZeroPadding, ui-xl-1 ui-lg-1 ui-g-1 ui-md-2 ui-sm-2 ZeroPadding"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid adip-autocompletado">
+							<p:panelGrid columns="1"
+								columnClasses="ui-grid-col-12 ZeroPadding" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ">
+								<p:autoComplete id="acSimple" maxResults="5" minQueryLength="3"
+									converter="entityConverter"
+									value="#{homeBean.tramiteSeleccionado}"
+									emptyMessage="No existen resultados asociados a su búsqueda"
+									completeMethod="#{homeBean.completeText}" var="tramite"
+									itemValue="#{tramite}" itemLabel="#{tramite.nombreOficial}"
+									scrollHeight="250" styleClass="adip-autocomplete-buscador"
+									effect="blind"
+									itemStyleClass="acSimple-panel-ui-state-highlight"
+									autoHighlight="false" autoSelection="false" moreText="..."
+									cache="false"
+									onkeydown="if (event.keyCode == 13) {document.getElementById('frmHome:frmBusqueda:btnSearch').click(); return false;}">
+									<p:ajax event="itemSelect"
+										listener="#{homeBean.detalleTramite(homeBean.tramiteSeleccionado, true, 1)}"
+										process="@this acSimple" />
+								</p:autoComplete>
+							</p:panelGrid>
+							<p:panelGrid columns="1"
+								columnClasses="ui-grid-col-12 ZeroPadding" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid">
+								<p:commandButton id="btnSearch" icon="ic_lupa_white"
+									actionListener="#{homeBean.buscarPorPalabra()}"
+									immediate="true" partialSubmit="true"
+									styleClass="adip-btn-buscar-detalle" process="@this" />
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:panelGrid>
+					<p:panelGrid columns="1"
+						columnClasses="ui-g-12 ui-lg-8 ui-md-8 ui-sm-12 m-auto adip-transparent pt-0"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+						<p:panelGrid id="pnlTags" columns="1"
+							columnClasses="pnlTags ZeroPadding" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ZeroPadding">
+							<p:repeat var="tag" value="#{homeSeccionesBean.lstTags}">
+								<p:panelGrid columns="1" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid"
+									columnClasses="ui-grid-col-3 adip-transparent flex paddingTag adip-align-tags">
+									<p:commandLink
+										actionListener="#{homeBean.buscarPorTag(tag.tituloTag)}"
+										process="@this" immediate="true">
+										<p:tag styleClass="adip-tag" icon="adip-icon-lupa-tag"
+											value="#{tag.tituloTag}" />
+									</p:commandLink>
+								</p:panelGrid>
+							</p:repeat>
+						</p:panelGrid>
+					</p:panelGrid>
+				</p:panelGrid>
+			</p:panel>
+
+			<p:panel id="panelWidget" header="" toggleable="true"
+				toggleSpeed="500" closeSpeed="500" widgetVar="panelWidget"
+				styleClass="adip-panel-collapsed" collapsed="true"
+				style="background: transparent;">
+				<p:panelGrid id="pgCiudad" columns="1" columnClasses="ui-g-12 p-0"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+					<div id="widget" style="padding: 25px 0;" class="indicadoresAlto">
+						
+					</div>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="frmTramites" class="h-full">
+			<p:panelGrid id="pgEncabezado" columns="1"
+				columnClasses="ui-md-11 ui-lg-11 ui-xl-12 ui-sm-11 m-auto p-0"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				
+				<p:panelGrid columns="2"
+					columnClasses="ui-g-8 pl-0, ui-g-4 adip-o-ta-end pr-1"
+					layout="grid" styleClass="p-0">
+					<p:outputLabel value="#{msg.lbl_mi_oficina}"
+						styleClass="adip-o-titulo" />
+					<p:panelGrid columns="2"
+						columnClasses="ui-g-9 ui-sm-0 pr-0,ui-g-3 ui-sm-12 p-0"
+						layout="grid" styleClass="p-0">
+						<p:panelGrid columns="1"
+							columnClasses="ui-g-12 p-0 pr-3 adip-o-as-center" layout="grid"
+							styleClass="p-0">
+							<p:outputLabel value="Mi cuenta LlaveCDMX"
+								styleClass="adip-o-output-gold" />
+							<p:outputLabel value="Antonio Alcántar Valencia"
+								styleClass="adip-o-output-titulo-white" />
+						</p:panelGrid>
+						<p:panelGrid columns="1" columnClasses="ui-g-12 pt-0"
+							layout="grid" styleClass="p-0">
+							<p:commandButton id="cb_person" styleClass="adip-o-btn-person"
+								icon="adip-o-ic-person" value="" />
+							<p:menu overlay="true" trigger="cb_person" my="left top"
+								at="right bottom" styleClass="adip-o-menu">
+								<p:menuitem value="#{msg.lbl_seguimiento_tramites}"
+									styleClass="adip-o-menu-item"
+									outcome="/protected/OficinaDigital.xhtml" />
+								<p:menuitem value="#{msg.cerrar_session}"
+									styleClass="adip-o-menu-item"
+									action="#{authenticatorBean.cerrarSesionUsuario()}" />
+							</p:menu>
+						</p:panelGrid>
+					</p:panelGrid>
+				</p:panelGrid>
+
+
+				<p:outputPanel styleClass="adip-o-bg-white p-5">
+
+					<p:outputPanel styleClass="adip-panel-datos-usuario px-4 py-2 mb-4">
+						<p:panelGrid columns="3" layout="grid" styleClass="py-2"
+							columnClasses="ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4, ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4, ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4">
+							<p:panelGrid columns="1">
+								<p:outputLabel>Nombre (s)</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.nombre}</span>
+							</p:panelGrid>
+							<p:panelGrid columns="1">
+								<p:outputLabel>Primer Apellido</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.primerApellido}</span>
+							</p:panelGrid>
+							<p:panelGrid columns="1">
+								<p:outputLabel>Segundo Apellido</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.segundoApellido}</span>
+							</p:panelGrid>
+						</p:panelGrid>
+
+						<p:panelGrid columns="1" layout="grid"
+							columnClasses="ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4"
+							styleClass="py-2">
+							<p:panelGrid columns="1">
+								<p:outputLabel>CURP</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.curp}</span>
+							</p:panelGrid>
+						</p:panelGrid>
+
+						<p:panelGrid columns="2" layout="grid" styleClass="py-2"
+							columnClasses="ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4, ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4">
+							<p:panelGrid columns="1">
+								<p:outputLabel>Fecha de nacimiento</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.fechaNacimiento}</span>
+							</p:panelGrid>
+							<p:panelGrid columns="1">
+								<p:outputLabel>Sexo</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.sexo}</span>
+							</p:panelGrid>
+						</p:panelGrid>
+
+						<p:panelGrid columns="1" layout="grid"
+							columnClasses="ui-sm-12 ui-md-6 ui-lg-4 ui-xl-4"
+							styleClass="py-2">
+							<p:panelGrid columns="1">
+								<p:outputLabel>Entidad de nacimiento</p:outputLabel>
+								<span class="texto-datos-usuario">#{expedienteDigitalBean.usuarioLogueado.estadoNacimiento}</span>
+							</p:panelGrid>
+						</p:panelGrid>
+
+					</p:outputPanel>
+
+					<p:outputPanel
+						styleClass="adip-panel-descripcion-expediente my-6 px-3">
+						<h2>Mi expediente</h2>
+						<p>Aquí podrás consutlar tus documentos cargados en otros
+							sistemas. Si lo deseas puedes cargar o actualizar documentos en
+							tu expediente. Solo serán utilizados para los trámites y
+							servicios que tú autorices.</p>
+						<div class="text-center my-4">
+							<p:commandButton onclick="PF('dlgAgregarDocumento').show()"
+								value="Cargar documento" icon="icon-cargar-documento"
+								styleClass="adip-btn-primary pt-2" />
+						</div>
+					</p:outputPanel>
+
+					<p:panelGrid columns="2" layout="grid"
+						columnClasses="ui-sm-12 ui-md-12 ui-lg-7 ui-xl-7, ui-sm-12 ui-md-12 ui-lg-5 ui-xl-5"
+						styleClass="py-2">
+						<p:outputPanel styleClass="overflow-auto">
+							<p:dataTable widgetVar="dtDocumentos"
+								value="#{expedienteDigitalBean.documentos}" var="documento"
+								rowKey="#{documento.id}" style="min-width:500px;"
+								styleClass="adip-datatable adip-paginator" rows="3"
+								selectionMode="single" paginator="true"
+								paginatorPosition="bottom"
+								paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
+								<p:column headerText="Documento"
+									sortBy="#{documento.descripcion}">
+
+									<span class="flex align-items-center"> <span
+										class="icon-pdf"></span> <span class="ml-3"> <h:outputText
+												styleClass="block" value="#{documento.tipoDocumento}" /> <h:outputText
+												styleClass="block" value="#{documento.descripcion}" />
+									</span>
+									</span>
+
+								</p:column>
+								<p:column headerText="Vigencia" styleClass="text-center"
+									style="width:130px;">
+									<!-- vigente o no-vigente son las clases -->
+									<p:outputLabel value="13 Oct 2024" styleClass="vigente"></p:outputLabel>
+								</p:column>
+							</p:dataTable>
+						</p:outputPanel>
+						<p:outputPanel styleClass="adip-panel-documento-preview">
+							<h2 class="adip-title-documento">Identificación Oficial:</h2>
+							<h3 class="adip-descripcion-documento">Credencial para votar</h3>
+							<p:media value="/resources/img/prueba.pdf" width="100%"
+								height="400px"></p:media>
+
+							<p:outputPanel
+								styleClass="flex pb-2 align-items-center justify-content-center adip-panel-reemplazar">
+								<p:outputPanel styleClass="adip-fecha-carga mx-1">
+									<h3>Fecha de carga:</h3>
+									<h:outputText styleClass="adip-fechas-txt" value="12/05/2022"></h:outputText>
+								</p:outputPanel>
+								<p:commandButton iconPos="right" value="Reemplazar"
+									icon="icon-actualizar-documento"
+									styleClass="adip-btn-primary pt-2 adip-btn-preview mx-1" />
+
+								<p:commandButton iconPos="right" value="Borrar"
+									icon="icon-eliminar-documento"
+									styleClass="adip-btn-primary pt-2 adip-btn-preview mx-1" />
+
+
+							</p:outputPanel>
+							<p:outputPanel styleClass="panel-preview-footer">
+								<p:outputLabel styleClass="panel-preview-footer-desc">Documento precargado desde:</p:outputLabel>
+								<p:outputLabel styleClass="panel-preview-footer-titulo">REFRENDO</p:outputLabel>
+							</p:outputPanel>
+						</p:outputPanel>
+					</p:panelGrid>
+
+
+
+				</p:outputPanel>
+			</p:panelGrid>
+		</h:form>
+
+		<p:dialog visible="true" responsive="true"
+			header="Aviso de uso de datos, privacidad y términos y condiciones."
+			closable="false" draggable="false"
+			styleClass="adip-dialog dialog-aviso" widgetVar="dlgAvisoUsoDatos"
+			modal="true" hideEffect="fade" resizable="false" position="center"
+			style="margin-right:20px">
+			<div class="dialog-body">
+
+				<p:panelGrid columns="1" styleClass="mt-2" layout="grid"
+					columnClasses="ui-g-12">
+					<p:outputPanel styleClass="flex">
+						<p:selectBooleanCheckbox />
+						<p class="ml-2">
+							He leído y acepto el <span class="highlight">aviso de
+								privacidad</span> y los <span class="highlight">términos y
+								condiciones.</span>
+						</p>
+					</p:outputPanel>
+				</p:panelGrid>
+				<p:outputPanel styleClass="manifiesto-wrapper">
+					<p class="ml-2 manifiesto">Manifiesto mi consentimiento para
+						que sean recabados y usados mis datos y documentos personales.</p>
+				</p:outputPanel>
+			</div>
+			<div class="dialog-footer flex justify-content-end">
+
+				<p:commandButton onclick="PF('dlgAvisoUsoDatos').hide()"
+					value="Continuar" styleClass="adip-btn-primary pt-2" />
+			</div>
+		</p:dialog>
+
+		<p:dialog visible="false" responsive="true"
+			header="¿Estás seguro que deseas eliminar el documento?"
+			closable="false" draggable="false" styleClass="adip-dialog eliminar"
+			widgetVar="dlgEliminarDocumento" modal="true" hideEffect="fade"
+			resizable="false" position="center" style="margin-right:20px">
+			<div class="dialog-body"></div>
+			<div class="dialog-footer flex justify-content-between">
+				<p:commandButton onclick="PF('dlgEliminarDocumento').hide()"
+					value="Cancelar" styleClass="adip-btn-gray pt-2" />
+				<p:commandButton onclick="PF('dlgEliminarDocumento').hide()"
+					value="Continuar" disabled="true"
+					styleClass="adip-btn-primary pt-2" />
+			</div>
+		</p:dialog>
+
+		<p:dialog header="Cargar documento" closable="false" responsive="true"
+			draggable="false" styleClass="adip-dialog adip-dialog-agregar-doc"
+			widgetVar="dlgAgregarDocumento" modal="true" hideEffect="fade"
+			resizable="false" position="center" style="margin-right:20px">
+			<div class="dialog-body">
+				<p:outputLabel styleClass="block">Tipo de documento</p:outputLabel>
+				<p:selectOneMenu styleClass="w-full mt-2"
+					placeholder="Elige el tipo de documento que quieres cargar">
+					<f:selectItem itemLabel="Acta de nacimiento" itemValue="1" />
+					<f:selectItem itemLabel="Identificación Oficial" itemValue="2" />
+					<f:selectItem itemLabel="Comprobante de domicilio" itemValue="3" />
+					<f:selectItem itemLabel="Fotografía" itemValue="4" />
+					<f:selectItem itemLabel="Otro" itemValue="5" />
+				</p:selectOneMenu>
+				<h:outputText styleClass="block mt-2 font-italic adip-nota"
+					value="La identificación oficial debe tener fotografía"></h:outputText>
+
+				<p:outputLabel styleClass="block mt-4 req"
+					value="Subtipo de documento"></p:outputLabel>
+				<p:selectOneMenu styleClass="w-full mt-2"
+					placeholder="Selecciona el subtipo de documento">
+					<f:selectItem itemLabel="Credencial para votar" itemValue="1" />
+					<f:selectItem itemLabel="Pasaporte" itemValue="2" />
+					<f:selectItem itemLabel="Cédula profesional" itemValue="3" />
+					<f:selectItem
+						itemLabel="Credencial del Instituto Nacional de Migración"
+						itemValue="4" />
+					<f:selectItem itemLabel="Licencia de conducir" itemValue="5" />
+				</p:selectOneMenu>
+				<h:outputText styleClass="block mt-2 font-italic adip-nota"
+					value="El pasaporte debe haber sido emitido por la SRE. Si eres extranjero, selecciona la opción Credencial del Instituto Nacional de Migración."></h:outputText>
+
+				<div class="mt-4 flex align-items-center">
+					<img src="/resources/img/signo-exclamacion.svg"></img>
+					<p:outputLabel styleClass="ml-2" value="Fecha de vigencia"></p:outputLabel>
+				</div>
+				<p:calendar showOn="button" styleClass="mt-2" />
+
+				<p:outputPanel
+					styleClass="adip-contenedor-carga-imagen py-3 px-2 mt-4">
+					<p:outputLabel styleClass="block req"
+						value="Imagen de tu identificación oficial"></p:outputLabel>
+					<p:fileUpload mode="simple" styleClass="mt-2" skinSimple="true"
+						label="Carga de archivo" />
+					<h:outputText styleClass="block mt-3 font-italic adip-nota"
+						value="No subir documento mayor a 2 MB"></h:outputText>
+				</p:outputPanel>
+
+				<p:outputLabel styleClass="block mt-4"
+					value="Observaciones del documento (Opcional)"></p:outputLabel>
+				<p:inputTextarea styleClass="mt-2 mb-5" rows="2"
+					placeholder="Escribe las observaciones del documento que adjuntaste" />
+			</div>
+			<div class="dialog-footer flex justify-content-end">
+				<p:commandButton onclick="PF('dlgAgregarDocumento').hide()"
+					value="Cancelar" styleClass="adip-btn-gray pt-2" />
+				<p:commandButton onclick="PF('dlgAgregarDocumento').hide()"
+					value="Guardar" styleClass="adip-btn-primary pt-2 ml-4" />
+			</div>
+		</p:dialog>
+		<style>
+
+/*Inicio estilos header*/
+.adip-o-titulo {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 35.26px !important;
+	line-height: 53px;
+	letter-spacing: 0.0278383px;
+	color: #FFFFFF;
+}
+
+.adip-o-bg-white {
+	background: #FFF;
+	border-radius: 10px;
+}
+
+.adip-o-output-titulo-white {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 21.7719px;
+	line-height: 14px;
+	text-align: right;
+	letter-spacing: -0.421207px;
+	color: #FFFFFF;
+}
+
+.adip-o-output-gold {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 12.8652px;
+	line-height: 14px;
+	text-align: right;
+	letter-spacing: -0.421207px;
+	color: #BC955C;
+}
+
+.adip-o-ta-end {
+	text-align: end;
+}
+
+.adip-o-as-center {
+	align-self: center;
+}
+
+.adip-o-ic-person {
+	background-image: url(/resources/img/ic_person2.svg) !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+	width: 72px !important;
+	height: 46px !important;
+}
+
+.adip-btn-primary {
+	background-color: #88185B !important;
+	border: none !important;
+	padding-top: 1px !important;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 18px;
+	letter-spacing: -0.03em;
+	font-size: 16px !important;
+	color: #FFF !important;
+	border-radius: 6px !important;
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+	height: 44px !important;
+	font-weight: 600;
+	line-height: 18px;
+	letter-spacing: -0.03em;
+	font-size: 16px !important;
+	color: #FFF !important;
+	border-radius: 6px !important;
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+	line-height: 18px;
+	letter-spacing: -0.03em;
+	font-size: 16px !important;
+	color: #FFF !important;
+	border-radius: 6px !important;
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+}
+
+@media only screen and (max-width: 699px) {
+	.adip-btn-primary {
+		font-size: 16px !important;
+		width: auto !important;
+		height: 44px !important;
+		padding-left: 8px !important;
+	}
+}
+
+.adip-btn-icon-green {
+	background-color: #235B4E !important;
+	border: none !important;
+	width: 30px !important;
+	height: 30px !important;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+}
+
+.adip-btn-icon-green.ui-button.ui-button-icon-only {
+	width: 30px !important;
+}
+
+.adip-btn-icon-green .ui-button-icon-left {
+	position: static !important;
+	margin: 0 !important;
+	transform: scale(1) translateX(4px);
+}
+
+.adip-btn-icon-green .ui-button-text {
+	display: none;
+}
+
+.adip-o-menu .ui-menu-list .ui-menuitem {
+	padding: 0px !important;
+}
+
+.adip-o-menu-item {
+	float: inherit !important;
+}
+
+/*Fin estilos header*/
+
+/*Inicio seccion panel datos usuario*/
+.adip-panel-datos-usuario {
+	border: 3px solid #BC955C;
+	border-radius: 10px;
+}
+
+.adip-panel-datos-usuario .ui-outputlabel {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 14px;
+	letter-spacing: -0.421207px;
+	color: #777777;
+}
+
+.adip-panel-datos-usuario .texto-datos-usuario {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 14px;
+	letter-spacing: -0.421207px;
+	color: #000000;
+	margin-top: 12px;
+	display: inline-block;
+}
+
+.adip-panel-datos-usuario .ui-panelgrid .ui-panelgrid-cell {
+	padding: 4px 8px;
+}
+
+.adip-panel-datos-usuario .ui-outputlabel, .adip-panel-datos-usuario span
+	{
+	font-size: 20px;
+}
+
+.adip-panel-datos-usuario .ui-outputlabel {
+	font-weight: normal;
+}
+
+.adip-panel-datos-usuario span {
+	font-weight: 700;
+}
+/*Fin seccion panel datos usuario*/
+
+/*Inicio seccion descripcion Mi Expediente*/
+.adip-panel-descripcion-expediente h2,
+	.adip-panel-descripcion-expediente p {
+	color: #0F4C42;
+	opacity: .96;
+	line-height: 14px;
+}
+
+.adip-panel-descripcion-expediente h2 {
+	font-size: 22px;
+	margin: 0 0 25px 0;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 800;
+	font-size: 25px;
+	line-height: 14px;
+	letter-spacing: -0.421207px;
+	color: rgba(136, 24, 91, 0.96);
+}
+
+.adip-panel-descripcion-expediente p {
+	margin: 12px 0 0 0;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	color: #444444;
+	font-size: 17px;
+	line-height: 20px;
+	letter-spacing: -0.421207px;
+}
+
+.adip-panel-descripcion-expediente .adip-btn-primary {
+	width: auto !important;
+	background: #88185B !important;
+}
+
+.adip-panel-descripcion-expediente .icon-cargar-documento {
+	transform: scale(1.5) translate(4px, -2px)
+}
+
+.adip-panel-descripcion-expediente .ui-button-text-icon-left .ui-button-text
+	{
+	font-weight: 700 !important;
+}
+
+.adip-dialog {
+	border-top: 12px solid #88185B !important;
+	background-color: white;
+}
+
+.adip-dialog.adip-dialog-agregar-doc {
+	max-height: 100vh;
+	overflow: auto;
+}
+
+.adip-dialog .ui-dialog-titlebar.ui-widget-header {
+	text-align: center;
+	padding: 16px 130px !important;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 27.626px;
+	line-height: 24px;
+	text-align: center;
+	color: #88185B;
+}
+
+.adip-dialog.eliminar .ui-dialog-titlebar {
+	padding-right: 0 !important;
+	padding-left: 20px !important;
+	text-align: left !important;
+}
+
+.adip-dialog.eliminar .ui-dialog-title {
+	color: black !important;
+}
+
+.adip-dialog.dialog-aviso .ui-dialog-titlebar.ui-widget-header {
+	padding: 16px 10px !important;
+}
+
+.adip-dialog .dialog-body {
+	padding: 0 20px 0 20px !important;
+}
+
+.adip-dialog.dialog-aviso .ui-chkbox .ui-chkbox-box.ui-state-active {
+	background: black !important;
+}
+
+.adip-dialog .dialog-body p {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 18px;
+	letter-spacing: -0.460643px;
+	color: #6F7271;
+}
+
+.adip-dialog.dialog-aviso .ui-dialog-title {
+	font-size: 27px !important;
+	margin-top: 16px !important;
+	display: block;
+}
+
+.adip-dialog .dialog-body .highlight {
+	font-style: normal;
+	font-size: 18px;
+	line-height: 14px;
+	color: #3451EB;
+	text-decoration: underline;
+}
+
+.adip-dalog .dialog-body .manifiesto {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 18px;
+	letter-spacing: -0.460643px;
+	color: #6F7271;
+}
+
+.adip-dialog .dialog-body .manifiesto-wrapper {
+	padding-left: 40px;
+	margin-top: -35px;
+}
+
+.adip-dialog .dialog-footer {
+	padding: 20px 40px;
+	background: #EDF2F7;
+}
+
+.adip-dialog .ui-chkbox .ui-chkbox-box, .adip-dialog .ui-chkbox .ui-chkbox-box.ui-state-focus
+	{
+	border-color: #D6D9D9 !important;
+	box-shadow: none !important;
+}
+
+.adip-dialog .ui-state-active, .adip-dialog .ui-widget-content .ui-state-active,
+	.adip-dialog .ui-widget-header .ui-state-active {
+	font-size: 14px !important;
+}
+
+.adip-dialog .ui-button-text-only .ui-button-text {
+	padding: 0.3em 1em !important;
+}
+
+.ui-dialog .ui-button-text.ui-c {
+	font-size: 16px !important;
+	font-weight: 700;
+}
+
+.adip-dialog .adip-btn-primary {
+	width: 144px !important;
+	font-weight: 700;
+	background: #88185B !important;
+}
+
+.adip-dialog .adip-btn-gray {
+	width: 144px !important;
+	background-color: #98989A ! important;
+	border: none !important;
+	padding-top: 1px !important;
+}
+
+.adip-dialog.adip-dialog-agregar-doc .adip-btn-gray {
+	background: transparent !important;
+	color: black !important;
+}
+
+/*Fin seccion descripcion Mi Expediente*/
+
+/*Inicio seccion tabla documentos*/
+.adip-datatable .ui-datatable-tablewrapper>table {
+	border-collapse: separate;
+	border-spacing: 0px 12px;
+}
+
+.adip-datatable .ui-datatable-tablewrapper thead tr {
+	background-color: #F4EEE2;
+}
+
+.adip-datatable.ui-datatable .ui-datatable-data>tr {
+	background-color: #F8F8F8 !important;
+	box-shadow: none !important;
+}
+
+.adip-datatable.ui-datatable .ui-datatable-data>tr>td {
+	padding: 6px 12px !important;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 13.3629px;
+	line-height: 16px;
+}
+
+.adip-datatable.ui-datatable .ui-datatable-data>tr.ui-datatable-selectable[aria-selected="true"]>td
+	{
+	border: 3px solid #BC955C !important;
+	border-right: none !important;
+	border-left: none !important;
+}
+
+.adip-datatable.ui-datatable .ui-datatable-data>tr.ui-datatable-selectable[aria-selected="true"]>td:first-child
+	{
+	border-left: 3px solid #BC955C !important;
+}
+
+.adip-datatable.ui-datatable .ui-datatable-data>tr.ui-datatable-selectable[aria-selected="true"]>td:last-child
+	{
+	border-right: 3px solid #BC955C !important;
+}
+
+.adip-datatable .ui-paginator-page.ui-state-default, .adip-datatable .ui-paginator-next,
+	.adip-datatable .ui-paginator-prev {
+	color: #8B652E !important;
+}
+
+.adip-datatable thead th[aria-sort="other"] .ui-sortable-column-icon.ui-icon.ui-icon-carat-2-n-s:before
+	{
+	content: "\e902";
+}
+
+.adip-datatable thead th[aria-sort="descending"] .ui-sortable-column-icon.ui-icon.ui-icon-carat-2-n-s:before
+	{
+	content: "\e902";
+}
+
+.adip-datatable .ui-column-title {
+	color: #8B652E;
+}
+
+.adip-datatable .vigente {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 800;
+	font-size: 14px;
+	line-height: 17px;
+	display: flex;
+	align-items: center;
+	color: #00B140;
+}
+
+.adip-datatable thead th[aria-sort="ascending"] .ui-sortable-column-icon.ui-icon.ui-icon-carat-2-n-s:before
+	{
+	content: "\e903";
+}
+
+.adip-datatable .ui-datatable-selectable[aria-selected="true"] {
+	border: 4px solid #BC955C !important;
+}
+
+.adip-dialog-agregar-doc .ui-dialog-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-top
+	{
+	text-align: left !important;
+	padding-top: 30px !important;
+	padding-left: 20px !important;
+	padding-bottom: 30px !important;
+	color: black;
+}
+
+.adip-dialog-agregar-doc .ui-dialog-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-top .ui-dialog-title
+	{
+	font-size: 22px !important;
+}
+
+.ui-dialog {
+	max-width: 600px !important;
+}
+
+@media screen and (max-width: 30em) {
+	.ui-dialog .ui-dialog-content {
+		padding: 0 !important;
+		width: 100% !important;
+		height: 90% !important;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	.adip-panel-reemplazar {
+		flex-direction: column !important;
+	}
+	
+	.adip-panel-reemplazar > *:not(:first-child){
+		margin:8px 0;
+	}
+}
+
+.adip-dialog .ui-outputlabel {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	color: #2D3748;
+}
+
+.adip-dialog .ui-selectonemenu .ui-selectonemenu-label {
+	padding: 16px;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	font-style: normal;
+	color: #1A202C;
+}
+
+.adip-dialog .ui-inputtextarea {
+	padding: 16px;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #1A202C;
+	font-style: normal;
+	border: 1px solid #A0AEC0;
+	width: 100%;
+	resize: none;
+}
+
+.adip-dialog .ui-selectonemenu.ui-widget {
+	border: 1px solid #A0AEC0;
+}
+
+.adip-dialog .ui-selectonemenu.ui-widget  .ui-selectonemenu-trigger {
+	background: #A0AEC0;
+	width: 56px;
+}
+
+.adip-dialog .ui-selectonemenu.ui-widget  .ui-selectonemenu-trigger .ui-icon
+	{
+	color: white;
+}
+
+.adip-dialog .adip-nota {
+	font-style: italic;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	color: #718096;
+}
+
+.adip-dialog .ui-calendar {
+	display: flex;
+	height: 56.27px;
+}
+
+.adip-dialog .ui-calendar .ui-inputfield {
+	background: #FFFFFF;
+	border: 1px solid #A0AEC0;
+	width: 100%;
+	padding: 15px;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #1A202C;
+}
+
+.adip-dialog .ui-calendar .ui-inputfield+button {
+	background: #A0AEC0;
+	transform: scaleX(1.6) translateX(-8px);
+}
+
+.adip-dialog .ui-calendar .ui-button.ui-button-icon-only .ui-icon-calendar
+	{
+	transform: scaleX(1.4) scaleY(2);
+}
+
+.adip-dialog .ui-fileupload-simple {
+	width: 100%;
+}
+
+.adip-dialog .ui-fileupload-simple .ui-icon-plusthick {
+	top: 43% !important;
+	width: 28px !important;
+	height: 19px !important;
+	background-image: url(/resources/img/cargar.svg) !important;
+	height: 19px !important;
+}
+
+.adip-dialog .ui-fileupload-simple .ui-icon-plusthick:before {
+	display: none !important;
+}
+
+.adip-dialog .ui-fileupload-simple .ui-button.ui-button-text-icon-left .ui-icon
+	{
+	left: 35% !important;
+}
+
+.adip-dialog .ui-fileupload-simple .ui-button {
+	background: #CBD5E0;
+	border-radius: 6px;
+	color: black;
+	width: 100%;
+}
+
+.adip-dialog .ui-fileupload-simple .ui-button .ui-button-text {
+	height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-style: normal;
+	font-weight: 400 !important;
+	font-size: 17px !important;
+	line-height: 21px !important;
+	text-align: center;
+	letter-spacing: -0.03em;
+}
+
+.adip-dialog *::placeholder {
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	color: #A0AEC0;
+}
+
+.adip-dialog .req:after {
+	content: "*";
+	font-size: 15px;
+	font-weight: 700;
+	color: red;
+}
+
+.adip-title-documento {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 21px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.adip-descripcion-documento {
+	font-weight: 700;
+	font-size: 27px;
+	line-height: 21px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	line-height: 21px;
+	color: #88185B;
+	margin: 16px 0 24px 0;
+}
+
+.adip-panel-documento-preview {
+	border: 1px solid #eeeeee;
+	background: #FFFFFF;
+	box-shadow: inset 0px 2px 4px rgb(0 0 0/ 10%) !important;
+	border-radius: 10px;
+	box-shadow: inset 0px 2px 4px rgb(0 0 0/ 10%) !important;
+	overflow: hidden;
+}
+
+.adip-panel-documento-preview .panel-preview-footer {
+	background: #BC955C;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-items: center;
+}
+
+.adip-panel-documento-preview .panel-preview-footer-desc {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.adip-panel-documento-preview .panel-preview-footer-titulo {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 800;
+	font-size: 16px;
+	line-height: 19px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.adip-fechas-prev h3 {
+	font-weight: normal;
+}
+
+.adip-fechas-prev {
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 19px;
+	color: #000000;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	margin-top: -30px;
+}
+
+.adip-fechas-txt {
+	font-weight: 700 !important;
+}
+
+.adip-panel-fechas>div>div {
+	border-top: 2px solid black !important;
+	border-bottom: 2px solid black !important;
+}
+
+.adip-btn-preview {
+	height: 50px !important;
+	padding: 0px 20px 0 0 !important;
+	display: flex !important;
+	align-items: center !important;
+	width: auto !important;
+}
+
+.adip-fecha-carga {
+	display: flex !important;
+	flex-direction: column;
+	align-items: flex-start !important;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 300 !important;
+	font-size: 13.9001px;
+	line-height: 17px;
+	display: flex;
+	align-items: center;
+	color: #000000;
+	font-family: 'Inter';
+	font-family: 'Inter';
+}
+
+.adip-fecha-carga h3 {
+	font-weight: 300 !important;
+	margin: 0 0 5px 0 !important;
+}
+
+.adip-panel-reemplazar {
+	margin-top: 4px;
+	padding: 10px 0;
+	position: relative;
+	padding: 10px 0;
+}
+
+.adip-panel-reemplazar:before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background-color: #A7A9AC;
+	top: 0;
+	left: 0;
+	transform: scaleX(95%);
+}
+
+.adip-contenedor-carga-imagen {
+	background: #F8F8F8;
+	border-radius: 15px;
+}
+
+/*Fin seccion tabla documentos*/
+</style>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+
+	<p:outputLabel value="#{msg.lbl_clasificacion}" styleClass="adip-o-output-filtros" />
+	<p:panel styleClass="adip-o-panel">
+		<p:selectManyCheckbox value="#{tramitesOficinaBean.lstCatTipoFuncionalidadSelected}" converter="entityConverter" columns="1" layout="grid"
+			styleClass="adip-o-select-m-cb pb-1">
+			<p:ajax process="@this" />
+			<f:selectItems value="#{tramitesOficinaBean.lstCatTipoFuncionalidad}" var="clasificacion" itemLabel="#{clasificacion.descripcion}" itemValue="#{clasificacion}" />
+		</p:selectManyCheckbox>
+	</p:panel>
+	<p:outputLabel value="#{msg.lbl_dependencia}" styleClass="adip-o-output-filtros" />
+	<p:scrollPanel styleClass="adip-o-scroll-panel">
+		<p:selectCheckboxMenu value="#{tramitesOficinaBean.lstCatDependenciaSelected}" converter="entityConverter" styleClass="adip-o-scbm"
+			panelStyleClass="adip-o-scbm-panel" label="Busca dependencias" filterPlaceholder="Busca dependencias" filter="true" filterMatchMode="contains" dynamic="true">
+			<p:ajax update="@next" />
+			<p:ajax event="toggleSelect" update="frmTramites:pgFiltros frmTramites:pgSbBFiltros" listener="#{tramitesOficinaBean.seleccionaToggleDependencias()}" process="@this" />
+			<f:selectItems value="#{tramitesOficinaBean.lstCatDependencia}" var="scbmDependencia" itemLabel="#{scbmDependencia.nombre}" itemValue="#{scbmDependencia}" />
+		</p:selectCheckboxMenu>
+		<p:selectBooleanCheckbox itemLabel="Todas las autoridades" value="#{tramitesOficinaBean.selectAllDependencias}" columns="1" layout="grid" styleClass="adip-o-select-bcb">
+			<p:ajax listener="#{tramitesOficinaBean.seleccionaDependencias()}" update="frmTramites:pgFiltros frmTramites:pgSbBFiltros" />
+		</p:selectBooleanCheckbox>
+		<p:selectManyCheckbox value="#{tramitesOficinaBean.lstCatDependenciaSelected}" converter="entityConverter" columns="1" layout="grid" styleClass="adip-o-select-m-cb" style="padding-top: 0px !important;">
+			<p:ajax update="@previous" />
+			<f:selectItems value="#{tramitesOficinaBean.lstCatDependencia}" var="smcbDependencia" itemLabel="#{smcbDependencia.nombre}" itemValue="#{smcbDependencia}" />
+		</p:selectManyCheckbox>
+	</p:scrollPanel>
+	<p:outputLabel value="#{msg.plh_estatus}" styleClass="adip-o-output-filtros pt-4" />
+
+	<p:scrollPanel styleClass="adip-o-scroll-panel panel-estatus">
+		<p:selectCheckboxMenu value="#{tramitesOficinaBean.lstCatEstatusSelected}" converter="entityConverter" styleClass="adip-o-scbm" panelStyleClass="adip-o-scbm-panel"
+			label="Busca estatus" filterPlaceholder="Busca estatus" filter="true" filterMatchMode="contains" dynamic="true">
+			<p:ajax update="@next" />
+			<p:ajax event="toggleSelect" update="frmTramites:pgFiltros frmTramites:pgSbBFiltros" listener="#{tramitesOficinaBean.seleccionaToggleEstatus()}" />
+			<f:selectItems value="#{tramitesOficinaBean.lstCatEstatus}" var="scbmEstatus" itemLabel="#{scbmEstatus.descripcion}" itemValue="#{scbmEstatus}" />
+		</p:selectCheckboxMenu>
+		<p:selectBooleanCheckbox itemLabel="Todos los estatus" value="#{tramitesOficinaBean.selectAllEstatus}" columns="1" layout="grid" styleClass="adip-o-select-bcb">
+			<p:ajax listener="#{tramitesOficinaBean.seleccionaEstatus()}" update="frmTramites:pgFiltros frmTramites:pgSbBFiltros" />
+		</p:selectBooleanCheckbox>
+		<p:selectManyCheckbox value="#{tramitesOficinaBean.lstCatEstatusSelected}" converter="entityConverter" columns="1" layout="grid" styleClass="adip-o-select-m-cb pb-1" style="padding-top: 0px !important;">
+			<p:ajax update="@previous" />
+			<f:selectItems value="#{tramitesOficinaBean.lstCatEstatus}" var="smcbEstatus" itemLabel="#{smcbEstatus.descripcion}" itemValue="#{smcbEstatus}" />
+		</p:selectManyCheckbox>
+	</p:scrollPanel>
+
+	<p:panelGrid columns="2" columnClasses="ui-g-6 p-0 adip-center pr-btn-filtros, ui-g-6 p-0 adip-center pl-btn-filtros" layout="grid" styleClass="adip-panel-sin-pading">		
+			<p:commandButton value="Borrar filtros" styleClass="adip-btn-red" actionListener="#{tramitesOficinaBean.borraFiltro()}" process="@this"
+           	 update="frmTramites:pgTramitesDesktop frmTramites:pgTramitesMobile frmTramites:pgFiltros frmTramites:pgTarjetas frmTramites:itxtBuscar" />
+		
+		  <p:commandButton value="Buscar" styleClass="adip-btn-red" actionListener="#{tramitesOficinaBean.filtraRegistros()}" process="@this"
+		     update="frmTramites:pgTramitesDesktop frmTramites:pgTramitesMobile frmTramites:pgFiltros frmTramites:pgTarjetas" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0 adip-center" layout="grid" styleClass="adip-panel-sin-pading" style="padding:11px 0px !important;">
+		<p:commandButton value="Ayuda" styleClass="adip-o-btn-marron-link adip-o-output-filtros" oncomplete="PF('dialogVideo').show()" />
+	</p:panelGrid>
+
+</ui:composition>

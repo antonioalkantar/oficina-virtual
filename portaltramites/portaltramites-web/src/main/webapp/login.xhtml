@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/plantillaBack.xhtml">
+	<ui:define name="content">
+		<h:form id="formLogin">
+			<div id="container" class="img-background">
+				<div style="padding-top: 40px;" />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" style="text-align-last: center;">				
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:outputLabel value="Bienvenido" style="font-size:300% !important; color: #FFFFFF !important; font-family: Inter !important" />
+					</p:panelGrid>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">						
+							<p:commandLink id="btnInicio" action="#{authenticatorBean.redirectUrlLoginCDMX()}">
+								<p:graphicImage value="/resources/img/inicia-llave-2.svg" style="width:42%" />
+							</p:commandLink>						
+					</p:panelGrid>
+				</p:panelGrid>
+			</div>
+		</h:form>
+		<style>
+		.ui-panelgrid .p-grid .ui-panelgrid-cell, .ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+		    border: 0 none;
+		    background: 0;
+		}
+		</style>
+	</ui:define>	
+</ui:composition>

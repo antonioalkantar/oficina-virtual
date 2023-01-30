@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-bg-white">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading">
+
+			<p:accordionPanel id="acordeonComoRealiza" activeIndex="" styleClass="adip-accordion adip-accordion-header">
+				<p:tab>
+					<f:facet name="title">
+						<p:outputLabel value="#{msg.lbl_como_donde}" styleClass="adip-accordion ui-accordion-header" />
+<!-- 						<p:outputLabel value="Trámite disponible en línea" styleClass="adip-output-gold adip-icon-llave adip-icon-header" -->
+<!-- 							rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarseDigitalmente}" /> -->
+					</f:facet>
+
+					<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-background-grey mt-3 mb-2"
+						rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarseDigitalmente}">
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-8 adip-tl-width, ui-grid-col-4 adip-tl-width" layout="grid" styleClass="ui-panel-sin-pading flex"
+							contentStyleClass="m-auto pt-3 pb-3">
+							<p:outputLabel value="Este trámite está disponible en Línea" styleClass="adip-output-grey-bold" />
+							<p:link styleClass="boton-continuar-llave-home" href="#{detalleTramiteBean.urls.get(0).url}" immediate="true" target="_blank"
+								style="margin-left: 10px; padding: 10px 16px 10px 45px !important;text-decoration: none;">
+								<p:outputLabel value="Iniciar" />
+							</p:link>
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<!--DIGITAL -->
+					<div class="col-12 p-0" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarseDigitalmente}" id="digital">
+						<div class="p-0 col-12">
+							<div class="col-12 pl-0">
+								<h:outputText value="#{msg.lbl_via_digital}" styleClass="adip-accordion-subtitulo-bold" />
+							</div>
+							<div class="col-12 p-0" style="padding-top: 23px !important;">
+								<p:repeat value="#{detalleTramiteBean.pasosDig}" var="pasosDig" varStatus="status">
+									<p:outputLabel rendered="#{!pasosDig.descripcion.contains('http')}" value="#{detalleTramiteBean.pasosDig.indexOf(pasosDig)+1}. #{pasosDig.descripcion}"
+										style="word-break: break-word !important;" styleClass="adip-requisitos" />
+									<p:outputLabel rendered="#{pasosDig.descripcion.contains('http')}"
+										value="#{detalleTramiteBean.pasosDig.indexOf(pasosDig)+1}. #{pasosDig.descripcion.substring(0,pasosDig.descripcion.indexOf('http'))}"
+										style="word-break: break-word !important;" styleClass="adip-requisitos" />
+									<p:link rendered="#{pasosDig.descripcion.contains('http')}" value="#{pasosDig.descripcion.substring(pasosDig.descripcion.indexOf('http'))}"
+										href="#{pasosDig.descripcion.substring(pasosDig.descripcion.indexOf('http'))}" styleClass="adip-requisitos-bold"
+										style="text-decoration: none; color: #9F2241 !important;word-break: break-word !important;" immediate="true" target="_blank" />
+									<br />
+									<div style="padding-bottom: 10px;" />
+								</p:repeat>
+							</div>
+							<div class="col-12 p-0" jsf:rendered="{not null detalleTramiteBean.urls and detalleTramiteBean.urls.size() > 1}">
+								<p:repeat value="#{detalleTramiteBean.urls}" var="urls" varStatus="status">
+									<p:link href="#{urls.url}" value="#{urls.url}" immediate="true" target="_blank"
+										style="text-decoration: none; color: #9F2241 !important;word-break: break-word !important;" styleClass="text-base font-bold" />
+									<br />
+								</p:repeat>
+							</div>
+
+						</div>
+					</div>
+					<!--PRESENCIAL-->
+					<div class="col-12 p-0" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente}" id="presencial">
+						<div class="p-0 col-12">
+							<div class="col-12 pt-4 pl-0">
+								<h:outputText value="#{msg.lbl_via_presencial}" styleClass="adip-accordion-subtitulo-bold" />
+							</div>
+							<div class="col-12 p-0 pl-6" style="padding-top: 23px !important;"
+								jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente and detalleTramiteBean.detalleTramiteServicioDTO.requiereAgendarCitas and detalleTramiteBean.detalleTramiteServicioDTO.puedeAgendarEnLinea}">
+								<h:outputText value="1. Agenda una cita " class="black" styleClass="adip-requisitos" style="word-break: break-word !important;" />
+								<p:link href="#{detalleTramiteBean.detalleTramiteServicioDTO.urlAgendarCita}" value="aquí" immediate="true" target="_blank"
+									style="text-decoration: none; color: #9F2241 !important;" styleClass="text-base font-bold" />
+							</div>
+							<div class="col-12" style="padding-top: 23px !important;"
+								jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente and (!detalleTramiteBean.detalleTramiteServicioDTO.requiereAgendarCitas or !detalleTramiteBean.detalleTramiteServicioDTO.puedeAgendarEnLinea)}">
+								<p:repeat value="#{detalleTramiteBean.pasos}" var="pasoPresencial" varStatus="status">
+									<h:outputText value="#{detalleTramiteBean.pasos.indexOf(pasoPresencial)+1}. #{pasoPresencial.descripcion}" styleClass="adip-requisitos"
+										style="word-break: break-word !important;" />
+									<br />
+									<div style="padding-bottom: 10px;" />
+								</p:repeat>
+							</div>
+							<div class="col-12 " style="padding-top: 23px !important;"
+								jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente and detalleTramiteBean.detalleTramiteServicioDTO.requiereAgendarCitas and detalleTramiteBean.detalleTramiteServicioDTO.puedeAgendarEnLinea}">
+								<p:repeat value="#{detalleTramiteBean.pasos}" var="pasoPresencial" varStatus="status">
+									<h:outputText value="#{detalleTramiteBean.pasos.indexOf(pasoPresencial)+2}. #{pasoPresencial.descripcion}" styleClass="adip-requisitos"
+										style="word-break: break-word !important;" />
+									<br />
+									<div style="padding-bottom: 10px;" />
+								</p:repeat>
+							</div>
+						</div>
+					</div>
+
+					<!-- UBICACION -->
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid pb-4"
+						rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente}">
+						<p:commandButton value="#{msg.lbl_localiza_oficina}" styleClass="adip-btn-white adip-btn-localiza" style="width:auto !important"
+							onclick="document.getElementById('frmHomeTramite:acordeonComoRealiza:pnlUbicacion_toggler').click();" />
+					</p:panelGrid>
+
+
+					<p:panel id="pnlUbicacion" header="" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" styleClass="adip-panel-collapsed"
+						collapsed="true">
+						<p:panelGrid id="pnlUbicacionesTramite" columns="3" columnClasses="ui-grid-col-5 p-0,ui-grid-col-1 p-0 linea-Gris, ui-grid-col-6 p-0" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid card p-0" rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente}">
+
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-3" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<h:outputText value="Localiza la oficina de atención más cercana" styleClass="adip-requisitos" />
+
+									<h:outputText value="Por favor selecciona una alcaldía" styleClass="selecciona-alcaldia" />
+									<div class="col-12 p-0" jsf:rendered="#{not empty detalleTramiteBean.lstAlcaldia}">
+										<p:selectOneMenu value="#{detalleTramiteBean.id_alcaldia}" style="width: -webkit-fill-available !important; max-width: 100%;"
+											styleClass="cbx-alcalcia adip-selectone">
+											<f:selectItem itemLabel="Selecciona" noSelectionOption="true" />
+											<f:selectItems value="#{detalleTramiteBean.lstAlcaldia}" />
+											<p:ajax event="itemSelect" process="@this" listener="#{detalleTramiteBean.getListCentrosAc()}" update="pnDireccion" oncomplete="configuraMapa();" />
+										</p:selectOneMenu>
+									</div>
+								</p:panelGrid>
+
+								<p:panelGrid id="pnDireccion" columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<div class="grid p-2" jsf:rendered="#{not empty detalleTramiteBean.lstAlcaldia}">
+										<p:repeat value="#{detalleTramiteBean.listadoAlcaldiaAux}" var="lstAreaAC" varStatus="status">
+											<div class="col-12 pt-2">
+												<h:outputText value="#{lstAreaAC.nombreAac}" style="color: #9F2241; font-size: 14px; " />
+											</div>
+											<div class="col-2" style="padding-right: 0px;">
+												<p:graphicImage value="/resources/img/pin.svg" style=" width: 23px;  height: 23px; float: left;" />
+											</div>
+											<div class="col-10" style="padding-left: 0px;">
+												<h:outputText value="#{lstAreaAC.direccion}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+											</div>
+											<div class="col-2 " style="padding-right: 0px;">
+												<p:graphicImage value="/resources/img/reloj.svg" style=" width: 23px;  height: 23px; float: left; " />
+											</div>
+											<div class="col-10" style="padding-left: 0px;">
+												<h:outputText value="Horario de atención:" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+
+												<div class="col-11 p-0 ">
+													<p:repeat value="#{lstAreaAC.detHorarioRegistrados}" var="lstHorario" varStatus="status">
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeLunes}">
+															<h:outputText rendered="#{lstHorario.atiendeLunes}" value=" Lunes de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}"
+																styleClass="black xl:font-tram-texto lg:font-tram-texto pb-1" />
+														</div>
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeMartes}">
+															<h:outputText value=" Martes de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+														</div>
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeMiercoles}">
+															<h:outputText value=" Miércoles de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+														</div>
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeJueves}">
+															<h:outputText value=" Jueves de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+														</div>
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeViernes}">
+															<h:outputText value=" Viernes de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+														</div>
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeSabado}">
+															<h:outputText value=" Sábado de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+														</div>
+														<div class="col-12 p-0" jsf:rendered="#{lstHorario.atiendeDomingo}">
+															<h:outputText value=" Domingo de #{lstHorario.horaInicioSt()} - #{lstHorario.horaFinSt()}" styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+														</div>
+													</p:repeat>
+												</div>
+											</div>
+
+											<div class="col-2" style="padding-right: 0px;" jsf:rendered="#{lstAreaAC.detTelefonoRegistrados.size() gt 0}">
+												<p:graphicImage value="/resources/img/Tel.svg" style=" width: 23px;  height: 23px; float: left;" />
+											</div>
+
+											<div class="col-10" style="padding-left: 0px;" jsf:rendered="#{lstAreaAC.detTelefonoRegistrados.size() gt 0}">
+												<h:outputText
+													value="#{lstAreaAC.detTelefonoRegistrados.get(0).numeroTelefono.concat(lstAreaAC.detTelefonoRegistrados.get(0).extensionTel ne null and not empty lstAreaAC.detTelefonoRegistrados.get(0).extensionTel 
+													? ' Ext. '.concat(lstAreaAC.detTelefonoRegistrados.get(0).extensionTel) 
+													: '')}"
+													styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+												<p:repeat var="extension" value="#{lstAreaAC.detTelefonoRegistrados}">
+
+													<p:outputLabel
+														value="#{extension.getNumeroTelefono() ne null 
+														and not empty extension.getNumeroTelefono() 
+														and (extension.getId() ne lstAreaAC.detTelefonoRegistrados.get(0).id) ?
+														', '.concat(extension.getNumeroTelefono()).concat(extension.getExtensionTel() ne null and not empty extension.getExtensionTel() 
+															? ' Ext. '.concat(extension.getExtensionTel()) 
+															: '')
+														:''}"
+														styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+													<p:outputLabel
+														value="#{(extension.getNumeroTelefono() eq null 
+														or empty extension.getNumeroTelefono())
+														and (extension.getExtensionTel() ne null and not empty extension.getExtensionTel())
+														? ', '.concat(extension.getExtensionTel()) 
+															: ''}"
+														styleClass="black xl:font-tram-texto lg:font-tram-texto " />
+												</p:repeat>
+											</div>
+
+											<div class="col-12" style="text-align: right !important;" jsf:rendered="#{lstAreaAC.latitud ne null and lstAreaAC.longitud ne null}">
+												<p:link id="btnDesplegarMapa" href="https://www.google.com/maps/dir/?api=1&amp;destination=#{lstAreaAC.latitud},#{lstAreaAC.longitud}" target="_blank"
+													styleClass="adip-btn-magenta">
+													<p:graphicImage library="img" name="info-32.png" styleClass="adip-icon-info" />
+													<label class="label-info-tramite ">#{msg.boton_comollegar_mapa}</label>
+												</p:link>
+											</div>
+										</p:repeat>
+									</div>
+								</p:panelGrid>
+							</p:panelGrid>
+
+							<p:column id="separador" />
+
+							<!--Aqui va el MAPA	 -->
+							<p:panelGrid id="pnlDireccion" columns="1" columnClasses="ui-grid-col-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+								rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarsePresencialmente}">
+								<h:outputText value="Da clic sobre el marcador para ver información" style="text-decoration: none; color: #9F2241 !important;" styleClass="text-base font-bold" />
+								<p:gmap id="mapaDirecciones" widgetVar="w_gmap" center="19.3898659,-99.1923785" zoom="11" type="ROADMAP" style="width:100%;height:400px"
+									model="#{detalleTramiteBean.simpleModel}">
+									<p:ajax event="overlaySelect" listener="#{detalleTramiteBean.onMarkerSelect}" />
+									<p:gmapInfoWindow id="infoWindow">
+										<p:outputPanel style="text-align: center; display: block; margin: auto">
+											<p:outputLabel value="#{detalleTramiteBean.marker.title}" />
+											<br />
+											<p:outputLabel value="#{detalleTramiteBean.marker.data}" />
+										</p:outputPanel>
+									</p:gmapInfoWindow>
+								</p:gmap>
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:panel>
+
+
+
+					<!-- TELEFÓNICAMENTE -->
+					<div class="col-12 back-tramite-quenecesito-gris" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarseTelefonicamente}" id="telefonica">
+						<div class="grid p-0">
+							<div class="col-12 pl-0">
+								<h:outputText value="#{msg.lbl_via_telefonica}" styleClass="adip-accordion-subtitulo-bold" />
+							</div>
+
+							<div class="col-12 p-0" style="padding-top: 23px !important;">
+								<p:repeat value="#{detalleTramiteBean.pasosTel}" var="pasoTels" varStatus="status">
+									<h:outputText value="#{detalleTramiteBean.pasosTel.indexOf(pasoTels)+1}. #{pasoTels.descripcion}" styleClass="adip-requisitos" />
+									<br />
+									<div style="padding-bottom: 10px;" />
+								</p:repeat>
+							</div>
+
+							<div class="col-12 p-0  pl-6">
+								<p:repeat value="#{detalleTramiteBean.telefonos}" var="tels" varStatus="status">
+									<h:outputText value="#{tels.numTelefono}" styleClass="adip-requisitos" />
+									<br />
+									<div style="padding-bottom: 10px;" />
+								</p:repeat>
+							</div>
+
+						</div>
+					</div>
+
+					<ui:include src="/public/seccionesInformacionTramite/subseccionesTramite/tramiteFormatos.xhtml" />
+					<ui:include src="/public/seccionesInformacionTramite/subseccionesTramite/tramiteVigencia.xhtml" />
+				</p:tab>
+			</p:accordionPanel>
+		</p:panelGrid>
+	</p:panelGrid>
+
+	<style>
+.adip-icon-header {
+	float: right;
+	margin: 12px 50px 0 0px;
+	padding-left: 25px;
+}
+
+.boton-continuar-llave-home {
+	background-position-x: 9px !important;
+	border-radius: 31.2559px !important;
+}
+</style>
+
+</ui:composition>

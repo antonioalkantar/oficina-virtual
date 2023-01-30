@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:b="http://bootsfaces.net/ui">
+
+	<div class="grid grid-nogutter back-tramite-white p-0">
+		<div class="col-12">
+			<div class="col-12">
+				<div class="grid adip-reverse pt-2">
+					<div class="lg:col-7 md:col-6 sm:col-12 xs:col-12 pt-2 pl-3">
+						<div class="col-12 p-0">
+							<p:outputLabel value="#{msg.ultima_actualizacion.concat(' ').concat(detalleTramiteBean.fechaPublicacion.strFecha)}" styleClass="adip-output-cabecera-subtitulo" />
+						</div>
+					</div>
+					<div class="lg:col-5  md:col-6 sm:col-12 xs:col-12 col-fixed pt-0 pb-0">
+						<div class="flex adip-jc" style="align-items: center;">
+							<div class="flex align-items-center justify-content-center m-2">
+								<p:commandButton value="#{msg.boton_imprime}" ajax="true" styleClass="btn_descarga" style="width: 100%;"
+								onclick="window.print()">
+<!-- 									<p:printer target="frmHomeTramite" /> -->
+								</p:commandButton>
+							</div>
+							<div class="btn_wrap">
+								<span class="compartir">Compartir</span>
+								<div class="container">
+									<h:outputLink value="#{detalleTramiteBean.redirectFacebook}" target="_blank">
+										<i class="fa fa-fw fa-facebook-official tamañoI"></i>
+									</h:outputLink>
+									<h:outputLink value="#{detalleTramiteBean.redirectTwitter}" target="_blank">
+										<i class="fa fa-fw fa-twitter tamañoI"></i>
+									</h:outputLink>
+
+									<h:outputLink value="#{detalleTramiteBean.redirectWhatsapp}" target="_blank" class="adip-w-movil">
+										<i class="fa fa-fw fa-whatsapp tamañoI"></i>
+									</h:outputLink>
+									<h:outputLink value="#{detalleTramiteBean.redirectWhatsappDesc}" target="_blank" class="adip-w-desktop">
+										<i class="fa fa-fw fa-whatsapp tamañoI"></i>
+									</h:outputLink>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="grid">
+				<div class="col-12 pt-0 pl-3">
+						<div class="col-12 p-0">
+							<p:outputLabel value="UNIDAD NORMATIVA: #{detalleTramiteBean.tramiteSeleccionado.nombreDependencia}" styleClass="uppercase adip-output-cabecera-titulo" />
+						</div>
+					</div>
+					</div>
+				
+				<div class="grid p-0 pt-1 pb-2">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pt-0" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:outputLabel value="#{detalleTramiteBean.tramiteSeleccionado.nombreOficial}" styleClass="adip-output-titulo" />
+						<p:outputLabel value="#{detalleTramiteBean.detalleTramiteServicioDTO.descripcionTramite}" styleClass="adip-output-contenido" />
+					</p:panelGrid>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<p:spacer />
+	<!-- MODALIDADES -->
+	<p:panelGrid id="pgMod" columns="3" columnClasses="ui-g-12 ui-md-5 ui-lg-3, ui-g-12 ui-md-1 ui-lg-1 no-mobile, ui-g-12 ui-md-6 ui-lg-8" layout="grid"
+		styleClass="ui-panelgrid-blank ui-fluid adip-bg-white" rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-1" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="#{msg.lbl_varias_modalidades.concat(',')}" styleClass="adip-output-subtitulo" />
+			<p:outputLabel value="#{msg.lbl_seleccione_una.concat(':')}" styleClass="adip-output-subtitulo-bold" />
+		</p:panelGrid>
+		<p:divider layout="vertical" styleClass="adip-divider" />
+		<p:panelGrid id="pgModSelect" columns="1" columnClasses="ui-grid-col-12 p-1" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:selectOneRadio id="soModalidades" value="#{detalleTramiteBean.idModalidadSeleccionada}" layout="responsive" columns="1" styleClass="adip-select-one-radio">
+				<f:selectItems id="option" value="#{detalleTramiteBean.listModalidadesTramiteServicioDTO}" var="modalidad" itemValue="#{modalidad.idModalidad}"
+					itemLabel="#{modalidad.nombreModalidad}" />
+				<p:ajax listener="#{detalleTramiteBean.getModalidades()}" update=":frmHomeTramite" />
+			</p:selectOneRadio>
+		</p:panelGrid>
+	</p:panelGrid>
+
+	<p:spacer />
+	<!-- QUIEN REALIZA -->
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-bg-white">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="#{msg.lbl_tramite_realizan}" styleClass="adip-output-encabezado" />
+		</p:panelGrid>
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pt-0" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="#{detalleTramiteBean.detalleTramiteServicioDTO.descripcionUsuario}" styleClass="adip-output-contenido" />
+		</p:panelGrid>
+	</p:panelGrid>
+	
+	<p:spacer />
+	<!-- TRAMITE EN LINEA -->
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-bg-white" rendered="#{detalleTramiteBean.tramiteSeleccionado.puedeRealizarseDigitalmente}">
+		<p:panelGrid columns="2" columnClasses="ui-grid-col-8 adip-tl-width, ui-grid-col-4 adip-tl-width" layout="grid" styleClass="ui-panel-sin-pading flex" contentStyleClass="m-auto pt-3 pb-3">
+			<p:outputLabel value="Este trámite está disponible en Línea" styleClass="adip-output-grey-bold" />
+			<p:link styleClass="boton-continuar-llave-home" href="#{detalleTramiteBean.urls.get(0).url}" immediate="true" target="_blank"
+				style="margin-left: 10px; padding: 10px 16px 10px 45px !important;text-decoration: none;">
+				<p:outputLabel value="Iniciar" />
+			</p:link>
+		</p:panelGrid>
+	</p:panelGrid>
+	<style>
+.adip-tl-width {
+	width: max-content !important;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+@media only screen and (max-width: 425px) {
+	.adip-tl-width {
+		width: -webkit-fill-available !important
+	}
+}
+</style>
+
+</ui:composition>

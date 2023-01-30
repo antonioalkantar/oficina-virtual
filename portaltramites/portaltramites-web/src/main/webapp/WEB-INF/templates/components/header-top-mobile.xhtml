@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
+>
+  
+
+	<p:sidebar id="sidebar1" widgetVar="sidebar1" baseZIndex="10000"
+			style="width: 80%; max-width: 400px;">
+
+			<p:panelGrid id="idGridMenuSidebarLogo" columns="2"
+				style="margin:0;width:100%;text-align:left;display: table;"
+				columnClasses="ui-grid-col-12 ZeroPadding,ui-grid-col-12 ZeroPadding opcionxmenuGreen"
+				layout="grid" styleClass="ui-panelgrid-blank ">
+				<p:column>
+					<p:link href="#{request.contextPath}/home.xhtml">
+						<h:graphicImage class="img-header-sidebar" value="/resources/img/adip-header2.svg" style="float: left;" />
+					</p:link>
+				</p:column>
+				<p:column>
+					<p:commandLink onclick="PF('sidebar1').hide()" immediate="true">
+						<p:graphicImage value="/resources/img/close3.svg"
+							style="width: 10px;position: relative; float: right;"
+							styleClass="imagexgreenMenu" />
+					</p:commandLink>
+				</p:column>
+			</p:panelGrid>
+
+			<div style="padding-top: 27px" />
+			
+			<p:panelGrid id="idGridMenuSidebar" columns="1"
+				style="margin:0;width:100%;text-align:left;display: table;"
+				columnClasses="ui-grid-col-12 ZeroPadding" layout="grid"
+				styleClass="ui-panelgrid-blank ">
+				
+				<ui:repeat value="#{homeSeccionesBean.listDetEnlace}" var="enlaceMov">
+					<hr style="color: #f0f1f6; border: solid;" />
+					<p:link href="#{enlaceMov.enlace}" value="#{enlaceMov.descripcion}" styleClass="fontRespSidebar opcionmenuGreen" immediate="true"/>
+				</ui:repeat>
+				
+			</p:panelGrid>
+			<hr style="color: #f0f1f6; border: solid;" />
+		</p:sidebar>
+	<style>				
+	
+		@media (max-width: 640px){
+		#formHeader .ui-panelgrid .ui-grid-responsive .ui-grid-row {
+			    border-top: none !important; 
+ 			    display: flex !important; 
+			}
+		}
+		.ui-sidebar-close {
+		    visibility: collapse;		   
+		}	
+	</style>	
+		
+</ui:composition>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div class="adjustContent">
+		<div class="grid grid-nogutter ZeroPadding-Right menu-normal adjustbusqueda">
+			<div class="col-12 ZeroPadding-Bottom ZeroPadding-Left m-auto">
+				<p:panelGrid id="pnlMenus" columns="2" columnClasses="ui-g-12 ui-md-3 ui-lg-3 pl-0 pr-0 pb-0,
+																	  ui-g-12 ui-md-9 ui-lg-9 p-0 centro" layout="grid"
+							styleClass="ui-panel-sin-pading">
+
+					<p:link href="#{request.contextPath}/home.xhtml">
+						<h:graphicImage value="/resources/img/adip-header2.svg" style="width: fit-content;" />
+					</p:link>				
+						
+						<ui:repeat value="#{homeSeccionesBean.listDetEnlace}" var="enlace">
+							<p:link value="#{enlace.descripcion}" href="#{enlace.enlace}" immediate="true" target="_blank" styleClass="menu-header-principal"
+								style="padding-right:15px !important" />
+						</ui:repeat>	
+				</p:panelGrid>
+			</div>
+		</div>
+	</div>
+
+
+	<p:panelGrid id="idGridMenuRespon" columns="2" style="margin: 0; width: 100%; text-align: right; background: #FFFFFF; justify-content: space-around; zoom: 70%;"
+		columnClasses="	 ui-g-10 adip-posicion-llave pl-0 pr-0,
+            			 ui-g-2 adip-posicion-llave pr-0 "
+		layout="grid" styleClass="ui-grid-col-12 menu-responsive">
+
+		<p:link href="#{request.contextPath}/home.xhtml">
+			<h:graphicImage class="img-header menu-responsive" value="/resources/img/logotipo-mobile.svg" style="float: left; width: 80px;" />
+		</p:link>
+
+<!-- 		<p:commandLink immediate="true" tyleClass="#{tramitesOficinaBean.estiloCiudad}"  -->
+<!-- 					   actionListener="#{tramitesOficinaBean.actualizaPanel(tramitesOficinaBean.menuIndicador)}" -->
+<!-- 					   update="idGridMenuRespon"> -->
+<!-- 			<p:graphicImage value="/resources/img/flechaArriba.svg"  rendered="#{tramitesOficinaBean.verIndicadores}"/> -->
+<!-- 			<p:graphicImage value="/resources/img/flechaAbajo.svg"   rendered="#{!tramitesOficinaBean.verIndicadores}"/> -->
+<!-- 		                        	  &nbsp;La ciudad hoy -->
+<!-- 		</p:commandLink> -->
+
+<!-- 		<p:link href="https://llave.cdmx.gob.mx/" immediate="true" target="_blank" styleClass="adip-enlace-llave"> -->
+<!-- 			<p:graphicImage value="/resources/img/logoLlave.svg" /> -->
+<!-- 		</p:link> -->
+<!-- 		<p:commandLink immediate="true" styleClass="#{tramitesOficinaBean.estiloBuscador}"  -->
+<!-- 					   actionListener="#{tramitesOficinaBean.actualizaPanel(tramitesOficinaBean.menuBuscador)}" -->
+<!-- 					   update="idGridMenuRespon"> -->
+<!-- 			<p:graphicImage library="img" name="lupa-header.svg" styleClass="adip-style-lupa" /> -->
+<!-- 		</p:commandLink> -->
+
+
+		<p:commandButton type="button" value="" immediate="true" styleClass="menu-responsive claseButttonHeader" onclick="PF('sidebar1').show()"
+			style="font-size: 25px; background-image: url(/resources/img/menu-mobile-gris.svg); height: 20px; width: 27px; border: none; border-radius: 0; zoom: 125%;" />
+	</p:panelGrid>
+
+
+	<style>
+.adip-align-cr {
+	align-self: center;
+	text-align: right;
+}
+
+.adip-float-r {
+	float: right;
+}
+
+.centro{
+	text-align-last: right  !important ;
+	align-self: center  !important ;
+}
+
+@media ( max-width : 700px) #formHeader .ui-panelgrid
+	.ui-grid-responsive .ui-grid-row {
+	border-top: none !important ;
+    display: flex !important ;
+    .adip-align-cr {
+		align-self: center;
+		text-align: center;
+	}
+}
+
+@media screen and (min-width: 700px) {
+	.menu-normal {
+		height: auto !important;
+	}
+}
+</style>
+
+	<script type="text/javascript">
+	/*
+	jQuery(document).ready(function () {
+		updateHeader();
+    });
+    */
+	</script> 
+
+</ui:composition>

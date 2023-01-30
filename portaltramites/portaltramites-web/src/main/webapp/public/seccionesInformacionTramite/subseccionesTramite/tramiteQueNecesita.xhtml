@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-bg-white">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:accordionPanel activeIndex="" styleClass="adip-accordion">
+				<p:tab titleStyle="display:flex">
+					<f:facet name="title">
+						<p:outputLabel value="#{msg.lbl_que_necesita}" styleClass="adip-accordion ui-accordion-header" />
+					</f:facet>
+					
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 pt-3 pb-3" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:outputLabel value="#{msg.lbl_requisitos}" styleClass="adip-accordion-subtitulo-bold" />
+					</p:panelGrid>
+
+					<div class="grid grid-nogutter p-0" jsf:rendered="#{detalleTramiteBean.lstDocsTramIdenOfical.size() > 0}">
+						<ul class="nodecoration pl-3">
+							<li>
+								<div>
+									<h:outputText value="1. Documentos de identificación oficial" styleClass="adip-requisitos-bold" />
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<ui:repeat value="#{detalleTramiteBean.lstDocsTramIdenOfical}" var="doctoTram">
+						<div class="col-12 p-0">
+							<ul class="nodecoration pl-3">
+								<li>
+									<div>
+										<h:outputText value="#{doctoTram.requisitosGenerales}" styleClass="adip-requisitos pb-2" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</ui:repeat>
+
+					<div class="grid grid-nogutter p-0" jsf:rendered="#{detalleTramiteBean.lstDocsTramRepresentante.size() > 0}">
+						<ul class="nodecoration  pl-3">
+							<li>
+								<div>
+									<h:outputText value="#{detalleTramiteBean.lstDocsTramIdenOfical.size() > 0 ? 2:1}. Documentos de acreditación de personalidad jurídica" styleClass="adip-requisitos-bold" />
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<ui:repeat value="#{detalleTramiteBean.lstDocsTramRepresentante}" var="doctoRep">
+						<div class="col-12 p-0">
+							<ul class="nodecoration  pl-3">
+								<li>
+									<div>
+										<h:outputText value="#{doctoRep.requisitosGenerales}" styleClass="adip-requisitos" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</ui:repeat>
+
+					<div class="grid grid-nogutter p-0" jsf:rendered="#{detalleTramiteBean.lstDocsTramCompDomicilio.size() > 0}">
+						<ul class="nodecoration  pl-3">
+							<li>
+								<div>
+									<h:outputText
+										value="#{(detalleTramiteBean.lstDocsTramIdenOfical.size() gt 0 and detalleTramiteBean.lstDocsTramRepresentante.size() gt 0)? 3:(detalleTramiteBean.lstDocsTramIdenOfical.size() eq 0 and detalleTramiteBean.lstDocsTramRepresentante.size() eq 0)? 1:2}. Comprobantes de domicilio"
+										styleClass="adip-requisitos-bold" />
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<ui:repeat value="#{detalleTramiteBean.lstDocsTramCompDomicilio}" var="doctoDom">
+						<div class="col-12 p-0">
+							<ul class="nodecoration  pl-3">
+								<li>
+									<div>
+										<h:outputText value="#{doctoDom.requisitosGenerales}" styleClass="adip-requisitos pb-2" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</ui:repeat>
+
+					<div class="grid grid-nogutter p-0" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades and not empty detalleTramiteBean.lstFormatosModalidadDTO}">
+						<ul class="nodecoration  pl-3">
+							<li>
+								<div id="divFyRMod" class="col-12 p-0">
+									<h:outputText value="#{detalleTramiteBean.indiceRequisitos}. Formato " styleClass="adip-requisitos-bold"
+										rendered="#{detalleTramiteBean.lstFormatosModalidadDTO.size() > 0}" />
+									<p:commandLink process="@this" immediate="true" ajax="false" value="#{detalleTramiteBean.lstFormatosModalidadDTO.get(0).nombreArchivoSinFormato()}" class="black"
+										styleClass="magentalink text-base font-bold not-inline" style="color: #9f2241 !important;" rendered="#{detalleTramiteBean.lstFormatosModalidadDTO.size() > 0}"
+										actionListener="#{detalleTramiteBean.downloadModalidad(detalleTramiteBean.lstFormatosModalidadDTO.get(0).nombreArchivo,detalleTramiteBean.lstFormatosModalidadDTO.get(0).rutaArchivo)}">
+										<p:fileDownload
+											value="#{detalleTramiteBean.file}" />
+									</p:commandLink>
+									<h:outputText value=" debidamente requisitado" styleClass="adip-requisitos-bold" rendered="#{detalleTramiteBean.lstFormatosModalidadDTO.size() > 0}" />
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div class="grid grid-nogutter p-0" jsf:rendered="#{!detalleTramiteBean.tramiteSeleccionado.tieneModalidades and not empty detalleTramiteBean.lstFormatosDTO}">
+						<ul class="nodecoration  pl-3">
+							<li>
+								<div id="divFyRMod" class="col-12 p-0">
+									<h:outputText value="#{detalleTramiteBean.indiceRequisitos}. Formato " styleClass="adip-requisitos-bold" rendered="#{detalleTramiteBean.lstFormatosDTO.size() > 0}" />
+									<p:commandLink process="@this" immediate="true" ajax="false" value="#{detalleTramiteBean.lstFormatosDTO.get(0).nombreArchivo}" class="black"
+										styleClass="magentalink text-base font-bold not-inline" style="color: #9f2241 !important;" rendered="#{detalleTramiteBean.lstFormatosDTO.size() > 0}"
+										actionListener="#{detalleTramiteBean.download(detalleTramiteBean.lstFormatosDTO.get(0).nombreArchivo)}">
+										<p:fileDownload value="#{detalleTramiteBean.file}" />
+									</p:commandLink>
+									<h:outputText value=" debidamente requisitado" styleClass="adip-requisitos-bold" rendered="#{detalleTramiteBean.lstFormatosDTO.size() > 0}" />
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<ui:repeat value="#{detalleTramiteBean.lstReqEspFormatoModalidadDTO}" var="reqEspMod" varStatus="varStatusMod">
+						<div class="grid grid-nogutter p-0" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.tieneModalidades and not empty detalleTramiteBean.lstReqEspFormatoModalidadDTO}">
+							<ul class="nodecoration  pl-3">
+								<li>
+									<div id="divFyRModEsp" class="col-12 p-0">
+										<h:outputText
+											value="#{varStatusMod.index + detalleTramiteBean.indiceRequisitos + (detalleTramiteBean.lstFormatosModalidadDTO.size() eq 0 ? 0 : 1)}. #{reqEspMod.detalleRequisito}"
+											styleClass="adip-requisitos-bold" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</ui:repeat>
+
+					<ui:repeat value="#{detalleTramiteBean.lstReqEspFormatoDTO}" var="reqEsp" varStatus="varStatusT">
+						<div class="grid grid-nogutter p-0" jsf:rendered="#{not detalleTramiteBean.tramiteSeleccionado.tieneModalidades}">
+							<ul class="nodecoration  pl-3">
+								<li>
+									<div id="divdivFyR" class="col-12 p-0">
+										<h:outputText value="#{varStatusT.index + detalleTramiteBean.indiceRequisitos +  (not empty detalleTramiteBean.lstFormatosDTO ? 1 : 0)}. #{reqEsp.detalleRequisito}"
+											styleClass="adip-requisitos-bold" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</ui:repeat>
+
+					<div style="padding-top: 28px !important;" />
+					<!-- TRAMITE CON LLAVE -->
+					<div class="grid grid-nogutter pt-3 pb-3" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.tramiteConLlave}">
+						<h:outputText value="#{msg.lbl_requisitos_linea}" styleClass="adip-requisitos-bold" />
+					</div>
+
+					<div class="col-12 p-0" jsf:rendered="#{detalleTramiteBean.tramiteSeleccionado.tramiteConLlave}">
+						<ul class="nodecoration  pl-3">
+							<li>
+								<div>
+									<h:outputText value="Contar con una cuenta de " styleClass="adip-requisitos-bold" />
+									<p:link href=" https://llave.cdmx.gob.mx" value="Llave CDMX" immediate="true" target="_blank" style="text-decoration: none; color: #9f2241 !important;"
+										styleClass="text-base font-bold" />
+								</div>
+							</li>
+						</ul>
+					</div>
+				</p:tab>
+			</p:accordionPanel>
+		</p:panelGrid>
+	</p:panelGrid>
+</ui:composition>

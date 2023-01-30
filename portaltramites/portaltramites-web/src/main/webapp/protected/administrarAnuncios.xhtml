@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	>
+
+	<p:panelGrid columns="1"
+		columnClasses="ui-g-12 ui-md-12 ui-lg-12 fondo-gris zeroPadding "
+		layout="grid"
+		style="padding: 0% 0 0% 0; max-width: 1280px; margin: auto;"
+		styleClass="ui-panelgrid-blank ui-fluid fondo-gris zeroPadding"
+		rendered="true">		
+		<p:outputPanel style="background: #FFF; border-radius: 10px;" styleClass="fondo-gris zeroPadding">
+
+			<p:panelGrid columns="3" columnClasses="ui-g-12 ui-md-4 ui-lg-4 fondo-gris, ui-g-12 ui-md-4 ui-lg-4 fondo-gris,  ui-g-12 ui-md-4 ui-lg-4 fondo-gris"
+						 layout="grid" styleClass="ui-panel-sin-pading center">
+
+				<p:inputText id="txtTituloA" value="#{anuncioBean.filtroTitulo}" placeholder="#{msg.lbl_titulo}" styleClass="campos-captura" maxlength="20" />
+
+				<p:selectOneMenu id="slOneEstatus" value="#{anuncioBean.filtroEstatus}" class="adip-selectonemenu" panelStyleClass="adip-selectonemenu-panel">
+					<f:selectItem itemLabel="#{msg.plh_estatus}" noSelectionOption="true" />
+					<f:selectItem itemLabel="#{msg.lbl_activo}" itemValue="true" />
+					<f:selectItem itemLabel="#{msg.lbl_inactivo}" itemValue="false" />
+				</p:selectOneMenu>
+
+				<p:commandButton id="btnBuscar" value="#{msg.buscar}" action="#{anuncioBean.buscarAnuncios()}" update=":form:pnlContenido" partialSubmit="true"  process="@this txtTituloA slOneEstatus"
+					styleClass="adip-btn-cafe" />
+
+				<p:column />
+				<p:column />
+				<p:commandButton id="btnNuevoAnuncio" process="@this" title="Agregar Anuncio" value="#{msg.lbl_nueva_tarjeta}"
+								 oncomplete="PF('dialogAnuncios').show();" update="form:dialogAnuncios" actionListener="#{anuncioBean.agregarNuevaTarjeta()}"
+								 styleClass="adip-btn-cafe" style="float: right;" />
+			</p:panelGrid>
+		</p:outputPanel>
+	</p:panelGrid>
+
+	<p:dataTable id="dtAnuncios" value="#{anuncioBean.lstAnuncios}" var="anuncios" lazy="true" styleClass="dt-tramites" reflow="true"
+				rows="8" paginator="true" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				currentPageReportTemplate="Mostrados {startRecord}-{endRecord} de {totalRecords} resultados">
+
+		<f:facet name="header">
+			<p:outputLabel value="#{msg.lbl_tarjetas_informativas}" style="font-size: 21px; font-weight: 700; color: #4E4E4E;" />
+		</f:facet>
+
+		<p:column headerText="#{msg.lbl_titulo}" width="20%" styleClass="adip-lbl-titulos-tabla">
+				<p:outputLabel value="#{anuncios.titulo}" style="font-weight: 600; color: #4E4E4E;"  />
+		</p:column>
+		<p:column headerText="#{msg.lbl_descripcion_corta}" width="30%" styleClass="adip-lbl-titulos-tabla">
+				<p:outputLabel value="#{anuncios.descripcion}" styleClass="adip-lbl-campos-tabla"/>
+		</p:column>
+		<p:column headerText="#{msg.plh_estatus}" width="10%" styleClass="adip-lbl-titulos-tabla">		
+				<p:outputLabel value="#{anuncios.activo ? msg.lbl_activo : msg.lbl_inactivo }"  styleClass="adip-lbl-campos-tabla" />	
+		</p:column>
+		<p:column headerText="#{msg.lbl_posicion}" width="10%" styleClass="adip-lbl-titulos-tabla">		
+				<p:outputLabel value="#{anuncios.orden}" styleClass="adip-lbl-campos-tabla" />
+		</p:column>
+		<p:column headerText="#{msg.lbl_accion}" width="30%" styleClass="adip-lbl-titulos-tabla">
+			<p:commandLink value="#{anuncios.activo ? 'Desactivar/' : 'Activar/'}" action="#{anuncioBean.activoInactivo(anuncios)}" immediate="true" update="dtAnuncios" styleClass="adip-lbl-campos-tabla"/>
+			<p:commandLink value="Eliminar/" action="#{anuncioBean.removerAnuncio(anuncios)}" immediate="true" update="dtAnuncios" styleClass="adip-lbl-campos-tabla">
+				<p:confirm header="Eliminar"
+						   message="Está seguro que desea eliminar la tarjeta"
+						   icon="ui-icon-alert" />
+			</p:commandLink>
+			<p:commandLink value="#{msg.editar}" title="Modificar" process="@this" oncomplete="PF('dialogAnuncios').show();" update="form:dialogAnuncios"  actionListener="#{anuncioBean.verModificarAnuncio(anuncios)}" styleClass="adip-lbl-campos-tabla"/>
+		</p:column>
+	</p:dataTable>
+	
+	
+	<p:dialog id="dialogAnuncios" widgetVar="dialogAnuncios" modal="true"
+			showEffect="fade" hideEffect="fade" header="#{anuncioBean.lblTitulo} Tarjeta"
+			resizable="false" styleClass="p21-modal-form" dynamic="true">
+		
+		<p:panelGrid id="pnlDAnuncios" columns="1" columnClasses="ui-grid-col-12" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:panelGrid columns="2"
+				columnClasses="ui-grid-col-3 ZeroPaddingLeft ZeroPaddingRigth, ui-grid-col-9 ZeroPaddingLeft ZeroPaddingRigth"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel value="#{msg.lbl_titulo}" for="txtTitulo" />
+				<p:inputText id="txtTitulo" value="#{anuncioBean.anunciosDTO.titulo}" required="true" requiredMessage="#{msg.msj_campo_requerido}" maxlength="100" styleClass="p21-input-text" />
+				<p:column/>
+				<p:message for="txtTitulo" style="width: 100%"> <p:autoUpdate/> </p:message>
+				
+				<p:outputLabel value="#{msg.lbl_descripcion_corta}" for="txtDesc" />
+				<p:inputTextarea id="txtDesc" value="#{anuncioBean.anunciosDTO.descripcion}" required="true" requiredMessage="#{msg.msj_campo_requerido}" maxlength="500" styleClass="p21-input-text-area" />
+				<p:column/>
+				<p:message for="txtDesc" style="width: 100%"> <p:autoUpdate/> </p:message>
+				
+				<p:outputLabel value="URL destino:" for="txtURL"/>
+				<p:inputText id="txtURL" value="#{anuncioBean.anunciosDTO.link}" required="true" requiredMessage="#{msg.msj_campo_requerido}" maxlength="100" styleClass="p21-input-text" />
+				<p:column/>
+				<p:message for="txtURL" style="width: 100%"> <p:autoUpdate/> </p:message>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="4" columnClasses="ui-g-12 ui-md-4 ui-lg-2, ZeroPaddingLeft ui-g-12 ui-md-4 ui-lg-4, ui-g-12 ui-md-4 ui-lg-2 ZeroPaddingRigth, ui-g-12 ui-md-4 ui-lg-4"
+						 layout="grid" styleClass="ui-panel-sin-pading center">
+				
+				<p:outputLabel value="#{msg.lbl_posicion}:" for="slOnePosicion"/>		 
+				<p:selectOneMenu id="slOnePosicion" class="adip-selectonemenu" value="#{anuncioBean.anunciosDTO.orden}" panelStyleClass="adip-selectonemenu-panel" required="true" requiredMessage="#{msg.msj_campo_requerido}">
+				          <f:selectItem itemLabel="#{msg.seleccionar}" noSelectionOption="true"/>
+				          <f:selectItem itemLabel="1" itemValue='1' />
+				          <f:selectItem itemLabel="2" itemValue='2' />
+				          <f:selectItem itemLabel="3" itemValue='3' />
+				          <f:selectItem itemLabel="4" itemValue='4' />
+				          <f:selectItem itemLabel="5" itemValue='5' />
+				          <f:selectItem itemLabel="6" itemValue='6' />
+				          <f:selectItem itemLabel="7" itemValue='7' />
+				          <f:selectItem itemLabel="8" itemValue='8' />				          
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg.plh_estatus}:" for="slOneEstatusD"/>
+				<p:selectOneMenu id="slOneEstatusD" value="#{anuncioBean.anunciosDTO.activo}" class="adip-selectonemenu" panelStyleClass="adip-selectonemenu-panel" required="true" requiredMessage="#{msg.msj_campo_requerido}">
+					<f:selectItem itemLabel="#{msg.plh_estatus}" noSelectionOption="true" />
+					<f:selectItem itemLabel="#{msg.lbl_activo}" itemValue="true" />
+					<f:selectItem itemLabel="#{msg.lbl_inactivo}" itemValue="false" />
+				</p:selectOneMenu>
+				
+				
+				<p:column/>
+				<p:message for="slOnePosicion" style="width: 100%"> <p:autoUpdate/> </p:message>
+				
+				<p:column/>
+				<p:message for="slOneEstatusD" style="width: 100%"> <p:autoUpdate/> </p:message>
+			</p:panelGrid>
+			
+			
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12 zeroPadding" layout="grid" styleClass="ui-panel-sin-pading" rendered="#{anuncioBean.anunciosDTO.imagen ne null}">
+				<p:commandLink id="clDocGeneral" target="_blank" value="#{msg.lbl_ver_imagen}" ajax="false" immediate="true" styleClass="adip-link-blue" style="padding: 0px;"
+					action="#{descargaBean.descargar(anuncioBean.anunciosDTO.imagen, false)}">
+				</p:commandLink>
+			</p:panelGrid>
+			
+						
+			<p:panelGrid id="pnlImagen" columns="1" columnClasses="ui-g-12 ui-md-12 ui-lg-12 zeroPadding" layout="grid">
+			
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-10 zeroPadding , ui-grid-col-2 zeroPadding " layout="grid" styleClass="ui-panel-sin-pading">	
+							
+					<p:fileUpload id="uploadIdenOf" listener="#{anuncioBean.agregaDocumento}" styleClass="adip-file-upload" 
+							accept=".pdf,.jpg,.png,.jpeg" label="#{msg.lbl_cargar_archivo}" mode="advanced"
+							auto="true" process="@this uploadIdenOf" update="pnlImagen" immediate="true"
+							valueChangeListener="#{anuncioBean.asignaImgTarjetaAnuncios()}" sizeLimit="1048576" invalidSizeMessage="#{msg.msj_documento_oversize}"
+							invalidFileMessage="#{msg.msj_formato_permitido}" allowTypes="/(\.|\/)(jpe?g|png)$/" />
+					
+						
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 align-center-flex " layout="grid" styleClass="ui-panel-sin-pading">
+							<p:commandButton id="info" styleClass="p21-btn-icon" value="" title="Info" />
+							<p:overlayPanel for="info" style="width:350px;" styleClass="p21-overlay-panel">
+								<p:panel header="Recomendaciones">
+									<p:panelGrid columns="1" columnClasses="ui-grid-col-12 ZeroPaddingLeft ZeroPaddingRigth" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+										<p:panelGrid columns="2" columnClasses="ui-g-6 ui-md-6 ui-lg-6, ui-g-6 ui-md-6 ui-lg-6" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+											<p:outputLabel value="Alto:" />
+											<p:outputLabel value="92px" />
+											<p:outputLabel value="Ancho:" />
+											<p:outputLabel value="230px" />
+											<p:outputLabel value="Peso máximo;" />
+											<p:outputLabel value="1MB" />
+										</p:panelGrid>
+									</p:panelGrid>
+								</p:panel>
+							</p:overlayPanel>
+					</p:panelGrid>	
+						
+					<p:outputLabel value="#{msg.lbl_max_file_size.concat('.')}" styleClass="adip-observacion-file" />
+					<p:column/>	
+					<p:message for="uploadIdenOf" display="text"  style="width: 100%;"/>		
+					
+					
+				</p:panelGrid>
+						
+				
+				<p:panelGrid rendered="#{anuncioBean.anunciosDTO.imagen ne null}" columns="1"
+					columnClasses="ui-grid-col-12 zeroPadding" layout="grid" styleClass="ui-panel-sin-pading">
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12 zeroPadding" layout="grid" styleClass="ui-panel-sin-pading">
+						<p:outputLabel id="txtComprobanteDom" value="#{anuncioBean.anunciosDTO.nombreImagenCorto}" styleClass="adip-output-campos-green zeroPadding" style="overflow-wrap: anywhere;"/>
+					</p:panelGrid>
+				</p:panelGrid>
+					
+				<p:panelGrid rendered="#{anuncioBean.anunciosDTO.imagen ne null}" columns="2"
+					columnClasses="ui-g-1 ui-md-1 ui-lg-1 adip-info-icon zeroPadding, ui-g-11 ui-md-11 ui-lg-11 zeroPadding" layout="grid" styleClass="ui-panel-sin-pading zeroPadding">
+					<p:graphicImage value="/resources/img/ic_chek_green.svg" style=" width: 17px;  height: 17px;" />
+					<p:outputLabel value="#{msg.lbl_carga_completa}" styleClass="adip-lbl-green-info ml-2" />
+				</p:panelGrid>
+			
+			</p:panelGrid>
+			</p:panelGrid>	
+			<f:facet name="footer">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<p:commandButton value="#{msg.btn_cancelar}" class="p21-btn-cancel" actionListener="#{anuncioBean.init()}" update="form:dialogAnuncios pnlContenido"  process="@this" immediate="true" />
+						<p:commandButton value="#{msg.guardar}" class="p21-btn-save" action="#{anuncioBean.guardarAnuncio()}" update="pnlImagen"	rendered="#{anuncioBean.lblTitulo == 'Nueva'}" />						
+						<p:commandButton value="#{msg.actualizar}" class="p21-btn-save" action="#{anuncioBean.actualizarAnuncio()}" update="pnlImagen" rendered="#{anuncioBean.lblTitulo =='Modificar'}" />
+					</div>
+				</div>
+			</f:facet>
+		
+		</p:dialog>
+	
+	<style>
+		.p21-modal-form .ui-dialog-titlebar {
+		    height: 51px;
+		    box-sizing: border-box;
+		    font-size: 16px !important;
+		    /* background-color: #f6f6f6 !important; */
+		    display: block;
+		    align-items: center;
+		    width: 100%;
+		    padding: 18px 10px !important;
+		    border-bottom: solid 1px rgba(189, 189, 189, 0.5) !important;
+		    margin-bottom: 0px !important;
+		}
+		
+		.p21-modal-form .ui-dialog-titlebar-icon .ui-icon-closethick {
+		    background-image: none !important;
+		    background-position: 0px 0px !important;
+		}
+			
+	</style>
+	
+</ui:composition>

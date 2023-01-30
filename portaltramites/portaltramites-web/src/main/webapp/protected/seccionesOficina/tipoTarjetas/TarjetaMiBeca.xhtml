@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition 
+xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:p="http://primefaces.org/ui" 
+xmlns:pe="http://primefaces.org/ui/extensions" 
+xmlns:jsf="http://xmlns.jcp.org/jsf"
+xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+	<p:outputPanel styleClass="consulta-beneficiario">
+		<p:outputPanel styleClass="contenedor-imagen">
+			<p:graphicImage value="/resources/img/sistemas/ic_mi_beca.svg" cache="false" styleClass="adip-o-gi-size"/>
+		</p:outputPanel>
+		<p:outputPanel styleClass="contenedor-imagen">
+			<p:outputLabel styleClass="titulo" value="Registro Mi Beca para Empezar">
+			<p:outputLabel styleClass="tooltip tooltip-info-mibeca">
+				<img style="height: 16px; margin-left: 10px;" src="/resources/img/mi-beca-info-tooltip.png"/>
+				<label class="tooltiptext-mibeca">En esta sección puedes consultar el detalle del registro realizado en el sistema <span class="texto-negrita">registro.mibecaparaempezar.cdmx.gob.mx</span><br />Para revisar el estatus y los movimientos de tu vale electrónico, ingresa a la aplicación móvil.</label>
+			</p:outputLabel>
+			</p:outputLabel>
+		</p:outputPanel>
+		<p:outputPanel styleClass="nombre-beneficiario">
+			<p:outputLabel value="Beneficiario"></p:outputLabel> <span><h:outputText value="#{tarjetaMiBecaBean.tarjetaMiBecaDTO.nombreCompleto}" /></span>
+		</p:outputPanel>
+		<p:outputPanel styleClass="fecha-registro">
+			<p:outputLabel value="Fecha de registro"></p:outputLabel> <span><h:outputText value="#{tarjetaMiBecaBean.tarjetaMiBecaDTO.fechaRegistro}"> <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText></span>
+		</p:outputPanel>
+		<p:outputPanel styleClass="estatus-tutor">
+			<p:outputLabel value="Estatus del tutor"></p:outputLabel> <span><h:outputText value="#{tarjetaMiBecaBean.tarjetaMiBecaDTO.descripcionEstatusTutor}"></h:outputText></span>
+		</p:outputPanel>
+		<p:outputPanel styleClass="estatus-tramite">
+			<p:outputLabel value="Estatus del beneficiario:"></p:outputLabel> <span><h:outputText value="#{tarjetaMiBecaBean.tarjetaMiBecaDTO.descripcionEstatus}"/></span>
+			
+			<p>Si eres tutor con más de 3 beneficiarios, casa hogar o
+				fundación, da clic en el botón Consultar, para ver todos los
+				beneficiarios asociados.</p>
+			
+			<p:link styleClass="boton-accion" href="#{tarjetaMiBecaBean.urlAction()}" value="Consultar" target="_blank"></p:link>
+		</p:outputPanel>
+
+
+	</p:outputPanel>
+</ui:composition>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pb-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading adip-o-bg-white">
+		<p:graphicImage alt="" cache="false" styleClass="adip-o-gi-size"
+			value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.pathImagen eq null  ? '/resources/img/sistemas/ic_descuento_agua.svg' :tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.pathImagen}" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0 pr-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
+		<p:outputLabel value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.sistema ne null ? tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.sistema : ''}"
+			styleClass="adip-o-tarjeta-titulo" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Folio de registro:" styleClass="adip-o-tarjeta-subtitulo" />
+		<p:outputLabel value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.folio}" styleClass="adip-o-tarjeta-output-guinda"
+			style="font-size: 13px !important; font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Tipo de solicitud:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel
+			value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.nuevoRegistro eq null ? '' :
+		tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.nuevoRegistro eq true ? 'Nuevo registro' : 'Renovación'}"
+			styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Número de cuenta:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.numeroCuentaRecibo}" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
+		<p:outputLabel value="Fecha de vencimiento:" styleClass="adip-o-tarjeta-output-grey" />
+		<p:outputLabel value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.fechaVencimiento ne null ? tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.fechaVencimiento : 'No aplica'}"
+			styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+	</p:panelGrid>
+
+	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-11 m-auto mb-4 mt-3">
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:outputLabel value="Estatus del trámite:" styleClass="adip-o-tarjeta-output-black" />
+			<p:outputLabel value="#{tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.estatus ne null ?
+			tarjetaSACMEXBean.tarjetaDescuentoAguaDTO.estatus : ''}"
+				styleClass="adip-o-tarjeta-output-black-bold" />
+		</p:panelGrid>
+
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pb-3" layout="grid" styleClass="ui-panel-sin-pading">
+			<p:link styleClass="adip-o-tarjeta-btn-guinda" value="#{msg.lbl_consultar}" href="#{tarjetaSACMEXBean.urlAction()}" target="_blank" />
+		</p:panelGrid>
+	</p:panelGrid>
+
+</ui:composition>
