@@ -13,7 +13,9 @@ xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 	<p:outputPanel styleClass="consulta-beneficiario">
 		<p:outputPanel styleClass="contenedor-imagen">
-			<p:graphicImage value="/resources/img/sistemas/ic_mi_beca.svg" cache="false" styleClass="adip-o-gi-size"/>
+				<p:graphicImage alt="" cache="false"
+			value="#{tarjetaMiBecaBean.tarjetaMiBecaDTO.pathImagen eq null ? '/resources/img/sistemas/ic_mi_beca.svg' :tarjetaMiBecaBean.tarjetaMiBecaDTO.pathImagen}"
+			styleClass="adip-o-gi-size"/>
 		</p:outputPanel>
 		<p:outputPanel styleClass="contenedor-imagen">
 			<p:outputLabel styleClass="titulo" value="Registro Mi Beca para Empezar">

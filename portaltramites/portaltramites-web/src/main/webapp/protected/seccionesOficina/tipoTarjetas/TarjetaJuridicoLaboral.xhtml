@@ -5,7 +5,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pb-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading adip-o-bg-white">
-		<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_plataforma_asistencia_jl.svg" styleClass="adip-o-gi-size" />
+		<p:graphicImage alt="" cache="false"
+			value="#{tarjetaJuridicoLaboralBean.tarjetaJuridicoLaboralDTO.pathImagen eq null ? '/resources/img/sistemas/ic_plataforma_asistencia_jl.svg' :tarjetaJuridicoLaboralBean.tarjetaJuridicoLaboralDTO.pathImagen}"
+			styleClass="adip-o-gi-size"/>
 	</p:panelGrid>
 
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0 pr-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
@@ -14,27 +16,27 @@
 
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
 		<p:outputLabel value="Folio del trámite:" styleClass="adip-o-tarjeta-subtitulo" />
-		<p:outputLabel value="0000024022" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+		<p:outputLabel value="#{tarjetaJuridicoLaboralBean.tarjetaJuridicoLaboralDTO.folioTramite}" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
 	</p:panelGrid>
 	
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
 		<p:outputLabel value="Tipo de solicitud:" styleClass="adip-o-tarjeta-output-grey" />
-		<p:outputLabel value="Visita domiciliaria" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+		<p:outputLabel value="#{tarjetaJuridicoLaboralBean.tarjetaJuridicoLaboralDTO.tipoSolicitud}" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
 	</p:panelGrid>
 
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 p-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading mt-2 mb-1">
 		<p:outputLabel value="Fecha de registro:" styleClass="adip-o-tarjeta-output-grey" />
-		<p:outputLabel value="12/03/2025" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
+		<p:outputLabel value="#{tarjetaJuridicoLaboralBean.tarjetaJuridicoLaboralDTO.fechaRegistro}" styleClass="adip-o-tarjeta-output-guinda" style="font-weight:700 !important;" />
 	</p:panelGrid>
 
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center p-0" layout="grid" styleClass="ui-panel-sin-pading adip-o-tarjeta col-11 m-auto mb-4 mt-3">
 		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pt-2 pb-1" layout="grid" styleClass="ui-panel-sin-pading">
 			<p:outputLabel value="Estatus del trámite:" styleClass="adip-o-tarjeta-output-black" />
-			<p:outputLabel value="Registrado" styleClass="adip-o-tarjeta-output-black-bold" />
+			<p:outputLabel value="#{tarjetaJuridicoLaboralBean.tarjetaJuridicoLaboralDTO.estatusTramite}" styleClass="adip-o-tarjeta-output-black-bold" />
 		</p:panelGrid>
 
 		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center pb-3" layout="grid" styleClass="ui-panel-sin-pading">
-			<p:link styleClass="adip-o-tarjeta-btn-guinda" value="#{msg.lbl_consultar}" href="#{tarjetaSeguroDesBean.urlAction()}" target="_blank" />
+			<p:link styleClass="adip-o-tarjeta-btn-guinda" value="#{msg.lbl_consultar}" href="#{tarjetaJuridicoLaboralBean.urlAction()}" target="_blank" />
 		</p:panelGrid>
 	</p:panelGrid>
 

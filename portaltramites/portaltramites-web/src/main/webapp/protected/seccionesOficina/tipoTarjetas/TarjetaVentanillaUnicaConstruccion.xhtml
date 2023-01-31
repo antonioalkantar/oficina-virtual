@@ -1,58 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" xmlns:jsf="http://xmlns.jcp.org/jsf"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 
-	<p:panelGrid columns="1" columnClasses="ui-g-12 pl-0 pr-0 pt-0 pb-1 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+	<p:panelGrid columns="1"
+		columnClasses="ui-g-12 pl-0 pr-0 pt-0 pb-1 adip-center" layout="grid"
+		styleClass="ui-panelgrid-blank ui-fluid">
 
-		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
-			<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_ventanilla_unica_construccion.svg" styleClass="adip-o-gi-size" />
+		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center"
+			layout="grid" styleClass="ui-panel-sin-pading">
+			<p:graphicImage alt="" cache="false"
+				value="#{tarjetaVentaillaUnicConstrBean.registroVentanillaUnicaConstr.pathImagen eq null ? '/resources/img/sistemas/ic_ventanilla_unica_construccion.svg' :tarjetaVentaillaUnicConstrBean.registroVentanillaUnicaConstr.pathImagen}"
+				styleClass="adip-o-gi-size" />
 		</p:panelGrid>
 
-		<p:outputLabel value="Ventanilla Única de Construcción" styleClass="adip-titulo-tarjeta-principal" />
+		<p:outputLabel value="Ventanilla Única de Construcción"
+			styleClass="adip-titulo-tarjeta-principal" />
 
 		<div style="padding-bottom: 24px;" />
 
-		<p:outputLabel value="Folio del trámite:" styleClass="adip-titulo-folio-tarjeta" />
+		<p:outputLabel value="Folio del trámite:"
+			styleClass="adip-titulo-folio-tarjeta" />
 
 		<p:outputLabel value="0000024022" styleClass="adip-contenido-tarjeta" />
 
 		<div style="padding-bottom: 24px;" />
 
 
-		<p:outputLabel value="Nombre de la protesta:" styleClass="adip-titulo-tarjeta" />
+		<p:outputLabel value="Nombre de la protesta:"
+			styleClass="adip-titulo-tarjeta" />
 
-		<p:outputLabel value="Visita domiciliaria " styleClass="adip-contenido-tarjeta" />
+		<p:outputLabel value="Visita domiciliaria "
+			styleClass="adip-contenido-tarjeta" />
 
 		<div style="padding-bottom: 24px;" />
 
 		<p:outputLabel value="Dependencia:" styleClass="adip-titulo-tarjeta" />
 
-		<p:outputLabel value="Gustavo A. Madero" styleClass="adip-contenido-tarjeta" />
+		<p:outputLabel value="Gustavo A. Madero"
+			styleClass="adip-contenido-tarjeta" />
 
 		<div style="padding-bottom: 20px;" />
 
-		
-		<p:outputLabel value="Fecha de envío de la protesta:" styleClass="adip-titulo-tarjeta" />
+
+		<p:outputLabel value="Fecha de envío de la protesta:"
+			styleClass="adip-titulo-tarjeta" />
 
 		<p:outputLabel value="12/03/2025" styleClass="adip-contenido-tarjeta" />
-		
-		<p:outputLabel value="Hora de envío de la protesta" styleClass="adip-titulo-tarjeta" />
+
+		<p:outputLabel value="Hora de envío de la protesta"
+			styleClass="adip-titulo-tarjeta" />
 
 		<p:outputLabel value="12:00:00" styleClass="adip-contenido-tarjeta" />
-		
-		
+
+
 		<div style="padding-bottom: 24px;" />
 
 		<p:outputPanel styleClass="content-estatus-tramite">
-			<p:outputLabel value="Estatus del trámite:" styleClass="adip-titulo-estatus-tarjeta" />
+			<p:outputLabel value="Estatus del trámite:"
+				styleClass="adip-titulo-estatus-tarjeta" />
 
 			<p:outputLabel value="En proceso"
 				styleClass="adip-contenido-estatus-tarjeta margin-label-acta" />
 
-			<p:link value="Consultar" styleClass="adip-o-tarjeta-btn-guinda btn-padding-acta" href="#{tarjetaActaBean.urlAction()}" target="_blank"
+			<p:link value="Consultar"
+				styleClass="adip-o-tarjeta-btn-guinda btn-padding-acta"
+				href="#{tarjetaActaBean.urlAction()}" target="_blank"
 				style="line-height: 1 !important; text-align: center; padding: 7px;" />
 		</p:outputPanel>
 	</p:panelGrid>

@@ -42,6 +42,9 @@ public class TarjetaVentanillaUnicaConstruccionBean implements Serializable {
 
 			registroVentanillaUnicaConstr = ventanillaUnicaConstruccionClient
 					.consultaRegistroVentanillaUnicaConstr(tramitesOficinaBean.getRegistroSelected());
+			
+			registroVentanillaUnicaConstr.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
+			
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}

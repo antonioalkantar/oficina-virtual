@@ -226,6 +226,28 @@ public final class Environment {
 	private static String passwordPermisoParaResidentesBasicAuth = "";
 	private static String urlDocServicioPermisoParaResidentes = "";
 	
+	/**
+	 * Se cargan datos del servicio de VENTANILLA DE CONTROL VEHICULAR
+	 * */
+	private static String urlServicioVentanillaControlVehicular = "";
+	private static String userVentanillaControlVehicularBasicAuth = "";
+	private static String passwordVentanillaControlVehicularBasicAuth = "";
+	
+	/**
+	 * Se cargan datos del servicio de CORTESIAS URBANAS
+	 * */
+	private static String urlServicioCortesiasUrbanas = "";
+	private static String userCortesiasUrbanasBasicAuth = "";
+	private static String passwordCortesiasUrbanasBasicAuth = "";
+	
+	/**
+	 * Se cargan datos del servicio de JURIDICO LABORAL
+	 * */
+	private static String urlServicioJuridicoLaboral = "";
+	private static String userJuridicoLaboralBasicAuth = "";
+	private static String passwordJuridicoLaboralBasicAuth = "";
+	
+	
 
 	/**
      * Inicializacion de variables utilizando como entrada el archivo
@@ -490,6 +512,43 @@ public final class Environment {
             
             urlDocServicioPermisoParaResidentes = properties.getProperty("services.cdmx.permisoresidentes.doc.url");
             LOGGER.info("ENV [services.cdmx.permisoresidentes.doc.url:\t\t{}]", urlDocServicioPermisoParaResidentes);
+            
+            /**
+             * SERVICIO VENTANILLA CONTROL VEHICULAR
+             */
+            urlServicioVentanillaControlVehicular = properties.getProperty("services.cdmx.ventanillacontrolvehicular.url");
+            LOGGER.info("ENV [services.cdmx.ventanillacontrolvehicular.url:\t\t{}]", urlServicioVentanillaControlVehicular);
+            
+            userVentanillaControlVehicularBasicAuth = properties.getProperty("services.cdmx.ventanillacontrolvehicular.user");
+            LOGGER.info("ENV [services.cdmx.ventanillacontrolvehicular.user:\t\t{}]", userVentanillaControlVehicularBasicAuth);
+            
+            passwordVentanillaControlVehicularBasicAuth = properties.getProperty("services.cdmx.ventanillacontrolvehicular.password");
+            LOGGER.info("ENV [services.cdmx.ventanillacontrolvehicular.password:\t\t{}]", passwordVentanillaControlVehicularBasicAuth);
+            
+            /**
+             * SERVICIO CORTESIAS URBANAS
+             */
+            urlServicioCortesiasUrbanas = properties.getProperty("services.cdmx.cortesiasurbanas.url");
+            LOGGER.info("ENV [services.cdmx.cortesiasurbanas.url:\t\t{}]", urlServicioCortesiasUrbanas);
+            
+            userCortesiasUrbanasBasicAuth = properties.getProperty("services.cdmx.cortesiasurbanas.user");
+            LOGGER.info("ENV [services.cdmx.cortesiasurbanas.user:\t\t{}]", userCortesiasUrbanasBasicAuth);
+            
+            passwordCortesiasUrbanasBasicAuth = properties.getProperty("services.cdmx.cortesiasurbanas.password");
+            LOGGER.info("ENV [services.cdmx.cortesiasurbanas.password:\t\t{}]", passwordCortesiasUrbanasBasicAuth);
+            
+            
+            /**
+             * SERVICIO JURIDICO LABORAL
+             */
+            urlServicioJuridicoLaboral = properties.getProperty("services.cdmx.juridicolaboral.url");
+            LOGGER.info("ENV [services.cdmx.juridicolaboral.url:\t\t{}]", urlServicioJuridicoLaboral);
+            
+            userJuridicoLaboralBasicAuth = properties.getProperty("services.cdmx.juridicolaboral.user");
+            LOGGER.info("ENV [services.cdmx.juridicolaboral.user:\t\t{}]", userJuridicoLaboralBasicAuth);
+            
+            passwordJuridicoLaboralBasicAuth = properties.getProperty("services.cdmx.juridicolaboral.password");
+            LOGGER.info("ENV [services.cdmx.juridicolaboral.password:\t\t{}]", passwordJuridicoLaboralBasicAuth);
 
 
         } catch (IOException e) {
@@ -786,5 +845,43 @@ public final class Environment {
 	public static String getUrlDocServicioPermisoParaResidentes() {
 		return urlDocServicioPermisoParaResidentes;
 	}
+
+	public static String getUrlServicioVentanillaControlVehicular() {
+		return urlServicioVentanillaControlVehicular;
+	}
+
+	public static String getUserVentanillaControlVehicularBasicAuth() {
+		return userVentanillaControlVehicularBasicAuth;
+	}
+
+	public static String getPasswordVentanillaControlVehicularBasicAuth() {
+		return passwordVentanillaControlVehicularBasicAuth;
+	}
+
+	public static String getUrlServicioCortesiasUrbanas() {
+		return urlServicioCortesiasUrbanas;
+	}
+
+	public static String getUserCortesiasUrbanasBasicAuth() {
+		return userCortesiasUrbanasBasicAuth;
+	}
+
+	public static String getPasswordCortesiasUrbanasBasicAuth() {
+		return passwordCortesiasUrbanasBasicAuth;
+	}
+
+	public static String getUrlServicioJuridicoLaboral() {
+		return urlServicioJuridicoLaboral;
+	}
+
+	public static String getUserJuridicoLaboralBasicAuth() {
+		return userJuridicoLaboralBasicAuth;
+	}
+
+	public static String getPasswordJuridicoLaboralBasicAuth() {
+		return passwordJuridicoLaboralBasicAuth;
+	}
+	
+	
 	
 }

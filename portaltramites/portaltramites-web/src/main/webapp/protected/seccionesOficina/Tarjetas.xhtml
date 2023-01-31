@@ -45,10 +45,10 @@
 		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaCitas.xhtml" />
 	</p:panelGrid>
 	
-	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
+	 <p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
 		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_MIBECA}">
 		<ui:include src="/protected/seccionesOficina/tipoTarjetas/TarjetaMiBeca.xhtml" />
-	</p:panelGrid>
+	</p:panelGrid>  
 
 	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0" layout="grid" styleClass="ui-panelgrid-blank ui-fluid adip-o-panel-suac p-2"
 		rendered="#{tramitesOficinaBean.registroSelected.catSistemaDTO.idSistema eq tramitesOficinaBean.ID_SISTEMA_REFRENDO_TARJETA_CIRCULACION}">

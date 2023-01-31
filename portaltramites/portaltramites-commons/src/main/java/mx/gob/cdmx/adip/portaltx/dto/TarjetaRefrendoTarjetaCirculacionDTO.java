@@ -20,6 +20,7 @@ public class TarjetaRefrendoTarjetaCirculacionDTO implements Serializable {
 	private String extension;
 	private String fullName;
 	private String content;
+	private String pathImagen;
 	
 	public String getIdTarjetaCirculacion() {
 		return idTarjetaCirculacion;
@@ -93,5 +94,12 @@ public class TarjetaRefrendoTarjetaCirculacionDTO implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+	public String getPathImagen() {
+		return pathImagen;
+	}
+	public void setPathImagen(String pathImagen) {
+		this.pathImagen = pathImagen;
+	}
+	
 
 }

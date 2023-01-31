@@ -19,6 +19,7 @@ public class TarjetaMiBecaDTO implements Serializable {
 	private Date fechaRegistro;
 	private String nombreCompleto;
 	private int idEncuesta;
+	private String pathImagen;
 	
 	public TarjetaMiBecaDTO() {
 		
@@ -134,6 +135,14 @@ public class TarjetaMiBecaDTO implements Serializable {
 
 	public void setIdEncuesta(int idEncuesta) {
 		this.idEncuesta = idEncuesta;
+	}
+	
+	public String getPathImagen() {
+		return pathImagen;
+	}
+
+	public void setPathImagen(String pathImagen) {
+		this.pathImagen = pathImagen;
 	}
 
 	@Override

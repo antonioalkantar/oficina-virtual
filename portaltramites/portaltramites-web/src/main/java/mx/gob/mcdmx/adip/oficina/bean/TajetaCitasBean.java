@@ -37,7 +37,7 @@ public class TajetaCitasBean implements Serializable {
 	public void init() {
 		try {
 			tarjetaCitasDTO = citasRestClient.consultaRegistroCitas(tramitesOficinaBean.getRegistroSelected());
-
+			tarjetaCitasDTO.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}

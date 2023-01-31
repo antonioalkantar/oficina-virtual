@@ -5,7 +5,9 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pb-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading adip-o-bg-white">
-		<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_seguro_desempleo.svg" styleClass="adip-o-gi-size" />
+		<p:graphicImage alt="" cache="false"
+			value="#{tarjetaSeguroDesBean.registroSeguroDes.pathImagen eq null ? '/resources/img/sistemas/ic_seguro_desempleo.svg' :tarjetaSeguroDesBean.registroSeguroDes.pathImagen}"
+			styleClass="adip-o-gi-size"/>
 	</p:panelGrid>
 
 	<p:panelGrid columns="1" columnClasses="ui-grid-col-12 pl-0 pr-0 adip-center" layout="grid" styleClass="ui-panel-sin-pading">

@@ -8,31 +8,31 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.ws.rs.core.MediaType;
 
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-
 import mx.gob.cdmx.adip.portaltramites.common.infra.Environment;
 import mx.gob.cdmx.adip.portaltramites.common.util.JerseyUtil;
 import mx.gob.cdmx.adip.portaltx.dto.RegistroDTO;
-import mx.gob.cdmx.adip.portaltx.dto.TarjetaMiBecaDTO;
+import mx.gob.cdmx.adip.portaltx.dto.TarjetaCortesiaUrbanaDTO;
 
 public class CortesiasUrbanasRestClient implements Serializable {
 
 	private static final long serialVersionUID = -665663500700288471L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CortesiasUrbanasRestClient.class);
 
-	public TarjetaMiBecaDTO consultaBeneficiario(RegistroDTO registro)
+	public TarjetaCortesiaUrbanaDTO consultaBeneficiario(RegistroDTO registro)
 			throws URISyntaxException, ConnectException, JSONException, CortesiasUrbanasException {
 
-		TarjetaMiBecaDTO tarjetaMiBecaDTO = new TarjetaMiBecaDTO();
+		TarjetaCortesiaUrbanaDTO tarjetaCortesiaUrbanaDTO = new TarjetaCortesiaUrbanaDTO();
 		StringBuilder urlQuery = new StringBuilder();
-		urlQuery.append(Environment.getUrlServicioMiBeca());
+		urlQuery.append(Environment.getUrlServicioCortesiasUrbanas());
 		urlQuery.append("?idSolicitud=");
 		urlQuery.append(registro.getIdRegistroOrigen());
 
@@ -44,15 +44,20 @@ public class CortesiasUrbanasRestClient implements Serializable {
 
 			WebResource webResource = null;
 
-			webResource = JerseyUtil.getInstance().getClientSDKMiBecaWithAuth().resource(uri.toString());
+			webResource = JerseyUtil.getInstance().getClientSDKCortesiasUrbanasWithAuth().resource(uri.toString());
 
 			response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 			respuesta = response.getEntity(String.class);
 
 			if (response.getStatus() == 200) {
 
-				JSONObject jsonReporte = new JSONObject(respuesta).getJSONObject("beneficiario");
-				tarjetaMiBecaDTO.setIdUsuarioCDMX(Long.valueOf(jsonReporte.get("idUsuarioCDMX").toString()));
+				JSONObject jsonReporte = new JSONObject(respuesta).getJSONObject("tarjetaCortesiaUrbana");
+				// TODO EL SIGUIENTE LLENADO SOLO ES DE EJEMPLO, SE DEBE CORROBORAR EL FORMATO DEL OBJETO DE RESPUESTA.
+				tarjetaCortesiaUrbanaDTO.setEstatusTramite(jsonReporte.get("estatusTramite").toString());
+				tarjetaCortesiaUrbanaDTO.setFolioSolicitud(jsonReporte.get("folioSolicitud").toString());
+				tarjetaCortesiaUrbanaDTO.setFolioTarjeta(jsonReporte.get("folioTarjeta").toString());
+				tarjetaCortesiaUrbanaDTO.setTipoDiscapacidad(jsonReporte.get("tipoDiscapacidad").toString());
+				tarjetaCortesiaUrbanaDTO.setVigenteAl(jsonReporte.get("vigenteAl").toString());
 				
 			} else if (response.getStatus() == 400) {
 				/*
@@ -91,7 +96,7 @@ public class CortesiasUrbanasRestClient implements Serializable {
 			}
 		}
 
-		return tarjetaMiBecaDTO;
+		return tarjetaCortesiaUrbanaDTO;
 	}
 
 	public static class CortesiasUrbanasException extends Exception {

@@ -8,7 +8,9 @@
 	<p:panelGrid columns="1" columnClasses="ui-g-12 pl-0 pr-0 pt-0 pb-1 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 
 		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
-			<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_protesta_ciudadana.svg" styleClass="adip-o-gi-size" />
+				<p:graphicImage alt="" cache="false"
+			value="#{tarjetaProtestaCiudadanaBean.registroProtestaCiudadana.pathImagen eq null ? '/resources/img/sistemas/ic_protesta_ciudadana.svg' :tarjetaProtestaCiudadanaBean.registroProtestaCiudadana.pathImagen}"
+			styleClass="adip-o-gi-size"/>
 		</p:panelGrid>
 
 		<p:outputLabel value="Tarjeta incluyente" styleClass="adip-titulo-tarjeta-principal" />

@@ -21,12 +21,15 @@ public class TarjetaCitasDTO implements Serializable {
 	String fechaHoraCita;
 	Long idDetalleCitaUsuarioLlavecdmx;
 
+	private String pathImagen;
+
 	public TarjetaCitasDTO() {
 	}
 
-	public TarjetaCitasDTO(String folio, String idDependencia, String abreviaturaDependencia,
-			String nombreDependencia, String nombreTramite, String descripcionTramite, String domicilioCompleto,
-			String idEstatusCita, String estatusCitaDesc, String fechaHoraInicioDisponible, String fechaHoraCita, Long idDetalleCitaUsuarioLlavecdmx) {
+	public TarjetaCitasDTO(String folio, String idDependencia, String abreviaturaDependencia, String nombreDependencia,
+			String nombreTramite, String descripcionTramite, String domicilioCompleto, String idEstatusCita,
+			String estatusCitaDesc, String fechaHoraInicioDisponible, String fechaHoraCita,
+			Long idDetalleCitaUsuarioLlavecdmx) {
 		this.idDependencia = idDependencia;
 		this.abreviaturaDependencia = abreviaturaDependencia;
 		this.nombreDependencia = nombreDependencia;
@@ -137,4 +140,12 @@ public class TarjetaCitasDTO implements Serializable {
 		this.idDetalleCitaUsuarioLlavecdmx = idDetalleCitaUsuarioLlavecdmx;
 	}
 
+	public String getPathImagen() {
+		return pathImagen;
+	}
+
+	public void setPathImagen(String pathImagen) {
+		this.pathImagen = pathImagen;
+	}
+	
 }

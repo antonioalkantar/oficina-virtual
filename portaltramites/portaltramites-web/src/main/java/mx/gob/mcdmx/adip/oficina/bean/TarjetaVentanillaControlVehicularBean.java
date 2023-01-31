@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 
 import mx.gob.cdmx.adip.portaltramites.common.infra.Environment;
 import mx.gob.cdmx.adip.portaltramites.commons.utils.Constantes;
+import mx.gob.cdmx.adip.portaltx.client.ControlVehicularRestClient;
 import mx.gob.cdmx.adip.portaltx.client.VentanillaUnicaConstruccionClient;
 import mx.gob.cdmx.adip.portaltx.dto.CatSistemaDTO;
 import mx.gob.cdmx.adip.portaltx.dto.RegistroDTO;
+import mx.gob.cdmx.adip.portaltx.dto.TarjetaVentanillaControlVehicularDTO;
 
 @Named("tarjetaVentanillaControlVehicularBean")
 @RequestScoped
@@ -23,42 +25,45 @@ public class TarjetaVentanillaControlVehicularBean implements Serializable {
 	private static final long serialVersionUID = -5987819687273225479L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(TarjetaVentanillaControlVehicularBean.class);
 	
-	private RegistroDTO registroVentanillaUnicaConstr;
+	private TarjetaVentanillaControlVehicularDTO registroVentanillaControlVehicularDTO;
 	
 	@Inject
 	private tramitesOficinaBean tramitesOficinaBean;
 	
 	@Inject
-	private VentanillaUnicaConstruccionClient ventanillaUnicaConstruccionClient;
+	private ControlVehicularRestClient controlVehicularRestClient;
 	
-	public TarjetaVentanillaControlVehicularBean() {}
 	
 	@PostConstruct
 	public void init() {
 		try {
-			// TODO:eliminar cuando existan datos del WS
-			registroVentanillaUnicaConstr = new RegistroDTO();
-			registroVentanillaUnicaConstr.setCatSistemaDTO(new CatSistemaDTO(tramitesOficinaBean.getID_SISTEMA_VENTANILLA_CONTROL_VEHICULAR()));
-			registroVentanillaUnicaConstr = ventanillaUnicaConstruccionClient.consultaRegistroVentanillaUnicaConstr(tramitesOficinaBean.getRegistroSelected());
+			registroVentanillaControlVehicularDTO = controlVehicularRestClient.consultaBeneficiario(tramitesOficinaBean.getRegistroSelected());
+			registroVentanillaControlVehicularDTO.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}
 	}
 
 	public String urlAction() {
-		if (registroVentanillaUnicaConstr != null) {
+		if (registroVentanillaControlVehicularDTO != null) {
 			if (Environment.getAppProfile().compareTo("dev") == 0
 					|| Environment.getAppProfile().compareTo("local") == 0) {
-				return Constantes.RETURN_URL_VENTANILLA_CONTROL_VEHICULAR_DEV + registroVentanillaUnicaConstr.getIdRegistroOrigen();
+				return Constantes.RETURN_URL_VENTANILLA_CONTROL_VEHICULAR_DEV + tramitesOficinaBean.getRegistroSelected().getIdRegistroOrigen();
 			} else {
-				return Constantes.RETURN_URL_VENTANILLA_CONTROL_VEHICULAR_PROD + registroVentanillaUnicaConstr.getIdRegistroOrigen();
+				return Constantes.RETURN_URL_VENTANILLA_CONTROL_VEHICULAR_PROD + tramitesOficinaBean.getRegistroSelected().getIdRegistroOrigen();
 			}
 		}
 		return "#";
 	}
 
-	public RegistroDTO getRegistroVentanillaUnicaConstr() {
-		return registroVentanillaUnicaConstr;
+
+	public TarjetaVentanillaControlVehicularDTO getRegistroVentanillaControlVehicularDTO() {
+		return registroVentanillaControlVehicularDTO;
 	}
 
+	public void setRegistroVentanillaControlVehicularDTO(
+			TarjetaVentanillaControlVehicularDTO registroVentanillaControlVehicularDTO) {
+		this.registroVentanillaControlVehicularDTO = registroVentanillaControlVehicularDTO;
+	}
+	
 }

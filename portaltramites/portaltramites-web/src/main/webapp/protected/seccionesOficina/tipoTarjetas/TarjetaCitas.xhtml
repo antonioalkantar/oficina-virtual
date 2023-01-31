@@ -14,7 +14,9 @@ xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	<p:panelGrid columns="1" columnClasses="ui-g-12 p-0 adip-center" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 	
 		<p:panelGrid columns="1" columnClasses="ui-grid-col-12 adip-center" layout="grid" styleClass="ui-panel-sin-pading">
-			<p:graphicImage alt="" cache="false" value="/resources/img/sistemas/ic_citas.svg" styleClass="adip-o-gi-size" />							
+				<p:graphicImage alt="" cache="false"
+			value="#{tarjetaCitasBean.tarjetaCitasDTO.pathImagen eq null ? '/resources/img/sistemas/ic_citas.svg' :tarjetaCitasBean.tarjetaCitasDTO.pathImagen}"
+			styleClass="adip-o-gi-size"/>							
 		</p:panelGrid>
 		
 		<p:outputLabel value="Sistema de Citas  CDMX" styleClass="adip-titulo-tarjeta-principal"/>

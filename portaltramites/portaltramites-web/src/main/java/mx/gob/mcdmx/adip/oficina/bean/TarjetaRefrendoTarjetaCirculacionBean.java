@@ -58,6 +58,7 @@ public class TarjetaRefrendoTarjetaCirculacionBean implements Serializable {
 	public void init() {
 		try {
 			tarRefrendoTCDTO = refrendoTCRestClient.consultaRegistroRefrendoTC(tramitesOficinaBean.getRegistroSelected());
+			tarRefrendoTCDTO.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}

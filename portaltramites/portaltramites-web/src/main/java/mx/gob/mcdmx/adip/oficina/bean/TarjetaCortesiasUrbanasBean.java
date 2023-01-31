@@ -12,53 +12,59 @@ import org.slf4j.LoggerFactory;
 
 import mx.gob.cdmx.adip.portaltramites.common.infra.Environment;
 import mx.gob.cdmx.adip.portaltramites.commons.utils.Constantes;
+import mx.gob.cdmx.adip.portaltx.client.CortesiasUrbanasRestClient;
 import mx.gob.cdmx.adip.portaltx.client.VentanillaUnicaConstruccionClient;
 import mx.gob.cdmx.adip.portaltx.dto.CatSistemaDTO;
 import mx.gob.cdmx.adip.portaltx.dto.RegistroDTO;
+import mx.gob.cdmx.adip.portaltx.dto.TarjetaCortesiaUrbanaDTO;
 
 @Named("tarjetaCortesiasUrbanasBean")
 @RequestScoped
 public class TarjetaCortesiasUrbanasBean implements Serializable {
-	
+
 	private static final long serialVersionUID = -5987819687273225479L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(TarjetaCortesiasUrbanasBean.class);
-	
-	private RegistroDTO registroVentanillaUnicaConstr;
-	
+
+	private TarjetaCortesiaUrbanaDTO tarjetaCortesiaUrbanaDTO;
+
 	@Inject
 	private tramitesOficinaBean tramitesOficinaBean;
-	
+
 	@Inject
-	private VentanillaUnicaConstruccionClient ventanillaUnicaConstruccionClient;
-	
-	public TarjetaCortesiasUrbanasBean() {}
-	
+	private CortesiasUrbanasRestClient cortesiasUrbanasRestClient;
+
 	@PostConstruct
 	public void init() {
 		try {
-			// TODO:eliminar cuando existan datos del WS
-			registroVentanillaUnicaConstr = new RegistroDTO();
-			registroVentanillaUnicaConstr.setCatSistemaDTO(new CatSistemaDTO(tramitesOficinaBean.getID_SISTEMA_CORTESIAS_URBANAS()));
-			registroVentanillaUnicaConstr = ventanillaUnicaConstruccionClient.consultaRegistroVentanillaUnicaConstr(tramitesOficinaBean.getRegistroSelected());
+			tarjetaCortesiaUrbanaDTO = cortesiasUrbanasRestClient
+					.consultaBeneficiario(tramitesOficinaBean.getRegistroSelected());
+			tarjetaCortesiaUrbanaDTO
+					.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}
 	}
 
 	public String urlAction() {
-		if (registroVentanillaUnicaConstr != null) {
+		if (tarjetaCortesiaUrbanaDTO != null) {
 			if (Environment.getAppProfile().compareTo("dev") == 0
 					|| Environment.getAppProfile().compareTo("local") == 0) {
-				return Constantes.RETURN_URL_CORTESIAS_URBANAS_VEHICULAR_DEV + registroVentanillaUnicaConstr.getIdRegistroOrigen();
+				return Constantes.RETURN_URL_CORTESIAS_URBANAS_VEHICULAR_DEV
+						+ tramitesOficinaBean.getRegistroSelected().getIdRegistroOrigen();
 			} else {
-				return Constantes.RETURN_URL_CORTESIAS_URBANAS_VEHICULAR_PROD + registroVentanillaUnicaConstr.getIdRegistroOrigen();
+				return Constantes.RETURN_URL_CORTESIAS_URBANAS_VEHICULAR_PROD
+						+ tramitesOficinaBean.getRegistroSelected().getIdRegistroOrigen();
 			}
 		}
 		return "#";
 	}
 
-	public RegistroDTO getRegistroVentanillaUnicaConstr() {
-		return registroVentanillaUnicaConstr;
+	public TarjetaCortesiaUrbanaDTO getTarjetaCortesiaUrbanaDTO() {
+		return tarjetaCortesiaUrbanaDTO;
+	}
+
+	public void setTarjetaCortesiaUrbanaDTO(TarjetaCortesiaUrbanaDTO tarjetaCortesiaUrbanaDTO) {
+		this.tarjetaCortesiaUrbanaDTO = tarjetaCortesiaUrbanaDTO;
 	}
 
 }

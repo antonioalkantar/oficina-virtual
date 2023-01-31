@@ -8,31 +8,31 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.ws.rs.core.MediaType;
 
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-
 import mx.gob.cdmx.adip.portaltramites.common.infra.Environment;
 import mx.gob.cdmx.adip.portaltramites.common.util.JerseyUtil;
 import mx.gob.cdmx.adip.portaltx.dto.RegistroDTO;
-import mx.gob.cdmx.adip.portaltx.dto.TarjetaMiBecaDTO;
+import mx.gob.cdmx.adip.portaltx.dto.TarjetaVentanillaControlVehicularDTO;
 
 public class ControlVehicularRestClient implements Serializable {
 
 	private static final long serialVersionUID = -4346635007898739471L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ControlVehicularRestClient.class);
 
-	public TarjetaMiBecaDTO consultaBeneficiario(RegistroDTO registro)
+	public TarjetaVentanillaControlVehicularDTO consultaBeneficiario(RegistroDTO registro)
 			throws URISyntaxException, ConnectException, JSONException, ControlVehicularException {
 
-		TarjetaMiBecaDTO tarjetaMiBecaDTO = new TarjetaMiBecaDTO();
+		TarjetaVentanillaControlVehicularDTO tarjetaVentanillaControlVehicularDTO = new TarjetaVentanillaControlVehicularDTO();
 		StringBuilder urlQuery = new StringBuilder();
-		urlQuery.append(Environment.getUrlServicioMiBeca());
+		urlQuery.append(Environment.getUrlServicioVentanillaControlVehicular());
 		urlQuery.append("?idSolicitud=");
 		urlQuery.append(registro.getIdRegistroOrigen());
 
@@ -44,16 +44,21 @@ public class ControlVehicularRestClient implements Serializable {
 
 			WebResource webResource = null;
 
-			webResource = JerseyUtil.getInstance().getClientSDKMiBecaWithAuth().resource(uri.toString());
+			webResource = JerseyUtil.getInstance().getClientSDKVentanillaControlVehicularWithAuth().resource(uri.toString());
 
 			response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 			respuesta = response.getEntity(String.class);
 
 			if (response.getStatus() == 200) {
 
-				JSONObject jsonReporte = new JSONObject(respuesta).getJSONObject("beneficiario");
-				tarjetaMiBecaDTO.setIdUsuarioCDMX(Long.valueOf(jsonReporte.get("idUsuarioCDMX").toString()));
-				
+				JSONObject jsonReporte = new JSONObject(respuesta).getJSONObject("tarjetaVentanillaControlVehicular");
+				// TODO EL SIGUIENTE LLENADO SOLO ES DE EJEMPLO, SE DEBE CORROBORAR EL FORMATO DEL OBJETO DE RESPUESTA.
+				tarjetaVentanillaControlVehicularDTO.setEstatusTramite(jsonReporte.get("estatusTramite").toString());
+				tarjetaVentanillaControlVehicularDTO.setFolioTramite(jsonReporte.get("folioTramite").toString());
+				tarjetaVentanillaControlVehicularDTO.setModelo(jsonReporte.get("modelo").toString());
+				tarjetaVentanillaControlVehicularDTO.setPlacaAnterior(jsonReporte.get("placaAnterior").toString());
+				tarjetaVentanillaControlVehicularDTO.setTipo(jsonReporte.get("tipo").toString());
+			
 			} else if (response.getStatus() == 400) {
 				/*
 				 * Los errores 400 son errores del lado del cliente, es decir de esta
@@ -91,7 +96,7 @@ public class ControlVehicularRestClient implements Serializable {
 			}
 		}
 
-		return tarjetaMiBecaDTO;
+		return tarjetaVentanillaControlVehicularDTO;
 	}
 
 	public static class ControlVehicularException extends Exception {

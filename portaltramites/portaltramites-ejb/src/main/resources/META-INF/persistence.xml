@@ -65,17 +65,17 @@
          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
       </properties>
    </persistence-unit>
-<!--    <persistence-unit name="portalTxDS" transaction-type="JTA"> -->
-<!--    	<jta-data-source>java:jboss/datasources/portalTxDS</jta-data-source> -->
-<!--       <properties> -->
-<!--          <property name="hibernate.show_sql" value="${jpa.as.showsql}" /> -->
-<!--          <property name="hibernate.format_sql" value="${jpa.as.formatsql}" /> -->
-<!--          <property name="hibernate.generate_statistics" value="${jpa.as.statistics}" /> -->
-<!--          <property name="hibernate.cache.use_second_level_cache" value="true" /> -->
-<!--          <property name="hibernate.cache.use_query_cache" value="true" /> -->
-<!--          <property name="hibernate.jdbc.batch_size" value="20" /> -->
-<!--          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> -->
-<!--       </properties> -->
-<!--    </persistence-unit> -->
+    <persistence-unit name="portalTxDS" transaction-type="JTA"> 
+    	<jta-data-source>java:jboss/datasources/portalTxDS</jta-data-source>
+      <properties>
+        <property name="hibernate.show_sql" value="${jpa.as.showsql}" />
+         <property name="hibernate.format_sql" value="${jpa.as.formatsql}" /> 
+         <property name="hibernate.generate_statistics" value="${jpa.as.statistics}" /> 
+        <property name="hibernate.cache.use_second_level_cache" value="true" /> 
+        <property name="hibernate.cache.use_query_cache" value="true" /> 
+         <property name="hibernate.jdbc.batch_size" value="20" /> 
+         <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> 
+      </properties> 
+    </persistence-unit> 
 
 </persistence>

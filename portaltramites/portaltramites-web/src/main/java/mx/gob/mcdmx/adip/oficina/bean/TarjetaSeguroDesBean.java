@@ -43,6 +43,7 @@ public class TarjetaSeguroDesBean implements Serializable {
 
 			registroSeguroDes = seguroDesempleoRestClient
 					.consultaRegistroSeguroDes(tramitesOficinaBean.getRegistroSelected());
+			registroSeguroDes.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}

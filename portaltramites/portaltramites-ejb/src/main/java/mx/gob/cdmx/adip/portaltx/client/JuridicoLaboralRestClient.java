@@ -21,6 +21,7 @@ import com.sun.jersey.api.client.WebResource;
 import mx.gob.cdmx.adip.portaltramites.common.infra.Environment;
 import mx.gob.cdmx.adip.portaltramites.common.util.JerseyUtil;
 import mx.gob.cdmx.adip.portaltx.dto.RegistroDTO;
+import mx.gob.cdmx.adip.portaltx.dto.TarjetaJuridicoLaboralDTO;
 import mx.gob.cdmx.adip.portaltx.dto.TarjetaLicenciaDTO;
 
 public class JuridicoLaboralRestClient implements Serializable {
@@ -28,11 +29,13 @@ public class JuridicoLaboralRestClient implements Serializable {
 	private static final long serialVersionUID = -556146139899400471L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(JuridicoLaboralRestClient.class);
 
-	public RegistroDTO consultaRegistroJuridicoLaboral(RegistroDTO registro)
+	public TarjetaJuridicoLaboralDTO consultaRegistroJuridicoLaboral(RegistroDTO registro)
 			throws URISyntaxException, ConnectException, JSONException, JuridicoLaboralException, ParseException {
 
+		TarjetaJuridicoLaboralDTO tarjetaJuridicoLaboralDTO = new TarjetaJuridicoLaboralDTO();
+		
 		StringBuilder urlQuery = new StringBuilder();
-		urlQuery.append(Environment.getUrlServicioLicencia());
+		urlQuery.append(Environment.getUrlServicioJuridicoLaboral());
 		urlQuery.append("?idFolio=");
 		urlQuery.append(registro.getIdRegistroOrigen());
 
@@ -44,15 +47,19 @@ public class JuridicoLaboralRestClient implements Serializable {
 
 			WebResource webResource = null;
 
-			webResource = JerseyUtil.getInstance().getClientSDKLicenciaWithAuth().resource(uri.toString());
+			webResource = JerseyUtil.getInstance().getClientSDKJuridicoLaboralWithAuth().resource(uri.toString());
 
 			response = webResource.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 			respuesta = response.getEntity(String.class);
 
 			if (response.getStatus() == 200) {
-
-				JSONObject jsonReporte = new JSONObject(respuesta);
-				registro.setTipoLicencia(jsonReporte.get("idUsuario").toString());
+				
+				JSONObject jsonReporte = new JSONObject(respuesta).getJSONObject("tarjetaJuridicoLaboral");
+				// TODO EL SIGUIENTE LLENADO SOLO ES DE EJEMPLO, SE DEBE CORROBORAR EL FORMATO DEL OBJETO DE RESPUESTA.
+				tarjetaJuridicoLaboralDTO.setEstatusTramite(jsonReporte.get("estatusTramite").toString());
+				tarjetaJuridicoLaboralDTO.setFolioTramite(jsonReporte.get("folioTramite").toString());
+				tarjetaJuridicoLaboralDTO.setFechaRegistro(jsonReporte.get("fechaRegistro").toString());
+				tarjetaJuridicoLaboralDTO.setTipoSolicitud(jsonReporte.get("tipoSolicitud").toString());
 				
 			} else if (response.getStatus() == 400) {
 				/*
@@ -91,7 +98,7 @@ public class JuridicoLaboralRestClient implements Serializable {
 			}
 		}
 
-		return registro;
+		return tarjetaJuridicoLaboralDTO;
 	}
 
 	public static class JuridicoLaboralException extends Exception {

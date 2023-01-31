@@ -40,7 +40,8 @@ public class TarjetaNoAntecedentesBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
-			tarjetaNoAntecedentes = antecedentesRestClient.consultaRegistroNoAntecedentes(tramitesOficinaBean.getRegistroSelected());				
+			tarjetaNoAntecedentes = antecedentesRestClient.consultaRegistroNoAntecedentes(tramitesOficinaBean.getRegistroSelected());
+			tarjetaNoAntecedentes.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("Al consultar el servico de No Antecedentes:", e);
 		}

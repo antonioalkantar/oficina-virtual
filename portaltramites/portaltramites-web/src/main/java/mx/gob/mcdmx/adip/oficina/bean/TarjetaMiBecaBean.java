@@ -40,8 +40,10 @@ public class TarjetaMiBecaBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		try {
+			
 			tarjetaMiBecaDTO = miBecaRestClient.consultaBeneficiario(tramitesOficinaBean.getRegistroSelected());
 			tarjetaMiBecaDTO.setNombreCompleto(tarjetaMiBecaDTO.getNombre() + " " + tarjetaMiBecaDTO.getPrimerApellido() + " " + tarjetaMiBecaDTO.getSegundoApellido());
+			tarjetaMiBecaDTO.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 			LOGGER.info("DATOS: " + tarjetaMiBecaDTO);
 			if(tarjetaMiBecaDTO.getIdEncuesta() == 0) {
 				LOGGER.info("ENTRANDO AL IF: " + tarjetaMiBecaDTO);

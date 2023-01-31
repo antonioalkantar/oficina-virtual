@@ -54,6 +54,7 @@ public class tarjetaLicenciaBean implements Serializable {
 			}else {
 				tarjetaLicencia.setTipoLicencia("TIPO A"); 
 			}
+			tarjetaLicencia.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
 		} catch (Exception e) {
 			LOGGER.error("Al consultar el servico de Licencia:", e);
 		}

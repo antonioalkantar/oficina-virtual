@@ -30,6 +30,7 @@ public class RegistroDTO implements Serializable {
 	private String numeroLicencia;
 	private String fechaNuevaVigencia;	
 	private String estatusTramite;
+	private String pathImagen;
 	
 	public RegistroDTO() {}
 
@@ -215,6 +216,14 @@ public class RegistroDTO implements Serializable {
 
 	public void setEstatusTramite(String estatusTramite) {
 		this.estatusTramite = estatusTramite;
+	}
+
+	public String getPathImagen() {
+		return pathImagen;
+	}
+
+	public void setPathImagen(String pathImagen) {
+		this.pathImagen = pathImagen;
 	}
 	
 }

@@ -41,6 +41,9 @@ public class TarjetaProtestaCiudadanaBean implements Serializable {
 			registroProtestaCiudadana.setCatSistemaDTO(new CatSistemaDTO(tramitesOficinaBean.getID_SISTEMA_PROTESTA_CIUDADANA()));
 			
 			registroProtestaCiudadana = protestaCiudadanaRestClient.consultaRegistroProtestaCiud(tramitesOficinaBean.getRegistroSelected());
+			
+			registroProtestaCiudadana.setPathImagen(tramitesOficinaBean.getRegistroSelected().getCatSistemaDTO().getPathImagen());
+			
 		} catch (Exception e) {
 			LOGGER.error("ERROR al consultar servicio", e);
 		}

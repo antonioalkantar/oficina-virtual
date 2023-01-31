@@ -40,6 +40,9 @@ public class JerseyUtil {
 	private Client clientSDKProtestaCiudadanaWithAuth;
 	private Client clientSDKVentanillaUnicaConstruccionWithAuth;
 	private Client clientSDKPermisoResidentesWithAuth;
+	private Client clientSDKVentanillaControlVehicularWithAuth;
+	private Client clientSDKCortesiasUrbanasWithAuth;
+	private Client clientSDKJuridicoLaboralWithAuth;
 	
 	private JerseyUtil() throws NoSuchAlgorithmException {
 		ClientConfig clientConfig = new DefaultClientConfig();
@@ -106,6 +109,19 @@ public class JerseyUtil {
 		clientSDKPermisoResidentesWithAuth = Client.create(clientConfig);
 		clientSDKPermisoResidentesWithAuth.setConnectTimeout(3000); // Establecer a 3 segundos
 		clientSDKPermisoResidentesWithAuth.addFilter(new HTTPBasicAuthFilter(Environment.getUserPermisoParaResidentesBasicAuth(), Environment.getPasswordPermisoParaResidentesBasicAuth()));
+		
+		
+		clientSDKVentanillaControlVehicularWithAuth = Client.create(clientConfig);
+		clientSDKVentanillaControlVehicularWithAuth.setConnectTimeout(3000); // Establecer a 3 segundos
+		clientSDKVentanillaControlVehicularWithAuth.addFilter(new HTTPBasicAuthFilter(Environment.getUserVentanillaControlVehicularBasicAuth(), Environment.getPasswordVentanillaControlVehicularBasicAuth()));
+		
+		clientSDKCortesiasUrbanasWithAuth = Client.create(clientConfig);
+		clientSDKCortesiasUrbanasWithAuth.setConnectTimeout(3000); // Establecer a 3 segundos
+		clientSDKCortesiasUrbanasWithAuth.addFilter(new HTTPBasicAuthFilter(Environment.getUserCortesiasUrbanasBasicAuth(), Environment.getPasswordCortesiasUrbanasBasicAuth()));
+		
+		clientSDKJuridicoLaboralWithAuth = Client.create(clientConfig);
+		clientSDKJuridicoLaboralWithAuth.setConnectTimeout(3000); // Establecer a 3 segundos
+		clientSDKJuridicoLaboralWithAuth.addFilter(new HTTPBasicAuthFilter(Environment.getUserJuridicoLaboralBasicAuth(), Environment.getPasswordJuridicoLaboralBasicAuth()));
 		
 		LOGGER.debug("Environment.getUserHttpBasicAuth():"+Environment.getUserHttpBasicAuth());
 		LOGGER.debug("Environment.getPasswordHttpBasicAuth():"+Environment.getPasswordHttpBasicAuth());
@@ -200,5 +216,17 @@ public class JerseyUtil {
 
 	public Client getClientSDKPermisoResidentesWithAuth() {
 		return clientSDKPermisoResidentesWithAuth;
+	}
+
+	public Client getClientSDKVentanillaControlVehicularWithAuth() {
+		return clientSDKVentanillaControlVehicularWithAuth;
+	}
+
+	public Client getClientSDKCortesiasUrbanasWithAuth() {
+		return clientSDKCortesiasUrbanasWithAuth;
+	}
+
+	public Client getClientSDKJuridicoLaboralWithAuth() {
+		return clientSDKJuridicoLaboralWithAuth;
 	}
 }
